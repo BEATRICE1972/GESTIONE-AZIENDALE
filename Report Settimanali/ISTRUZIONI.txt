@@ -1,0 +1,57 @@
+═══════════════════════════════════════════════════════════════════════════
+📊 CARTELLA REPORT SETTIMANALI
+═══════════════════════════════════════════════════════════════════════════
+
+Questa cartella serve per archiviare i report direzionali settimanali
+generati dal Sistema di Gestione Direzionale.
+
+
+📁 STRUTTURA CONSIGLIATA:
+═══════════════════════════════════════════════════════════════════════════
+
+Report Settimanali/
+    └── 2025/
+        ├── Gennaio/
+        ├── Febbraio/
+        ├── Marzo/
+        └── ...
+
+
+🔄 COME SALVARE I REPORT:
+═══════════════════════════════════════════════════════════════════════════
+
+1. Apri il Sistema di Gestione Direzionale nel browser
+2. Vai in "Report Direzionale"
+3. Clicca "📄 Genera Report Settimanale"
+4. Clicca "📥 Esporta in PDF"
+5. Quando si apre la finestra di stampa:
+   - Seleziona "Salva come PDF" (o "Microsoft Print to PDF")
+   - Salva nella cartella dell'anno e mese corrente
+   - Usa questo formato nome: "Report_Settimana_01-07_Dicembre_2025.pdf"
+
+
+📝 NOMENCLATURA CONSIGLIATA:
+═══════════════════════════════════════════════════════════════════════════
+
+Report_Settimana_GG-GG_Mese_AAAA.pdf
+
+Esempi:
+  ✓ Report_Settimana_09-15_Dicembre_2025.pdf
+  ✓ Report_Settimana_16-22_Dicembre_2025.pdf
+  ✓ Report_Settimana_23-29_Dicembre_2025.pdf
+
+
+💡 SUGGERIMENTO:
+═══════════════════════════════════════════════════════════════════════════
+
+Ogni VENERDÌ POMERIGGIO:
+  1. Genera il report settimanale
+  2. Salvalo in PDF in questa cartella
+  3. Esporta i dati (Impostazioni → Esporta Tutti i Dati)
+  4. Salva il backup nella cartella "Backup"
+
+Questo ti permette di avere uno storico completo di tutta l'attività
+gestionale per audit, review e analisi!
+
+
+═══════════════════════════════════════════════════════════════════════════

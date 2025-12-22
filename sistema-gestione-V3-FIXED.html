@@ -1,0 +1,2775 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema di Gestione Direzionale Multi-Azienda</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --success-color: #27ae60;
+            --warning-color: #f39c12;
+            --danger-color: #e74c3c;
+            --light-bg: #ecf0f1;
+            --dark-text: #2c3e50;
+            --border-color: #bdc3c7;
+
+            /* Colori priorità */
+            --priority-aplus: #e74c3c;
+            --priority-a: #f39c12;
+            --priority-b: #3498db;
+            --priority-c: #95a5a6;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            overflow: hidden;
+        }
+
+        /* HEADER */
+        header {
+            background: var(--primary-color);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            opacity: 0.9;
+            font-size: 1.1em;
+        }
+
+        /* NAVIGAZIONE */
+        nav {
+            background: var(--secondary-color);
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            padding: 0;
+        }
+
+        nav button {
+            background: transparent;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: 600;
+            transition: all 0.3s;
+            border-bottom: 3px solid transparent;
+        }
+
+        nav button:hover {
+            background: rgba(255,255,255,0.1);
+        }
+
+        nav button.active {
+            background: rgba(255,255,255,0.2);
+            border-bottom-color: white;
+        }
+
+        /* SELETTORE AZIENDE */
+        .company-selector {
+            background: var(--light-bg);
+            padding: 20px;
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .company-btn {
+            flex: 1;
+            min-width: 200px;
+            padding: 15px;
+            background: white;
+            border: 3px solid var(--border-color);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 600;
+            font-size: 1em;
+        }
+
+        .company-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .company-btn.active {
+            border-color: var(--secondary-color);
+            background: var(--secondary-color);
+            color: white;
+        }
+
+        .company-btn.azienda-1.active { background: #e74c3c; border-color: #e74c3c; }
+        .company-btn.azienda-2.active { background: #3498db; border-color: #3498db; }
+        .company-btn.azienda-3.active { background: #2ecc71; border-color: #2ecc71; }
+        .company-btn.azienda-4.active { background: #f39c12; border-color: #f39c12; }
+
+        /* CONTENUTO PRINCIPALE */
+        .content {
+            padding: 30px;
+        }
+
+        .section {
+            display: none;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        /* DASHBOARD */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .card {
+            background: white;
+            border: 2px solid var(--border-color);
+            border-radius: 10px;
+            padding: 20px;
+            transition: all 0.3s;
+        }
+
+        .card:hover {
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transform: translateY(-2px);
+        }
+
+        .card h3 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--light-bg);
+        }
+
+        .task-item {
+            background: var(--light-bg);
+            padding: 12px;
+            margin: 10px 0;
+            border-radius: 6px;
+            border-left: 4px solid var(--secondary-color);
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .task-item.priority-aplus { border-left-color: var(--priority-aplus); }
+        .task-item.priority-a { border-left-color: var(--priority-a); }
+        .task-item.priority-b { border-left-color: var(--priority-b); }
+        .task-item.priority-c { border-left-color: var(--priority-c); }
+
+        .priority-badge {
+            background: var(--secondary-color);
+            color: white;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            font-weight: bold;
+        }
+
+        .priority-badge.aplus { background: var(--priority-aplus); }
+        .priority-badge.a { background: var(--priority-a); }
+        .priority-badge.b { background: var(--priority-b); }
+        .priority-badge.c { background: var(--priority-c); }
+
+        /* FORM */
+        .form-group {
+            margin: 20px 0;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--dark-text);
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid var(--border-color);
+            border-radius: 6px;
+            font-size: 1em;
+            font-family: inherit;
+        }
+
+        .form-group textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--secondary-color);
+        }
+
+        /* BOTTONI */
+        .btn {
+            background: var(--secondary-color);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: 600;
+            transition: all 0.3s;
+            margin: 5px;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .btn-success { background: var(--success-color); }
+        .btn-warning { background: var(--warning-color); }
+        .btn-danger { background: var(--danger-color); }
+
+        .btn-small {
+            padding: 6px 12px;
+            font-size: 0.9em;
+        }
+
+        /* TABELLE */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        table th,
+        table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        table th {
+            background: var(--primary-color);
+            color: white;
+            font-weight: 600;
+        }
+
+        table tr:hover {
+            background: var(--light-bg);
+        }
+
+        /* REPORT */
+        .report-section {
+            background: var(--light-bg);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+
+        .report-section h4 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+
+        /* STATISTICHE */
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .stat-box {
+            background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .stat-box h3 {
+            font-size: 2.5em;
+            margin-bottom: 5px;
+        }
+
+        .stat-box p {
+            opacity: 0.9;
+            font-size: 1em;
+        }
+
+        /* PROCEDURA SOP */
+        .sop-list {
+            list-style: none;
+        }
+
+        .sop-item {
+            background: white;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            padding: 15px;
+            margin: 10px 0;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .sop-item:hover {
+            border-color: var(--secondary-color);
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+
+        .sop-item h4 {
+            color: var(--primary-color);
+            margin-bottom: 8px;
+        }
+
+        .sop-item.expanded {
+            background: var(--light-bg);
+        }
+
+        .sop-content {
+            display: none;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 2px solid var(--border-color);
+        }
+
+        .sop-item.expanded .sop-content {
+            display: block;
+        }
+
+        /* SOP DASHBOARD */
+        .sop-dashboard {
+            background: var(--light-bg);
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 15px;
+        }
+
+        .sop-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        .sop-tab {
+            background: transparent;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-weight: 600;
+            color: var(--dark-text);
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s;
+        }
+
+        .sop-tab:hover {
+            color: var(--secondary-color);
+        }
+
+        .sop-tab.active {
+            color: var(--secondary-color);
+            border-bottom-color: var(--secondary-color);
+        }
+
+        .sop-tab-content {
+            display: none;
+        }
+
+        .sop-tab-content.active {
+            display: block;
+        }
+
+        .sop-checklist {
+            list-style: none;
+            padding: 0;
+        }
+
+        .sop-checklist-item {
+            background: white;
+            padding: 12px;
+            margin: 8px 0;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s;
+        }
+
+        .sop-checklist-item:hover {
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .sop-checklist-item input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+
+        .sop-checklist-item.completed {
+            opacity: 0.6;
+            text-decoration: line-through;
+        }
+
+        .sop-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .sop-stat-box {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            border-left: 4px solid var(--secondary-color);
+        }
+
+        .sop-stat-number {
+            font-size: 2em;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        .sop-stat-label {
+            font-size: 0.9em;
+            color: var(--dark-text);
+            margin-top: 5px;
+        }
+
+        .sop-history {
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .sop-history-item {
+            background: white;
+            padding: 12px;
+            margin: 8px 0;
+            border-radius: 6px;
+            border-left: 4px solid var(--success-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .sop-history-date {
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+
+        .sop-history-time {
+            font-size: 0.9em;
+            color: #7f8c8d;
+        }
+
+        .sop-notes {
+            width: 100%;
+            min-height: 100px;
+            padding: 12px;
+            border: 2px solid var(--border-color);
+            border-radius: 6px;
+            font-family: inherit;
+            resize: vertical;
+        }
+
+        .sop-execute-btn {
+            background: var(--success-color);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 8px;
+            font-size: 1.1em;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.3s;
+            margin-top: 15px;
+        }
+
+        .sop-execute-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(39, 174, 96, 0.3);
+        }
+
+        .sop-progress-bar {
+            background: var(--light-bg);
+            height: 30px;
+            border-radius: 15px;
+            overflow: hidden;
+            margin: 15px 0;
+            position: relative;
+        }
+
+        .sop-progress-fill {
+            background: linear-gradient(90deg, var(--success-color), var(--secondary-color));
+            height: 100%;
+            transition: width 0.5s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            nav button {
+                padding: 12px 15px;
+                font-size: 0.9em;
+            }
+
+            .company-selector {
+                flex-direction: column;
+            }
+
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+
+            header h1 {
+                font-size: 1.5em;
+            }
+        }
+
+        /* ANIMAZIONI */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        /* NOTIFICHE */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--success-color);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 8px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+            z-index: 1000;
+            animation: slideIn 0.3s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(400px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 40px;
+            color: var(--border-color);
+        }
+
+        .empty-state svg {
+            width: 100px;
+            height: 100px;
+            margin-bottom: 20px;
+            opacity: 0.3;
+        }
+
+        .delete-btn {
+            background: var(--danger-color);
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.8em;
+        }
+
+        .delete-btn:hover {
+            opacity: 0.8;
+        }
+
+        .task-content {
+            flex: 1;
+        }
+
+        .task-actions {
+            display: flex;
+            gap: 5px;
+        }
+
+        /* CALENDARIO */
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding: 20px;
+            background: var(--primary-color);
+            color: white;
+            border-radius: 10px;
+        }
+
+        .calendar-header h3 {
+            font-size: 1.5em;
+        }
+
+        .calendar-nav {
+            display: flex;
+            gap: 10px;
+        }
+
+        .calendar-nav button {
+            background: white;
+            color: var(--primary-color);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .calendar-nav button:hover {
+            background: var(--light-bg);
+            transform: scale(1.05);
+        }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .calendar-day-header {
+            background: var(--secondary-color);
+            color: white;
+            padding: 10px;
+            text-align: center;
+            font-weight: 600;
+            border-radius: 5px;
+        }
+
+        .calendar-day {
+            background: white;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            min-height: 120px;
+            padding: 8px;
+            position: relative;
+            transition: all 0.3s;
+        }
+
+        .calendar-day:hover {
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .calendar-day.other-month {
+            opacity: 0.3;
+            background: var(--light-bg);
+        }
+
+        .calendar-day.today {
+            border-color: var(--success-color);
+            border-width: 3px;
+            background: linear-gradient(135deg, rgba(46, 204, 113, 0.1), rgba(46, 204, 113, 0.05));
+        }
+
+        .calendar-day-number {
+            font-weight: bold;
+            font-size: 1.1em;
+            color: var(--primary-color);
+            margin-bottom: 5px;
+        }
+
+        .calendar-day.today .calendar-day-number {
+            color: var(--success-color);
+        }
+
+        .calendar-event {
+            background: var(--secondary-color);
+            color: white;
+            padding: 3px 6px;
+            border-radius: 4px;
+            font-size: 0.75em;
+            margin: 2px 0;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            border-left: 3px solid var(--primary-color);
+        }
+
+        .calendar-event.priority-aplus {
+            background: var(--priority-aplus);
+            border-left-color: #c0392b;
+        }
+
+        .calendar-event.priority-a {
+            background: var(--priority-a);
+            border-left-color: #d68910;
+        }
+
+        .calendar-event.priority-b {
+            background: var(--priority-b);
+            border-left-color: #2980b9;
+        }
+
+        .calendar-event.priority-c {
+            background: var(--priority-c);
+            border-left-color: #7f8c8d;
+        }
+
+        .calendar-event.deadline {
+            background: #9b59b6;
+            border-left-color: #8e44ad;
+        }
+
+        .calendar-event.priority-appointment {
+            background: #16a085;
+            border-left-color: #138d75;
+        }
+
+        .calendar-more {
+            font-size: 0.7em;
+            color: var(--secondary-color);
+            font-weight: 600;
+            margin-top: 3px;
+        }
+
+        @media (max-width: 768px) {
+            .calendar-grid {
+                gap: 5px;
+            }
+
+            .calendar-day {
+                min-height: 80px;
+                padding: 5px;
+            }
+
+            .calendar-event {
+                font-size: 0.65em;
+                padding: 2px 4px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📊 Sistema di Gestione Direzionale Multi-Azienda</h1>
+            <p>Assistente di Direzione Senior e Coordinatrice Operativa Multiazienda</p>
+        </header>
+
+        <nav>
+            <button onclick="showSection('dashboard')" class="active">Dashboard</button>
+            <button onclick="showSection('tasks')">Attività</button>
+            <button onclick="showSection('appuntamenti')">Appuntamenti</button>
+            <button onclick="showSection('scadenze')">Scadenze</button>
+            <button onclick="showSection('spese')">Spese</button>
+            <button onclick="showSection('calendario')">Calendario</button>
+            <button onclick="showSection('sop')">Procedure (SOP)</button>
+            <button onclick="showSection('report')">Report Direzionale</button>
+            <button onclick="showSection('settings')">Impostazioni</button>
+        </nav>
+
+        <div class="company-selector">
+            <button class="company-btn azienda-1 active" onclick="selectCompany(1)">Azienda 1</button>
+            <button class="company-btn azienda-2" onclick="selectCompany(2)">Azienda 2</button>
+            <button class="company-btn azienda-3" onclick="selectCompany(3)">Azienda 3</button>
+            <button class="company-btn azienda-4" onclick="selectCompany(4)">Azienda 4</button>
+        </div>
+
+        <div class="content">
+            <!-- DASHBOARD SECTION -->
+            <div id="dashboard" class="section active fade-in">
+                <h2>Dashboard Settimanale - <span id="dashboard-company-name">Azienda 1</span></h2>
+
+                <div class="stats-container">
+                    <div class="stat-box" style="background: linear-gradient(135deg, #e74c3c, #c0392b);">
+                        <h3 id="stat-urgent">0</h3>
+                        <p>Attività Urgenti (A+)</p>
+                    </div>
+                    <div class="stat-box" style="background: linear-gradient(135deg, #f39c12, #d68910);">
+                        <h3 id="stat-important">0</h3>
+                        <p>Attività Importanti (A)</p>
+                    </div>
+                    <div class="stat-box" style="background: linear-gradient(135deg, #3498db, #2980b9);">
+                        <h3 id="stat-deadlines">0</h3>
+                        <p>Scadenze Imminenti</p>
+                    </div>
+                    <div class="stat-box" style="background: linear-gradient(135deg, #2ecc71, #27ae60);">
+                        <h3 id="stat-completed">0</h3>
+                        <p>Completate questa settimana</p>
+                    </div>
+                </div>
+
+                <div class="dashboard-grid">
+                    <div class="card">
+                        <h3>🔥 Attività Urgenti</h3>
+                        <div id="urgent-tasks"></div>
+                    </div>
+
+                    <div class="card">
+                        <h3>⚡ Attività Importanti</h3>
+                        <div id="important-tasks"></div>
+                    </div>
+
+                    <div class="card">
+                        <h3>📅 Scadenze Fiscali/Legali</h3>
+                        <div id="fiscal-deadlines"></div>
+                    </div>
+
+                    <div class="card">
+                        <h3>👥 Scadenze HR</h3>
+                        <div id="hr-deadlines"></div>
+                    </div>
+
+                    <div class="card">
+                        <h3>⚠️ Criticità Interne</h3>
+                        <div id="critical-issues"></div>
+                    </div>
+
+                    <div class="card">
+                        <h3>🎯 Decisioni in Attesa</h3>
+                        <div id="pending-decisions"></div>
+                    </div>
+
+                    <div class="card">
+                        <h3>💰 Spese del Mese</h3>
+                        <div style="text-align: center; padding: 20px;">
+                            <div style="font-size: 2.5em; font-weight: bold; color: var(--primary-color); margin-bottom: 10px;">
+                                € <span id="total-expenses-month">0.00</span>
+                            </div>
+                            <div style="font-size: 0.9em; color: #7f8c8d; margin-bottom: 15px;">
+                                <span id="expenses-count-month">0</span> spese registrate
+                            </div>
+                        </div>
+                        <div id="recent-expenses" style="max-height: 150px; overflow-y: auto;"></div>
+                    </div>
+
+                    <div class="card">
+                        <h3>📅 Prossimi Appuntamenti</h3>
+                        <div id="upcoming-appointments"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TASKS SECTION -->
+            <div id="tasks" class="section">
+                <h2>Gestione Attività - <span id="tasks-company-name">Azienda 1</span></h2>
+
+                <div class="card">
+                    <h3>Aggiungi Nuova Attività</h3>
+                    <div style="display: flex; gap: 10px; margin-bottom: 15px;">
+                        <button type="button" class="btn" onclick="startVoiceInput('task')" id="voice-btn-task">
+                            🎤 Inserimento Vocale
+                        </button>
+                    </div>
+                    <form id="task-form" onsubmit="addTask(event)">
+                        <div class="form-group">
+                            <label>Titolo Attività</label>
+                            <input type="text" id="task-title" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Descrizione</label>
+                            <textarea id="task-description"></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Categoria</label>
+                            <select id="task-category">
+                                <option value="urgent">Attività Urgenti</option>
+                                <option value="important">Attività Importanti</option>
+                                <option value="fiscal">Scadenze Fiscali/Legali</option>
+                                <option value="hr">Scadenze HR</option>
+                                <option value="critical">Criticità Interne</option>
+                                <option value="decisions">Decisioni in Attesa</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Priorità</label>
+                            <select id="task-priority">
+                                <option value="aplus">A+ - Fondamentale (impatto diretto)</option>
+                                <option value="a">A - Importanza alta</option>
+                                <option value="b">B - Importante ma programmabile</option>
+                                <option value="c">C - Routine o delegabile</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Data Scadenza</label>
+                            <input type="date" id="task-deadline">
+                        </div>
+
+                        <button type="submit" class="btn btn-success">Aggiungi Attività</button>
+                    </form>
+                </div>
+
+                <div class="card" style="margin-top: 30px;">
+                    <h3>Tutte le Attività</h3>
+                    <div id="all-tasks-list"></div>
+                </div>
+            </div>
+
+            <!-- APPUNTAMENTI SECTION -->
+            <div id="appuntamenti" class="section">
+                <h2>📅 Gestione Appuntamenti - <span id="appuntamenti-company-name">Azienda 1</span></h2>
+
+                <div class="card">
+                    <h3>Aggiungi Nuovo Appuntamento</h3>
+                    <div style="display: flex; gap: 10px; margin-bottom: 15px;">
+                        <button type="button" class="btn" onclick="startVoiceInput('appointment')" id="voice-btn-appointment">
+                            🎤 Inserimento Vocale
+                        </button>
+                    </div>
+                    <form id="appointment-form" onsubmit="addAppointment(event)">
+                        <div class="form-group">
+                            <label>Titolo Appuntamento</label>
+                            <input type="text" id="appointment-title" placeholder="Es: Riunione con cliente X" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Data</label>
+                            <input type="date" id="appointment-date" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Ora Inizio</label>
+                            <input type="time" id="appointment-time" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Durata (minuti)</label>
+                            <select id="appointment-duration">
+                                <option value="15">15 minuti</option>
+                                <option value="30" selected>30 minuti</option>
+                                <option value="45">45 minuti</option>
+                                <option value="60">1 ora</option>
+                                <option value="90">1 ora e 30</option>
+                                <option value="120">2 ore</option>
+                                <option value="180">3 ore</option>
+                                <option value="240">4 ore</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Luogo</label>
+                            <input type="text" id="appointment-location" placeholder="Es: Sede cliente, Ufficio, Videochiamata">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Partecipanti</label>
+                            <input type="text" id="appointment-participants" placeholder="Es: Mario Rossi, Luca Bianchi">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Note</label>
+                            <textarea id="appointment-notes" placeholder="Aggiungi note, argomenti da trattare, documenti da portare..."></textarea>
+                        </div>
+
+                        <button type="submit" class="btn btn-success">Aggiungi Appuntamento</button>
+                    </form>
+                </div>
+
+                <div class="card" style="margin-top: 30px;">
+                    <h3>Tutti gli Appuntamenti</h3>
+                    <table id="appointments-table">
+                        <thead>
+                            <tr>
+                                <th>Data</th>
+                                <th>Ora</th>
+                                <th>Titolo</th>
+                                <th>Luogo</th>
+                                <th>Partecipanti</th>
+                                <th>Azioni</th>
+                            </tr>
+                        </thead>
+                        <tbody id="appointments-tbody"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- SCADENZE SECTION -->
+            <div id="scadenze" class="section">
+                <h2>Calendario Scadenze - <span id="scadenze-company-name">Azienda 1</span></h2>
+
+                <div class="card">
+                    <h3>Aggiungi Scadenza</h3>
+                    <form id="deadline-form" onsubmit="addDeadline(event)">
+                        <div class="form-group">
+                            <label>Tipo Scadenza</label>
+                            <input type="text" id="deadline-type" placeholder="Es: F24, INPS, CU, etc." required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Descrizione</label>
+                            <textarea id="deadline-description"></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Data Scadenza</label>
+                            <input type="date" id="deadline-date" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Categoria</label>
+                            <select id="deadline-category">
+                                <option value="fiscale">Fiscale</option>
+                                <option value="legale">Legale</option>
+                                <option value="hr">Risorse Umane</option>
+                                <option value="amministrativa">Amministrativa</option>
+                            </select>
+                        </div>
+
+                        <button type="submit" class="btn btn-success">Aggiungi Scadenza</button>
+                    </form>
+                </div>
+
+                <div class="card" style="margin-top: 30px;">
+                    <h3>Prossime Scadenze</h3>
+                    <table id="deadlines-table">
+                        <thead>
+                            <tr>
+                                <th>Data</th>
+                                <th>Tipo</th>
+                                <th>Categoria</th>
+                                <th>Descrizione</th>
+                                <th>Azioni</th>
+                            </tr>
+                        </thead>
+                        <tbody id="deadlines-tbody"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- SPESE SECTION -->
+            <div id="spese" class="section">
+                <h2>💰 Gestione Spese - <span id="spese-company-name">Azienda 1</span></h2>
+
+                <div class="card">
+                    <h3>Aggiungi Nuova Spesa</h3>
+                    <div style="display: flex; gap: 10px; margin-bottom: 15px;">
+                        <button type="button" class="btn" onclick="startVoiceInput('expense')" id="voice-btn-expense">
+                            🎤 Inserimento Vocale
+                        </button>
+                    </div>
+                    <form id="expense-form" onsubmit="addExpense(event)">
+                        <div class="form-group">
+                            <label>Descrizione</label>
+                            <input type="text" id="expense-description" placeholder="Es: Raccomandata per cliente X, Taxi per riunione, ecc." required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Importo (€)</label>
+                            <input type="number" id="expense-amount" step="0.01" min="0" placeholder="0.00" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Data</label>
+                            <input type="date" id="expense-date" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Categoria</label>
+                            <select id="expense-category">
+                                <option value="posta">📮 Posta e Raccomandate</option>
+                                <option value="viaggio">✈️ Viaggi e Trasferte</option>
+                                <option value="taxi">🚖 Taxi e Trasporti</option>
+                                <option value="materiale">📎 Materiale Ufficio</option>
+                                <option value="cancelleria">✏️ Cancelleria</option>
+                                <option value="pranzo">🍽️ Pranzi di Lavoro</option>
+                                <option value="parcheggio">🅿️ Parcheggi</option>
+                                <option value="bolli">📄 Marche da Bollo</option>
+                                <option value="corriere">📦 Corrieri</option>
+                                <option value="altro">💼 Altro</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Note (opzionale)</label>
+                            <textarea id="expense-notes" placeholder="Aggiungi dettagli aggiuntivi..."></textarea>
+                        </div>
+
+                        <button type="submit" class="btn btn-success">Aggiungi Spesa</button>
+                    </form>
+                </div>
+
+                <div class="card" style="margin-top: 30px;">
+                    <h3>Riepilogo Spese</h3>
+                    <div class="stats-container" style="margin: 20px 0;">
+                        <div class="stat-box" style="background: linear-gradient(135deg, #e74c3c, #c0392b);">
+                            <h3>€ <span id="total-expenses-today">0.00</span></h3>
+                            <p>Spese di Oggi</p>
+                        </div>
+                        <div class="stat-box" style="background: linear-gradient(135deg, #f39c12, #d68910);">
+                            <h3>€ <span id="total-expenses-week">0.00</span></h3>
+                            <p>Spese Questa Settimana</p>
+                        </div>
+                        <div class="stat-box" style="background: linear-gradient(135deg, #3498db, #2980b9);">
+                            <h3>€ <span id="total-expenses-month-section">0.00</span></h3>
+                            <p>Spese Questo Mese</p>
+                        </div>
+                        <div class="stat-box" style="background: linear-gradient(135deg, #9b59b6, #8e44ad);">
+                            <h3><span id="total-expenses-count">0</span></h3>
+                            <p>Totale Spese Registrate</p>
+                        </div>
+                    </div>
+
+                    <h3 style="margin-top: 30px;">Tutte le Spese</h3>
+                    <table id="expenses-table">
+                        <thead>
+                            <tr>
+                                <th>Data</th>
+                                <th>Descrizione</th>
+                                <th>Categoria</th>
+                                <th>Importo</th>
+                                <th>Note</th>
+                                <th>Azioni</th>
+                            </tr>
+                        </thead>
+                        <tbody id="expenses-tbody"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- CALENDARIO SECTION -->
+            <div id="calendario" class="section">
+                <h2>Calendario Mensile - <span id="calendario-company-name">Azienda 1</span></h2>
+
+                <div class="card">
+                    <div class="calendar-header">
+                        <div class="calendar-nav">
+                            <button onclick="previousMonth()">◀ Mese Precedente</button>
+                        </div>
+                        <h3 id="calendar-month-year"></h3>
+                        <div class="calendar-nav">
+                            <button onclick="nextMonth()">Mese Successivo ▶</button>
+                        </div>
+                    </div>
+
+                    <div class="calendar-grid" id="calendar-container">
+                        <!-- Il calendario verrà generato qui dal JavaScript -->
+                    </div>
+                </div>
+
+                <div class="card" style="margin-top: 20px;">
+                    <h3>Legenda</h3>
+                    <div style="display: flex; flex-wrap: wrap; gap: 15px; margin-top: 10px;">
+                        <div style="display: flex; align-items: center; gap: 8px;">
+                            <div class="calendar-event priority-aplus" style="width: 80px;">A+</div>
+                            <span>Urgente</span>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 8px;">
+                            <div class="calendar-event priority-a" style="width: 80px;">A</div>
+                            <span>Importante</span>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 8px;">
+                            <div class="calendar-event priority-b" style="width: 80px;">B</div>
+                            <span>Programmabile</span>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 8px;">
+                            <div class="calendar-event priority-c" style="width: 80px;">C</div>
+                            <span>Routine</span>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 8px;">
+                            <div class="calendar-event deadline" style="width: 80px;">Scadenza</div>
+                            <span>Scadenze fiscali/legali</span>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 8px;">
+                            <div class="calendar-event priority-appointment" style="width: 80px;">Appuntamento</div>
+                            <span>Appuntamenti</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SOP SECTION -->
+            <div id="sop" class="section">
+                <h2>Procedure Operative Standard (SOP)</h2>
+
+                <p style="margin-bottom: 20px; color: var(--dark-text);">
+                    Le 10 procedure fondamentali per ottimizzare il lavoro quotidiano e ridurre le ripetizioni.
+                </p>
+
+                <ul class="sop-list" id="sop-list"></ul>
+            </div>
+
+            <!-- REPORT SECTION -->
+            <div id="report" class="section">
+                <h2>Report Direzionale Settimanale</h2>
+
+                <div class="card">
+                    <button onclick="generateReport()" class="btn btn-success">📄 Genera Report Settimanale</button>
+                    <button onclick="exportReport()" class="btn" style="margin-left: 10px;">📥 Esporta in PDF</button>
+                </div>
+
+                <div id="report-content" class="report-section" style="display: none;">
+                    <h3 style="text-align: center; margin-bottom: 30px;">Report Direzionale Settimanale</h3>
+                    <p style="text-align: center; margin-bottom: 30px;">
+                        Settimana del <span id="report-week"></span>
+                    </p>
+
+                    <div class="report-section">
+                        <h4>✅ Cosa è stato fatto</h4>
+                        <div id="report-done"></div>
+                    </div>
+
+                    <div class="report-section">
+                        <h4>🔄 Cosa è in corso</h4>
+                        <div id="report-ongoing"></div>
+                    </div>
+
+                    <div class="report-section">
+                        <h4>🎯 Cosa richiede decisione del management</h4>
+                        <div id="report-decisions"></div>
+                    </div>
+
+                    <div class="report-section">
+                        <h4>⚠️ Rischi in evidenza</h4>
+                        <div id="report-risks"></div>
+                    </div>
+
+                    <div class="report-section">
+                        <h4>📅 Scadenze imminenti</h4>
+                        <div id="report-deadlines"></div>
+                    </div>
+
+                    <div class="report-section">
+                        <h4>💰 Spese della settimana</h4>
+                        <div id="report-expenses"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SETTINGS SECTION -->
+            <div id="settings" class="section">
+                <h2>Impostazioni Aziende</h2>
+
+                <div class="card">
+                    <h3>Configura Nomi Aziende</h3>
+                    <form id="company-names-form" onsubmit="saveCompanyNames(event)">
+                        <div class="form-group">
+                            <label>Nome Azienda 1</label>
+                            <input type="text" id="company-1-name" value="Azienda 1">
+                        </div>
+                        <div class="form-group">
+                            <label>Nome Azienda 2</label>
+                            <input type="text" id="company-2-name" value="Azienda 2">
+                        </div>
+                        <div class="form-group">
+                            <label>Nome Azienda 3</label>
+                            <input type="text" id="company-3-name" value="Azienda 3">
+                        </div>
+                        <div class="form-group">
+                            <label>Nome Azienda 4</label>
+                            <input type="text" id="company-4-name" value="Azienda 4">
+                        </div>
+                        <button type="submit" class="btn btn-success">Salva Configurazione</button>
+                    </form>
+                </div>
+
+                <div class="card" style="margin-top: 30px;">
+                    <h3>Gestione Dati</h3>
+                    <button onclick="exportData()" class="btn">📥 Esporta Tutti i Dati</button>
+                    <button onclick="importData()" class="btn">📤 Importa Dati</button>
+                    <button onclick="clearAllData()" class="btn btn-danger">🗑️ Cancella Tutti i Dati</button>
+                    <input type="file" id="import-file" style="display:none" accept=".json" onchange="handleImport(event)">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // STATO GLOBALE
+        let currentCompany = 1;
+        let currentMonth = new Date().getMonth();
+        let currentYear = new Date().getFullYear();
+        let currentSOPChecklist = {}; // Stato checklist SOP corrente
+        let recognition = null; // Riconoscimento vocale
+        let data = {
+            companies: {
+                1: { name: 'Azienda 1', tasks: [], deadlines: [], sopExecutions: [], expenses: [], appointments: [] },
+                2: { name: 'Azienda 2', tasks: [], deadlines: [], sopExecutions: [], expenses: [], appointments: [] },
+                3: { name: 'Azienda 3', tasks: [], deadlines: [], sopExecutions: [], expenses: [], appointments: [] },
+                4: { name: 'Azienda 4', tasks: [], deadlines: [], sopExecutions: [], expenses: [], appointments: [] }
+            }
+        };
+
+        // SOP PREDEFINITE
+        const sopTemplates = [
+            {
+                title: "1. Gestione Email Direzionali",
+                description: "Procedura per la gestione quotidiana delle email della direzione",
+                steps: [
+                    "Controllare email ogni 2 ore (9:00, 11:00, 14:00, 16:00)",
+                    "Classificare per priorità: A+ (urgenti), A (importanti), B (normali), C (info)",
+                    "Rispondere immediatamente alle A+, entro 2 ore alle A",
+                    "Inoltrare alla direzione solo email che richiedono decisioni",
+                    "Archiviare email processate in cartelle dedicate per azienda"
+                ]
+            },
+            {
+                title: "2. Gestione Documentazione Fornitori/Clienti",
+                description: "Protocollo per la gestione della documentazione in entrata/uscita",
+                steps: [
+                    "Ricevere documento via email/PEC",
+                    "Protocollare con numero progressivo e data",
+                    "Verificare completezza e conformità",
+                    "Archiviare digitalmente nella cartella aziendale corretta",
+                    "Aggiornare il registro documentale",
+                    "Notificare ai responsabili se richiede azione"
+                ]
+            },
+            {
+                title: "3. Standardizzazione Richieste Interne",
+                description: "Template e procedura per gestire richieste dai dipendenti",
+                steps: [
+                    "Ricevere richiesta via form standardizzato",
+                    "Verificare autorizzazioni e policy aziendali",
+                    "Valutare se è competenza diretta o richiede escalation",
+                    "Processare o inoltrare alla direzione con nota",
+                    "Comunicare esito entro 48 ore",
+                    "Archiviare nel sistema di ticketing"
+                ]
+            },
+            {
+                title: "4. Flusso di Approvazione Documenti",
+                description: "Procedura per l'approvazione di contratti, ordini e documenti formali",
+                steps: [
+                    "Ricevere documento in bozza dal richiedente",
+                    "Verificare completezza formale e correttezza dati",
+                    "Inviare per review legale se necessario",
+                    "Sottoporre alla direzione per approvazione",
+                    "Gestire eventuali modifiche e re-invii",
+                    "Finalizzare, protocollare e archiviare versione approvata"
+                ]
+            },
+            {
+                title: "5. Archiviazione Digitale",
+                description: "Sistema di archiviazione e nomenclatura file",
+                steps: [
+                    "Struttura cartelle: /Azienda/Anno/Categoria/Mese",
+                    "Nomenclatura file: AAAAMMGG_TipoDoc_Oggetto_VX",
+                    "Salvare sempre PDF/A per documenti definitivi",
+                    "Backup settimanale su cloud e storage esterno",
+                    "Revisione trimestrale per pulizia archivi",
+                    "Mantenere log delle modifiche per documenti critici"
+                ]
+            },
+            {
+                title: "6. Preparazione Meeting Direzionali",
+                description: "Checklist pre-meeting per la direzione",
+                steps: [
+                    "Confermare presenza partecipanti 24h prima",
+                    "Preparare ordine del giorno e materiali",
+                    "Stampare/condividere documentazione rilevante",
+                    "Predisporre sala/link videoconferenza",
+                    "Preparare action items meeting precedente",
+                    "Prendere verbale e distribuire entro 24h dal meeting"
+                ]
+            },
+            {
+                title: "7. Follow-up Automatico Scadenze",
+                description: "Sistema di reminder e tracking scadenze",
+                steps: [
+                    "Inserire scadenza nel sistema con preavviso (7, 3, 1 giorno)",
+                    "Primo reminder a -7 giorni via email",
+                    "Secondo reminder a -3 giorni via email + messaggio",
+                    "Alert finale a -1 giorno con verifica stato",
+                    "Follow-up post-scadenza se non completata",
+                    "Aggiornamento dashboard settimanale"
+                ]
+            },
+            {
+                title: "8. Protocollo Comunicazione tra Aziende",
+                description: "Standard per coordinamento multi-aziendale",
+                steps: [
+                    "Identificare chiaramente l'azienda mittente/destinataria",
+                    "Usare template email standardizzato con logo azienda",
+                    "CC sempre alla direzione per comunicazioni cross-azienda",
+                    "Tracciare in registro comunicazioni interaziendali",
+                    "Weekly sync meeting per allineamento",
+                    "Repository condiviso per documenti comuni"
+                ]
+            },
+            {
+                title: "9. Protocollo Contatti con Consulenti",
+                description: "Gestione rapporti con commercialista, legale, consulenti HR",
+                steps: [
+                    "Mantenere elenco aggiornato consulenti per azienda",
+                    "Centralizzare tutte le comunicazioni via email aziendale",
+                    "Preparare brief completo prima di ogni contatto",
+                    "Richiedere sempre conferma scritta di accordi/pareri",
+                    "Tracciare ore/costi consulenze in apposito registro",
+                    "Review trimestrale performance e costi consulenti"
+                ]
+            },
+            {
+                title: "10. Preparazione Report Settimanale al Management",
+                description: "Template e timing per il report direzionale",
+                steps: [
+                    "Raccogliere dati venerdì pomeriggio (entro le 16:00)",
+                    "Compilare sezioni: completato, in corso, decisioni, rischi, scadenze",
+                    "Validare numeri e verificare coerenza",
+                    "Formattare in template standard corporate",
+                    "Inviare entro venerdì sera o lunedì mattina 9:00",
+                    "Archiviare nella cartella Reports/Anno/Settimana"
+                ]
+            }
+        ];
+
+        // INIZIALIZZAZIONE
+        function init() {
+            loadData();
+            loadCompanyNames();
+            renderSOP();
+            updateDashboard();
+            updateAllTasks();
+            updateAppointments();
+            updateDeadlinesTable();
+            updateExpenses();
+            renderCalendar();
+            // Imposta data di oggi per i form
+            document.getElementById('expense-date').valueAsDate = new Date();
+            document.getElementById('appointment-date').valueAsDate = new Date();
+            // Inizializza riconoscimento vocale
+            initVoiceRecognition();
+        }
+
+        // GESTIONE SEZIONI
+        function showSection(sectionId) {
+            document.querySelectorAll('.section').forEach(section => {
+                section.classList.remove('active');
+            });
+            document.getElementById(sectionId).classList.add('active', 'fade-in');
+
+            document.querySelectorAll('nav button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+
+            // Trova e attiva il bottone corrispondente
+            const buttons = document.querySelectorAll('nav button');
+            buttons.forEach(btn => {
+                if (btn.getAttribute('onclick') && btn.getAttribute('onclick').includes(sectionId)) {
+                    btn.classList.add('active');
+                }
+            });
+
+            if (sectionId === 'dashboard') updateDashboard();
+            if (sectionId === 'tasks') updateAllTasks();
+            if (sectionId === 'appuntamenti') updateAppointments();
+            if (sectionId === 'scadenze') updateDeadlinesTable();
+            if (sectionId === 'spese') updateExpenses();
+            if (sectionId === 'calendario') renderCalendar();
+        }
+
+        // GESTIONE AZIENDE
+        function selectCompany(companyId) {
+            currentCompany = companyId;
+
+            document.querySelectorAll('.company-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+
+            const companyName = data.companies[companyId].name;
+            document.querySelectorAll('[id$="-company-name"]').forEach(el => {
+                el.textContent = companyName;
+            });
+
+            // Chiudi tutte le SOP aperte quando si cambia azienda
+            document.querySelectorAll('.sop-item').forEach(item => {
+                item.classList.remove('expanded');
+            });
+
+            updateDashboard();
+            updateAllTasks();
+            updateAppointments();
+            updateDeadlinesTable();
+            updateExpenses();
+            renderCalendar();
+        }
+
+        // GESTIONE TASKS
+        function addTask(event) {
+            event.preventDefault();
+
+            const task = {
+                id: Date.now(),
+                title: document.getElementById('task-title').value,
+                description: document.getElementById('task-description').value,
+                category: document.getElementById('task-category').value,
+                priority: document.getElementById('task-priority').value,
+                deadline: document.getElementById('task-deadline').value,
+                completed: false,
+                createdAt: new Date().toISOString()
+            };
+
+            data.companies[currentCompany].tasks.push(task);
+            saveData();
+
+            document.getElementById('task-form').reset();
+            showNotification('Attività aggiunta con successo!');
+            updateDashboard();
+            updateAllTasks();
+            renderCalendar();
+        }
+
+        function deleteTask(taskId) {
+            if (confirm('Sei sicura di voler eliminare questa attività?')) {
+                data.companies[currentCompany].tasks = data.companies[currentCompany].tasks.filter(t => t.id !== taskId);
+                saveData();
+                showNotification('Attività eliminata!');
+                updateDashboard();
+                updateAllTasks();
+                renderCalendar();
+            }
+        }
+
+        function toggleTaskComplete(taskId) {
+            const task = data.companies[currentCompany].tasks.find(t => t.id === taskId);
+            if (task) {
+                task.completed = !task.completed;
+                saveData();
+                updateDashboard();
+                updateAllTasks();
+                renderCalendar();
+            }
+        }
+
+        function updateAllTasks() {
+            const container = document.getElementById('all-tasks-list');
+            const tasks = data.companies[currentCompany].tasks;
+
+            if (tasks.length === 0) {
+                container.innerHTML = '<div class="empty-state">Nessuna attività inserita</div>';
+                return;
+            }
+
+            const priorityOrder = { 'aplus': 0, 'a': 1, 'b': 2, 'c': 3 };
+            const sortedTasks = [...tasks].sort((a, b) => priorityOrder[a.priority] - priorityOrder[b.priority]);
+
+            container.innerHTML = sortedTasks.map(task => `
+                <div class="task-item priority-${task.priority}" style="${task.completed ? 'opacity: 0.5; text-decoration: line-through;' : ''}">
+                    <input type="checkbox" ${task.completed ? 'checked' : ''} onchange="toggleTaskComplete(${task.id})">
+                    <span class="priority-badge ${task.priority}">${task.priority.toUpperCase()}</span>
+                    <div class="task-content">
+                        <strong>${task.title}</strong>
+                        ${task.description ? `<div style="font-size: 0.9em; margin-top: 5px;">${task.description}</div>` : ''}
+                        ${task.deadline ? `<div style="font-size: 0.8em; margin-top: 5px; color: #e74c3c;">📅 Scadenza: ${formatDate(task.deadline)}</div>` : ''}
+                    </div>
+                    <div class="task-actions">
+                        <button class="delete-btn" onclick="deleteTask(${task.id})">Elimina</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // GESTIONE SCADENZE
+        function addDeadline(event) {
+            event.preventDefault();
+
+            const deadline = {
+                id: Date.now(),
+                type: document.getElementById('deadline-type').value,
+                description: document.getElementById('deadline-description').value,
+                date: document.getElementById('deadline-date').value,
+                category: document.getElementById('deadline-category').value,
+                completed: false
+            };
+
+            data.companies[currentCompany].deadlines.push(deadline);
+            saveData();
+
+            document.getElementById('deadline-form').reset();
+            showNotification('Scadenza aggiunta con successo!');
+            updateDashboard();
+            updateDeadlinesTable();
+            renderCalendar();
+        }
+
+        function deleteDeadline(deadlineId) {
+            if (confirm('Sei sicura di voler eliminare questa scadenza?')) {
+                data.companies[currentCompany].deadlines = data.companies[currentCompany].deadlines.filter(d => d.id !== deadlineId);
+                saveData();
+                showNotification('Scadenza eliminata!');
+                updateDashboard();
+                updateDeadlinesTable();
+                renderCalendar();
+            }
+        }
+
+        function updateDeadlinesTable() {
+            const tbody = document.getElementById('deadlines-tbody');
+            const deadlines = [...data.companies[currentCompany].deadlines].sort((a, b) =>
+                new Date(a.date) - new Date(b.date)
+            );
+
+            if (deadlines.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="5" style="text-align: center; color: #bdc3c7;">Nessuna scadenza inserita</td></tr>';
+                return;
+            }
+
+            tbody.innerHTML = deadlines.map(deadline => `
+                <tr ${deadline.completed ? 'style="opacity: 0.5; text-decoration: line-through;"' : ''}>
+                    <td>${formatDate(deadline.date)}</td>
+                    <td><strong>${deadline.type}</strong></td>
+                    <td><span style="background: var(--secondary-color); color: white; padding: 3px 10px; border-radius: 10px; font-size: 0.8em;">${deadline.category}</span></td>
+                    <td>${deadline.description || '-'}</td>
+                    <td>
+                        <button class="delete-btn" onclick="deleteDeadline(${deadline.id})">Elimina</button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        // GESTIONE SPESE
+        function addExpense(event) {
+            event.preventDefault();
+
+            const expense = {
+                id: Date.now(),
+                description: document.getElementById('expense-description').value,
+                amount: parseFloat(document.getElementById('expense-amount').value),
+                date: document.getElementById('expense-date').value,
+                category: document.getElementById('expense-category').value,
+                notes: document.getElementById('expense-notes').value,
+                createdAt: new Date().toISOString()
+            };
+
+            data.companies[currentCompany].expenses.push(expense);
+            saveData();
+
+            document.getElementById('expense-form').reset();
+            document.getElementById('expense-date').valueAsDate = new Date();
+            showNotification('Spesa aggiunta con successo!');
+            updateDashboard();
+            updateExpenses();
+        }
+
+        function deleteExpense(expenseId) {
+            if (confirm('Sei sicura di voler eliminare questa spesa?')) {
+                data.companies[currentCompany].expenses = data.companies[currentCompany].expenses.filter(e => e.id !== expenseId);
+                saveData();
+                showNotification('Spesa eliminata!');
+                updateDashboard();
+                updateExpenses();
+            }
+        }
+
+        function getCategoryIcon(category) {
+            const icons = {
+                'posta': '📮',
+                'viaggio': '✈️',
+                'taxi': '🚖',
+                'materiale': '📎',
+                'cancelleria': '✏️',
+                'pranzo': '🍽️',
+                'parcheggio': '🅿️',
+                'bolli': '📄',
+                'corriere': '📦',
+                'altro': '💼'
+            };
+            return icons[category] || '💼';
+        }
+
+        function getCategoryName(category) {
+            const names = {
+                'posta': 'Posta/Raccomandate',
+                'viaggio': 'Viaggi',
+                'taxi': 'Taxi',
+                'materiale': 'Materiale Ufficio',
+                'cancelleria': 'Cancelleria',
+                'pranzo': 'Pranzi',
+                'parcheggio': 'Parcheggi',
+                'bolli': 'Marche da Bollo',
+                'corriere': 'Corrieri',
+                'altro': 'Altro'
+            };
+            return names[category] || 'Altro';
+        }
+
+        function updateExpenses() {
+            const expenses = data.companies[currentCompany].expenses || [];
+
+            // Ordina per data decrescente
+            const sortedExpenses = [...expenses].sort((a, b) => new Date(b.date) - new Date(a.date));
+
+            // Statistiche
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+            const todayStr = today.toISOString().split('T')[0];
+
+            const weekStart = new Date(today);
+            weekStart.setDate(today.getDate() - today.getDay() + 1);
+
+            const monthStart = new Date(today.getFullYear(), today.getMonth(), 1);
+
+            let totalToday = 0;
+            let totalWeek = 0;
+            let totalMonth = 0;
+
+            expenses.forEach(exp => {
+                const expDate = new Date(exp.date);
+                if (exp.date === todayStr) totalToday += exp.amount;
+                if (expDate >= weekStart) totalWeek += exp.amount;
+                if (expDate >= monthStart) totalMonth += exp.amount;
+            });
+
+            // Aggiorna statistiche nella sezione spese
+            document.getElementById('total-expenses-today').textContent = totalToday.toFixed(2);
+            document.getElementById('total-expenses-week').textContent = totalWeek.toFixed(2);
+            document.getElementById('total-expenses-month-section').textContent = totalMonth.toFixed(2);
+            document.getElementById('total-expenses-count').textContent = expenses.length;
+
+            // Aggiorna dashboard card
+            document.getElementById('total-expenses-month').textContent = totalMonth.toFixed(2);
+            document.getElementById('expenses-count-month').textContent = expenses.length;
+
+            // Ultimi 5 movimenti nella dashboard
+            const recentContainer = document.getElementById('recent-expenses');
+            if (sortedExpenses.length === 0) {
+                recentContainer.innerHTML = '<div class="empty-state" style="padding: 20px; font-size: 0.9em;">Nessuna spesa registrata</div>';
+            } else {
+                recentContainer.innerHTML = sortedExpenses.slice(0, 5).map(exp => `
+                    <div style="padding: 8px; margin: 5px 0; background: var(--light-bg); border-radius: 5px; display: flex; justify-content: space-between; align-items: center;">
+                        <div style="flex: 1;">
+                            <div style="font-size: 0.85em; font-weight: 600;">
+                                ${getCategoryIcon(exp.category)} ${exp.description}
+                            </div>
+                            <div style="font-size: 0.75em; color: #7f8c8d; margin-top: 2px;">
+                                ${formatDate(exp.date)}
+                            </div>
+                        </div>
+                        <div style="font-weight: bold; color: var(--danger-color);">
+                            € ${exp.amount.toFixed(2)}
+                        </div>
+                    </div>
+                `).join('');
+            }
+
+            // Tabella completa
+            const tbody = document.getElementById('expenses-tbody');
+            if (sortedExpenses.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="6" style="text-align: center; color: #bdc3c7;">Nessuna spesa registrata</td></tr>';
+                return;
+            }
+
+            tbody.innerHTML = sortedExpenses.map(expense => `
+                <tr>
+                    <td>${formatDate(expense.date)}</td>
+                    <td><strong>${expense.description}</strong></td>
+                    <td>
+                        <span style="background: var(--secondary-color); color: white; padding: 3px 10px; border-radius: 10px; font-size: 0.8em;">
+                            ${getCategoryIcon(expense.category)} ${getCategoryName(expense.category)}
+                        </span>
+                    </td>
+                    <td style="font-weight: bold; color: var(--danger-color);">€ ${expense.amount.toFixed(2)}</td>
+                    <td style="font-size: 0.9em; color: #7f8c8d;">${expense.notes || '-'}</td>
+                    <td>
+                        <button class="delete-btn" onclick="deleteExpense(${expense.id})">Elimina</button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        // GESTIONE APPUNTAMENTI
+        function addAppointment(event) {
+            event.preventDefault();
+
+            const appointment = {
+                id: Date.now(),
+                title: document.getElementById('appointment-title').value,
+                date: document.getElementById('appointment-date').value,
+                time: document.getElementById('appointment-time').value,
+                duration: parseInt(document.getElementById('appointment-duration').value),
+                location: document.getElementById('appointment-location').value,
+                participants: document.getElementById('appointment-participants').value,
+                notes: document.getElementById('appointment-notes').value,
+                createdAt: new Date().toISOString()
+            };
+
+            data.companies[currentCompany].appointments.push(appointment);
+            saveData();
+
+            document.getElementById('appointment-form').reset();
+            document.getElementById('appointment-date').valueAsDate = new Date();
+            showNotification('Appuntamento aggiunto con successo!');
+            updateDashboard();
+            updateAppointments();
+            renderCalendar();
+        }
+
+        function deleteAppointment(appointmentId) {
+            if (confirm('Sei sicura di voler eliminare questo appuntamento?')) {
+                data.companies[currentCompany].appointments = data.companies[currentCompany].appointments.filter(a => a.id !== appointmentId);
+                saveData();
+                showNotification('Appuntamento eliminato!');
+                updateDashboard();
+                updateAppointments();
+                renderCalendar();
+            }
+        }
+
+        function updateAppointments() {
+            const appointments = data.companies[currentCompany].appointments || [];
+
+            // Ordina per data e ora
+            const sortedAppointments = [...appointments].sort((a, b) => {
+                const dateTimeA = new Date(a.date + 'T' + a.time);
+                const dateTimeB = new Date(b.date + 'T' + b.time);
+                return dateTimeA - dateTimeB;
+            });
+
+            // Prossimi appuntamenti nella dashboard
+            const now = new Date();
+            const upcomingAppointments = sortedAppointments.filter(apt => {
+                const aptDateTime = new Date(apt.date + 'T' + apt.time);
+                return aptDateTime >= now;
+            }).slice(0, 5);
+
+            const upcomingContainer = document.getElementById('upcoming-appointments');
+            if (upcomingAppointments.length === 0) {
+                upcomingContainer.innerHTML = '<div class="empty-state" style="padding: 20px; font-size: 0.9em;">Nessun appuntamento in programma</div>';
+            } else {
+                upcomingContainer.innerHTML = upcomingAppointments.map(apt => `
+                    <div style="padding: 8px; margin: 5px 0; background: var(--light-bg); border-radius: 5px; border-left: 4px solid var(--secondary-color);">
+                        <div style="font-size: 0.85em; font-weight: 600;">
+                            📅 ${apt.title}
+                        </div>
+                        <div style="font-size: 0.75em; color: #7f8c8d; margin-top: 2px;">
+                            ${formatDate(apt.date)} alle ${apt.time}
+                        </div>
+                        ${apt.location ? `<div style="font-size: 0.75em; color: #7f8c8d;">📍 ${apt.location}</div>` : ''}
+                    </div>
+                `).join('');
+            }
+
+            // Tabella completa
+            const tbody = document.getElementById('appointments-tbody');
+            if (sortedAppointments.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="6" style="text-align: center; color: #bdc3c7;">Nessun appuntamento registrato</td></tr>';
+                return;
+            }
+
+            tbody.innerHTML = sortedAppointments.map(apt => {
+                const aptDateTime = new Date(apt.date + 'T' + apt.time);
+                const isPast = aptDateTime < now;
+                return `
+                    <tr ${isPast ? 'style="opacity: 0.5;"' : ''}>
+                        <td>${formatDate(apt.date)}</td>
+                        <td><strong>${apt.time}</strong></td>
+                        <td><strong>${apt.title}</strong></td>
+                        <td>${apt.location || '-'}</td>
+                        <td style="font-size: 0.9em;">${apt.participants || '-'}</td>
+                        <td>
+                            <button class="delete-btn" onclick="deleteAppointment(${apt.id})">Elimina</button>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        // RICONOSCIMENTO VOCALE
+        function initVoiceRecognition() {
+            if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+                const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+                recognition = new SpeechRecognition();
+                recognition.lang = 'it-IT';
+                recognition.continuous = false;
+                recognition.interimResults = false;
+
+                recognition.onresult = function(event) {
+                    const transcript = event.results[0][0].transcript;
+                    processVoiceInput(transcript);
+                };
+
+                recognition.onerror = function(event) {
+                    console.error('Errore riconoscimento vocale:', event.error);
+                    showNotification('Errore nel riconoscimento vocale. Riprova.');
+                    resetVoiceButtons();
+                };
+
+                recognition.onend = function() {
+                    resetVoiceButtons();
+                };
+            } else {
+                console.warn('Riconoscimento vocale non supportato in questo browser');
+            }
+        }
+
+        let currentVoiceContext = null;
+
+        function startVoiceInput(context) {
+            if (!recognition) {
+                alert('Il riconoscimento vocale non è supportato dal tuo browser. Prova con Chrome, Edge o Safari.');
+                return;
+            }
+
+            currentVoiceContext = context;
+            const button = document.getElementById(`voice-btn-${context}`);
+            button.style.background = 'var(--danger-color)';
+            button.textContent = '🔴 Ascoltando...';
+
+            recognition.start();
+        }
+
+        function processVoiceInput(transcript) {
+            const text = transcript.toLowerCase();
+
+            if (currentVoiceContext === 'task') {
+                document.getElementById('task-title').value = transcript;
+                showNotification('Attività inserita: ' + transcript);
+            } else if (currentVoiceContext === 'expense') {
+                document.getElementById('expense-description').value = transcript;
+                showNotification('Descrizione spesa inserita: ' + transcript);
+            } else if (currentVoiceContext === 'appointment') {
+                document.getElementById('appointment-title').value = transcript;
+
+                // Precompila automaticamente data e ora se vuoti
+                const dateField = document.getElementById('appointment-date');
+                const timeField = document.getElementById('appointment-time');
+
+                if (!dateField.value) {
+                    dateField.valueAsDate = new Date();
+                }
+
+                if (!timeField.value) {
+                    // Imposta ora corrente arrotondata alla mezz'ora successiva
+                    const now = new Date();
+                    now.setMinutes(now.getMinutes() + 30 - (now.getMinutes() % 30));
+                    const hours = String(now.getHours()).padStart(2, '0');
+                    const minutes = String(now.getMinutes()).padStart(2, '0');
+                    timeField.value = `${hours}:${minutes}`;
+                }
+
+                showNotification('✅ Titolo inserito: ' + transcript + ' | Completa gli altri campi e clicca Aggiungi!');
+
+                // Focus sul campo data per permettere eventuali modifiche
+                document.getElementById('appointment-location').focus();
+            }
+        }
+
+        function resetVoiceButtons() {
+            ['task', 'expense', 'appointment'].forEach(context => {
+                const button = document.getElementById(`voice-btn-${context}`);
+                if (button) {
+                    button.style.background = '';
+                    button.textContent = '🎤 Inserimento Vocale';
+                }
+            });
+        }
+
+        // GESTIONE CALENDARIO
+        function renderCalendar() {
+            const monthNames = ['Gennaio', 'Febbraio', 'Marzo', 'Aprile', 'Maggio', 'Giugno',
+                'Luglio', 'Agosto', 'Settembre', 'Ottobre', 'Novembre', 'Dicembre'];
+            const dayNames = ['Lun', 'Mar', 'Mer', 'Gio', 'Ven', 'Sab', 'Dom'];
+
+            // Aggiorna titolo
+            document.getElementById('calendar-month-year').textContent =
+                `${monthNames[currentMonth]} ${currentYear}`;
+
+            // Prima data del mese
+            const firstDay = new Date(currentYear, currentMonth, 1);
+            // Ultimo giorno del mese
+            const lastDay = new Date(currentYear, currentMonth + 1, 0);
+            // Giorno della settimana del primo giorno (0 = Domenica, 1 = Lunedì, etc.)
+            let startDay = firstDay.getDay();
+            // Converti da Domenica=0 a Lunedì=0
+            startDay = startDay === 0 ? 6 : startDay - 1;
+
+            const daysInMonth = lastDay.getDate();
+
+            // Giorno precedente
+            const prevMonthLastDay = new Date(currentYear, currentMonth, 0).getDate();
+
+            const container = document.getElementById('calendar-container');
+            container.innerHTML = '';
+
+            // Headers giorni settimana
+            dayNames.forEach(day => {
+                const header = document.createElement('div');
+                header.className = 'calendar-day-header';
+                header.textContent = day;
+                container.appendChild(header);
+            });
+
+            // Giorni del mese precedente
+            for (let i = startDay - 1; i >= 0; i--) {
+                const dayCell = createDayCell(prevMonthLastDay - i, true);
+                container.appendChild(dayCell);
+            }
+
+            // Giorni del mese corrente
+            const today = new Date();
+            for (let day = 1; day <= daysInMonth; day++) {
+                const isToday = day === today.getDate() &&
+                    currentMonth === today.getMonth() &&
+                    currentYear === today.getFullYear();
+                const dayCell = createDayCell(day, false, isToday);
+                container.appendChild(dayCell);
+            }
+
+            // Giorni del mese successivo
+            const totalCells = container.children.length - 7; // sottrai gli header
+            const remainingCells = 42 - totalCells; // 6 righe x 7 giorni
+            for (let day = 1; day <= remainingCells; day++) {
+                const dayCell = createDayCell(day, true);
+                container.appendChild(dayCell);
+            }
+        }
+
+        function createDayCell(dayNumber, isOtherMonth = false, isToday = false) {
+            const cell = document.createElement('div');
+            cell.className = 'calendar-day';
+            if (isOtherMonth) cell.classList.add('other-month');
+            if (isToday) cell.classList.add('today');
+
+            const dayNum = document.createElement('div');
+            dayNum.className = 'calendar-day-number';
+            dayNum.textContent = dayNumber;
+            cell.appendChild(dayNum);
+
+            if (!isOtherMonth) {
+                // Cerca attività e scadenze per questo giorno
+                const dateStr = `${currentYear}-${String(currentMonth + 1).padStart(2, '0')}-${String(dayNumber).padStart(2, '0')}`;
+                const events = getEventsForDate(dateStr);
+
+                // Mostra max 3 eventi, poi "+X altri"
+                const maxVisible = 3;
+                events.slice(0, maxVisible).forEach(event => {
+                    const eventDiv = document.createElement('div');
+                    // Gestisci tutti i tipi di eventi
+                    let eventClass = '';
+                    if (event.type === 'deadline') {
+                        eventClass = 'deadline';
+                    } else if (event.type === 'appointment') {
+                        eventClass = 'priority-appointment';
+                    } else {
+                        eventClass = 'priority-' + event.priority;
+                    }
+                    eventDiv.className = `calendar-event ${eventClass}`;
+                    eventDiv.textContent = event.title;
+                    eventDiv.title = event.title; // Tooltip
+                    cell.appendChild(eventDiv);
+                });
+
+                if (events.length > maxVisible) {
+                    const more = document.createElement('div');
+                    more.className = 'calendar-more';
+                    more.textContent = `+${events.length - maxVisible} altri`;
+                    cell.appendChild(more);
+                }
+            }
+
+            return cell;
+        }
+
+        function getEventsForDate(dateStr) {
+            const events = [];
+            const tasks = data.companies[currentCompany].tasks;
+            const deadlines = data.companies[currentCompany].deadlines;
+            const appointments = data.companies[currentCompany].appointments || [];
+
+            // Aggiungi attività con scadenza
+            tasks.forEach(task => {
+                if (task.deadline === dateStr && !task.completed) {
+                    events.push({
+                        type: 'task',
+                        title: task.title,
+                        priority: task.priority
+                    });
+                }
+            });
+
+            // Aggiungi scadenze
+            deadlines.forEach(deadline => {
+                if (deadline.date === dateStr && !deadline.completed) {
+                    events.push({
+                        type: 'deadline',
+                        title: deadline.type,
+                        priority: null
+                    });
+                }
+            });
+
+            // Aggiungi appuntamenti
+            appointments.forEach(appointment => {
+                if (appointment.date === dateStr) {
+                    events.push({
+                        type: 'appointment',
+                        title: `${appointment.time} - ${appointment.title}`,
+                        priority: 'appointment'
+                    });
+                }
+            });
+
+            // Ordina per priorità (A+ prima, poi appointment)
+            const priorityOrder = { 'aplus': 0, 'a': 1, 'appointment': 2, 'b': 3, 'c': 4, null: 5 };
+            events.sort((a, b) => priorityOrder[a.priority] - priorityOrder[b.priority]);
+
+            return events;
+        }
+
+        function previousMonth() {
+            currentMonth--;
+            if (currentMonth < 0) {
+                currentMonth = 11;
+                currentYear--;
+            }
+            renderCalendar();
+        }
+
+        function nextMonth() {
+            currentMonth++;
+            if (currentMonth > 11) {
+                currentMonth = 0;
+                currentYear++;
+            }
+            renderCalendar();
+        }
+
+        // UPDATE DASHBOARD
+        function updateDashboard() {
+            const tasks = data.companies[currentCompany].tasks;
+            const deadlines = data.companies[currentCompany].deadlines;
+
+            // Statistiche
+            document.getElementById('stat-urgent').textContent = tasks.filter(t => t.priority === 'aplus' && !t.completed).length;
+            document.getElementById('stat-important').textContent = tasks.filter(t => t.priority === 'a' && !t.completed).length;
+
+            const today = new Date();
+            const oneWeek = new Date(today.getTime() + 7 * 24 * 60 * 60 * 1000);
+            document.getElementById('stat-deadlines').textContent = deadlines.filter(d => {
+                const deadlineDate = new Date(d.date);
+                return deadlineDate >= today && deadlineDate <= oneWeek && !d.completed;
+            }).length;
+
+            const oneWeekAgo = new Date(today.getTime() - 7 * 24 * 60 * 60 * 1000);
+            document.getElementById('stat-completed').textContent = tasks.filter(t => {
+                return t.completed && new Date(t.createdAt) >= oneWeekAgo;
+            }).length;
+
+            // Tasks per categoria
+            updateCategoryTasks('urgent', 'urgent-tasks');
+            updateCategoryTasks('important', 'important-tasks');
+            updateCategoryTasks('fiscal', 'fiscal-deadlines');
+            updateCategoryTasks('hr', 'hr-deadlines');
+            updateCategoryTasks('critical', 'critical-issues');
+            updateCategoryTasks('decisions', 'pending-decisions');
+        }
+
+        function updateCategoryTasks(category, elementId) {
+            const container = document.getElementById(elementId);
+            const tasks = data.companies[currentCompany].tasks.filter(t =>
+                t.category === category && !t.completed
+            );
+
+            if (tasks.length === 0) {
+                container.innerHTML = '<div class="empty-state" style="padding: 20px; font-size: 0.9em;">Nessuna attività</div>';
+                return;
+            }
+
+            container.innerHTML = tasks.slice(0, 3).map(task => `
+                <div class="task-item priority-${task.priority}">
+                    <span class="priority-badge ${task.priority}">${task.priority.toUpperCase()}</span>
+                    <div class="task-content">
+                        <strong>${task.title}</strong>
+                        ${task.deadline ? `<div style="font-size: 0.8em; margin-top: 5px;">📅 ${formatDate(task.deadline)}</div>` : ''}
+                    </div>
+                </div>
+            `).join('');
+
+            if (tasks.length > 3) {
+                container.innerHTML += `<div style="text-align: center; margin-top: 10px; color: var(--secondary-color); font-size: 0.9em;">+${tasks.length - 3} altre</div>`;
+            }
+        }
+
+        // RENDER SOP
+        function renderSOP() {
+            const sopList = document.getElementById('sop-list');
+            sopList.innerHTML = sopTemplates.map((sop, index) => {
+                const stats = getSOPStats(index);
+                return `
+                    <li class="sop-item" id="sop-item-${index}">
+                        <div class="sop-header-toggle" style="cursor: pointer;" onclick="toggleSOP(${index})">
+                            <h4>${sop.title}</h4>
+                            <p style="color: #7f8c8d; font-size: 0.9em;">${sop.description}</p>
+                            <div style="display: flex; gap: 15px; margin-top: 10px; font-size: 0.85em; color: var(--secondary-color);">
+                                <span>📊 Esecuzioni: ${stats.totalExecutions}</span>
+                                <span>📅 Ultima: ${stats.lastExecution || 'Mai'}</span>
+                                <span>⏱️ Media: ${stats.avgTime || 'N/A'}</span>
+                            </div>
+                        </div>
+                        <div class="sop-content">
+                            <div class="sop-dashboard">
+                                <!-- Tabs -->
+                                <div class="sop-tabs">
+                                    <button class="sop-tab active" data-sop="${index}" data-tab="checklist">
+                                        ✅ Checklist
+                                    </button>
+                                    <button class="sop-tab" data-sop="${index}" data-tab="stats">
+                                        📊 Statistiche
+                                    </button>
+                                    <button class="sop-tab" data-sop="${index}" data-tab="history">
+                                        📜 Storico
+                                    </button>
+                                </div>
+
+                                <!-- Tab: Checklist -->
+                                <div id="sop-tab-${index}-checklist" class="sop-tab-content active">
+                                    <h4 style="margin-bottom: 15px;">Esegui Procedura</h4>
+
+                                    <!-- Progress Bar -->
+                                    <div class="sop-progress-bar">
+                                        <div class="sop-progress-fill" id="sop-progress-${index}" style="width: 0%">
+                                            0%
+                                        </div>
+                                    </div>
+
+                                    <!-- Checklist Interattiva -->
+                                    <ul class="sop-checklist" id="sop-checklist-${index}">
+                                        ${sop.steps.map((step, stepIndex) => `
+                                            <li class="sop-checklist-item" id="sop-step-${index}-${stepIndex}">
+                                                <input
+                                                    type="checkbox"
+                                                    id="check-${index}-${stepIndex}"
+                                                    onchange="updateSOPProgress(${index})"
+                                                />
+                                                <label for="check-${index}-${stepIndex}" style="flex: 1; cursor: pointer;">
+                                                    ${step}
+                                                </label>
+                                            </li>
+                                        `).join('')}
+                                    </ul>
+
+                                    <!-- Note -->
+                                    <div style="margin-top: 20px;">
+                                        <label style="font-weight: 600; display: block; margin-bottom: 8px;">
+                                            Note (opzionale):
+                                        </label>
+                                        <textarea
+                                            class="sop-notes"
+                                            id="sop-notes-${index}"
+                                            placeholder="Aggiungi eventuali note, problemi riscontrati, miglioramenti suggeriti..."
+                                        ></textarea>
+                                    </div>
+
+                                    <!-- Bottone Completa -->
+                                    <button class="sop-execute-btn" onclick="completeSOPExecution(${index})">
+                                        ✅ Completa Procedura
+                                    </button>
+                                </div>
+
+                                <!-- Tab: Statistiche -->
+                                <div id="sop-tab-${index}-stats" class="sop-tab-content">
+                                    <h4 style="margin-bottom: 15px;">Statistiche di Esecuzione</h4>
+                                    <div class="sop-stats">
+                                        <div class="sop-stat-box">
+                                            <div class="sop-stat-number">${stats.totalExecutions}</div>
+                                            <div class="sop-stat-label">Totale Esecuzioni</div>
+                                        </div>
+                                        <div class="sop-stat-box">
+                                            <div class="sop-stat-number">${stats.thisWeek}</div>
+                                            <div class="sop-stat-label">Questa Settimana</div>
+                                        </div>
+                                        <div class="sop-stat-box">
+                                            <div class="sop-stat-number">${stats.thisMonth}</div>
+                                            <div class="sop-stat-label">Questo Mese</div>
+                                        </div>
+                                        <div class="sop-stat-box" style="border-left-color: var(--success-color);">
+                                            <div class="sop-stat-number">${stats.avgTime || 'N/A'}</div>
+                                            <div class="sop-stat-label">Tempo Medio</div>
+                                        </div>
+                                    </div>
+                                    <div style="margin-top: 20px; padding: 15px; background: white; border-radius: 8px;">
+                                        <p style="margin: 5px 0;"><strong>Prima Esecuzione:</strong> ${stats.firstExecution || 'N/A'}</p>
+                                        <p style="margin: 5px 0;"><strong>Ultima Esecuzione:</strong> ${stats.lastExecution || 'N/A'}</p>
+                                        <p style="margin: 5px 0;"><strong>Frequenza Media:</strong> ${stats.frequency || 'N/A'}</p>
+                                    </div>
+                                </div>
+
+                                <!-- Tab: Storico -->
+                                <div id="sop-tab-${index}-history" class="sop-tab-content">
+                                    <h4 style="margin-bottom: 15px;">Storico Esecuzioni</h4>
+                                    <div class="sop-history" id="sop-history-${index}">
+                                        ${renderSOPHistory(index)}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                `;
+            }).join('');
+
+            // Aggiungi event listeners per i tab SOP
+            document.querySelectorAll('.sop-tab').forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    const sopIndex = parseInt(this.getAttribute('data-sop'));
+                    const tabName = this.getAttribute('data-tab');
+
+                    // Nascondi tutti i tab di questa SOP
+                    document.querySelectorAll(`#sop-item-${sopIndex} .sop-tab-content`).forEach(content => {
+                        content.classList.remove('active');
+                    });
+                    document.querySelectorAll(`#sop-item-${sopIndex} .sop-tab`).forEach(tab => {
+                        tab.classList.remove('active');
+                    });
+
+                    // Mostra il tab selezionato
+                    document.getElementById(`sop-tab-${sopIndex}-${tabName}`).classList.add('active');
+                    this.classList.add('active');
+
+                    // Refresh dello storico se necessario
+                    if (tabName === 'history') {
+                        document.getElementById(`sop-history-${sopIndex}`).innerHTML = renderSOPHistory(sopIndex);
+                    }
+                });
+            });
+        }
+
+        function toggleSOP(index) {
+            const sopItem = document.getElementById(`sop-item-${index}`);
+            const wasExpanded = sopItem.classList.contains('expanded');
+
+            // Chiudi tutte le SOP
+            document.querySelectorAll('.sop-item').forEach(item => {
+                item.classList.remove('expanded');
+            });
+
+            // Apri quella selezionata (se non era già aperta)
+            if (!wasExpanded) {
+                sopItem.classList.add('expanded');
+                resetSOPChecklist(index);
+            }
+        }
+
+        function showSOPTab(event, sopIndex, tabName) {
+            // Ferma la propagazione per evitare che chiuda la SOP
+            event.stopPropagation();
+
+            // Nascondi tutti i tab di questa SOP
+            document.querySelectorAll(`#sop-item-${sopIndex} .sop-tab-content`).forEach(content => {
+                content.classList.remove('active');
+            });
+            document.querySelectorAll(`#sop-item-${sopIndex} .sop-tab`).forEach(tab => {
+                tab.classList.remove('active');
+            });
+
+            // Mostra il tab selezionato
+            document.getElementById(`sop-tab-${sopIndex}-${tabName}`).classList.add('active');
+            event.target.classList.add('active');
+
+            // Refresh dello storico se necessario
+            if (tabName === 'history') {
+                document.getElementById(`sop-history-${sopIndex}`).innerHTML = renderSOPHistory(sopIndex);
+            } else if (tabName === 'stats') {
+                renderSOP(); // Aggiorna le statistiche
+            }
+        }
+
+        function resetSOPChecklist(sopIndex) {
+            currentSOPChecklist[sopIndex] = {};
+            const checkboxes = document.querySelectorAll(`#sop-checklist-${sopIndex} input[type="checkbox"]`);
+            checkboxes.forEach(cb => cb.checked = false);
+            document.querySelectorAll(`#sop-checklist-${sopIndex} .sop-checklist-item`).forEach(item => {
+                item.classList.remove('completed');
+            });
+            updateSOPProgress(sopIndex);
+        }
+
+        function updateSOPProgress(sopIndex) {
+            const sop = sopTemplates[sopIndex];
+            const totalSteps = sop.steps.length;
+            const checkboxes = document.querySelectorAll(`#sop-checklist-${sopIndex} input[type="checkbox"]`);
+            let completedSteps = 0;
+
+            checkboxes.forEach((cb, index) => {
+                const listItem = document.getElementById(`sop-step-${sopIndex}-${index}`);
+                if (cb.checked) {
+                    completedSteps++;
+                    listItem.classList.add('completed');
+                } else {
+                    listItem.classList.remove('completed');
+                }
+            });
+
+            const percentage = Math.round((completedSteps / totalSteps) * 100);
+            const progressBar = document.getElementById(`sop-progress-${sopIndex}`);
+            progressBar.style.width = percentage + '%';
+            progressBar.textContent = percentage + '%';
+        }
+
+        function completeSOPExecution(sopIndex) {
+            const sop = sopTemplates[sopIndex];
+            const checkboxes = document.querySelectorAll(`#sop-checklist-${sopIndex} input[type="checkbox"]`);
+            const totalSteps = sop.steps.length;
+            let completedSteps = 0;
+
+            checkboxes.forEach(cb => {
+                if (cb.checked) completedSteps++;
+            });
+
+            if (completedSteps < totalSteps) {
+                if (!confirm(`Hai completato solo ${completedSteps} su ${totalSteps} passaggi. Vuoi comunque completare la procedura?`)) {
+                    return;
+                }
+            }
+
+            const notes = document.getElementById(`sop-notes-${sopIndex}`).value;
+            const execution = {
+                id: Date.now(),
+                sopIndex: sopIndex,
+                sopTitle: sop.title,
+                date: new Date().toISOString(),
+                completedSteps: completedSteps,
+                totalSteps: totalSteps,
+                percentage: Math.round((completedSteps / totalSteps) * 100),
+                notes: notes,
+                duration: 'N/A' // Per ora non tracciamo il tempo reale
+            };
+
+            data.companies[currentCompany].sopExecutions.push(execution);
+            saveData();
+
+            showNotification('✅ Procedura completata con successo!');
+
+            // Reset checklist
+            resetSOPChecklist(sopIndex);
+            document.getElementById(`sop-notes-${sopIndex}`).value = '';
+
+            // Aggiorna statistiche
+            renderSOP();
+        }
+
+        function getSOPStats(sopIndex) {
+            const executions = data.companies[currentCompany].sopExecutions.filter(e => e.sopIndex === sopIndex);
+
+            if (executions.length === 0) {
+                return {
+                    totalExecutions: 0,
+                    thisWeek: 0,
+                    thisMonth: 0,
+                    lastExecution: null,
+                    firstExecution: null,
+                    avgTime: null,
+                    frequency: null
+                };
+            }
+
+            const now = new Date();
+            const weekAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
+            const monthAgo = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000);
+
+            const thisWeek = executions.filter(e => new Date(e.date) >= weekAgo).length;
+            const thisMonth = executions.filter(e => new Date(e.date) >= monthAgo).length;
+
+            const sorted = [...executions].sort((a, b) => new Date(b.date) - new Date(a.date));
+            const lastExecution = formatDate(sorted[0].date.split('T')[0]);
+            const firstExecution = formatDate(sorted[sorted.length - 1].date.split('T')[0]);
+
+            // Calcola frequenza media (giorni tra esecuzioni)
+            let frequency = 'N/A';
+            if (executions.length > 1) {
+                const first = new Date(sorted[sorted.length - 1].date);
+                const last = new Date(sorted[0].date);
+                const daysDiff = (last - first) / (1000 * 60 * 60 * 24);
+                const avgDays = Math.round(daysDiff / (executions.length - 1));
+                frequency = `Ogni ${avgDays} giorni`;
+            }
+
+            return {
+                totalExecutions: executions.length,
+                thisWeek,
+                thisMonth,
+                lastExecution,
+                firstExecution,
+                avgTime: 'N/A', // Per ora
+                frequency
+            };
+        }
+
+        function renderSOPHistory(sopIndex) {
+            const executions = data.companies[currentCompany].sopExecutions
+                .filter(e => e.sopIndex === sopIndex)
+                .sort((a, b) => new Date(b.date) - new Date(a.date));
+
+            if (executions.length === 0) {
+                return '<div class="empty-state" style="padding: 40px; text-align: center; color: #bdc3c7;">Nessuna esecuzione registrata</div>';
+            }
+
+            return executions.map(exec => {
+                const date = new Date(exec.date);
+                const dateStr = formatDate(date.toISOString().split('T')[0]);
+                const timeStr = date.toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit' });
+
+                return `
+                    <div class="sop-history-item">
+                        <div>
+                            <div class="sop-history-date">📅 ${dateStr} alle ${timeStr}</div>
+                            <div style="margin-top: 5px; font-size: 0.9em;">
+                                <span style="color: var(--success-color); font-weight: 600;">
+                                    ${exec.completedSteps}/${exec.totalSteps} passaggi (${exec.percentage}%)
+                                </span>
+                                ${exec.notes ? `<br><em style="color: #7f8c8d;">"${exec.notes}"</em>` : ''}
+                            </div>
+                        </div>
+                        <button class="delete-btn" onclick="deleteSOPExecution(${exec.id})">Elimina</button>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function deleteSOPExecution(executionId) {
+            if (confirm('Sei sicura di voler eliminare questa esecuzione?')) {
+                data.companies[currentCompany].sopExecutions =
+                    data.companies[currentCompany].sopExecutions.filter(e => e.id !== executionId);
+                saveData();
+                showNotification('Esecuzione eliminata!');
+                renderSOP();
+            }
+        }
+
+        // REPORT
+        function generateReport() {
+            const reportContent = document.getElementById('report-content');
+            reportContent.style.display = 'block';
+
+            // Data settimana
+            const today = new Date();
+            const weekStart = new Date(today);
+            weekStart.setDate(today.getDate() - today.getDay() + 1);
+            const weekEnd = new Date(weekStart);
+            weekEnd.setDate(weekStart.getDate() + 6);
+            document.getElementById('report-week').textContent =
+                `${formatDate(weekStart.toISOString().split('T')[0])} - ${formatDate(weekEnd.toISOString().split('T')[0])}`;
+
+            // Completate
+            const completedTasks = data.companies[currentCompany].tasks.filter(t => t.completed);
+            document.getElementById('report-done').innerHTML = completedTasks.length > 0
+                ? '<ul>' + completedTasks.map(t => `<li>${t.title}</li>`).join('') + '</ul>'
+                : '<p>Nessuna attività completata questa settimana.</p>';
+
+            // In corso
+            const ongoingTasks = data.companies[currentCompany].tasks.filter(t => !t.completed && (t.priority === 'a' || t.priority === 'aplus'));
+            document.getElementById('report-ongoing').innerHTML = ongoingTasks.length > 0
+                ? '<ul>' + ongoingTasks.map(t => `<li>${t.title} (${t.priority.toUpperCase()})</li>`).join('') + '</ul>'
+                : '<p>Nessuna attività prioritaria in corso.</p>';
+
+            // Decisioni
+            const decisions = data.companies[currentCompany].tasks.filter(t => t.category === 'decisions' && !t.completed);
+            document.getElementById('report-decisions').innerHTML = decisions.length > 0
+                ? '<ul>' + decisions.map(t => `<li>${t.title}</li>`).join('') + '</ul>'
+                : '<p>Nessuna decisione in attesa.</p>';
+
+            // Rischi
+            const risks = data.companies[currentCompany].tasks.filter(t => t.category === 'critical' && !t.completed);
+            document.getElementById('report-risks').innerHTML = risks.length > 0
+                ? '<ul>' + risks.map(t => `<li>${t.title}</li>`).join('') + '</ul>'
+                : '<p>Nessun rischio segnalato.</p>';
+
+            // Scadenze
+            const upcomingDeadlines = data.companies[currentCompany].deadlines.filter(d => {
+                const deadlineDate = new Date(d.date);
+                const twoWeeks = new Date(today.getTime() + 14 * 24 * 60 * 60 * 1000);
+                return deadlineDate >= today && deadlineDate <= twoWeeks && !d.completed;
+            });
+            document.getElementById('report-deadlines').innerHTML = upcomingDeadlines.length > 0
+                ? '<ul>' + upcomingDeadlines.map(d => `<li>${d.type} - ${formatDate(d.date)} (${d.category})</li>`).join('') + '</ul>'
+                : '<p>Nessuna scadenza imminente.</p>';
+
+            // Spese della settimana
+            const weekExpenses = (data.companies[currentCompany].expenses || []).filter(exp => {
+                const expDate = new Date(exp.date);
+                return expDate >= weekStart && expDate <= weekEnd;
+            });
+
+            let totalWeekExpenses = 0;
+            weekExpenses.forEach(exp => totalWeekExpenses += exp.amount);
+
+            if (weekExpenses.length > 0) {
+                const expensesByCategory = {};
+                weekExpenses.forEach(exp => {
+                    if (!expensesByCategory[exp.category]) {
+                        expensesByCategory[exp.category] = 0;
+                    }
+                    expensesByCategory[exp.category] += exp.amount;
+                });
+
+                let expensesHTML = '<ul>';
+                Object.keys(expensesByCategory).forEach(cat => {
+                    expensesHTML += `<li>${getCategoryIcon(cat)} ${getCategoryName(cat)}: € ${expensesByCategory[cat].toFixed(2)}</li>`;
+                });
+                expensesHTML += '</ul>';
+                expensesHTML += `<p style="margin-top: 10px; font-weight: bold;">Totale spese: € ${totalWeekExpenses.toFixed(2)}</p>`;
+                document.getElementById('report-expenses').innerHTML = expensesHTML;
+            } else {
+                document.getElementById('report-expenses').innerHTML = '<p>Nessuna spesa registrata questa settimana.</p>';
+            }
+
+            showNotification('Report generato con successo!');
+        }
+
+        function exportReport() {
+            window.print();
+        }
+
+        // SETTINGS
+        function saveCompanyNames(event) {
+            event.preventDefault();
+
+            for (let i = 1; i <= 4; i++) {
+                const name = document.getElementById(`company-${i}-name`).value;
+                data.companies[i].name = name;
+
+                const buttons = document.querySelectorAll(`.company-btn.azienda-${i}`);
+                buttons.forEach(btn => btn.textContent = name);
+            }
+
+            saveData();
+            showNotification('Nomi aziende salvati con successo!');
+        }
+
+        function loadCompanyNames() {
+            for (let i = 1; i <= 4; i++) {
+                const name = data.companies[i].name;
+                document.getElementById(`company-${i}-name`).value = name;
+
+                const buttons = document.querySelectorAll(`.company-btn.azienda-${i}`);
+                buttons.forEach(btn => btn.textContent = name);
+            }
+        }
+
+        // GESTIONE DATI
+        function saveData() {
+            localStorage.setItem('gestione-direzionale-data', JSON.stringify(data));
+        }
+
+        function loadData() {
+            const saved = localStorage.getItem('gestione-direzionale-data');
+            if (saved) {
+                data = JSON.parse(saved);
+                // Migrazione automatica: aggiungi campi mancanti
+                for (let i = 1; i <= 4; i++) {
+                    if (!data.companies[i].expenses) {
+                        data.companies[i].expenses = [];
+                    }
+                    if (!data.companies[i].appointments) {
+                        data.companies[i].appointments = [];
+                    }
+                }
+            }
+        }
+
+        function exportData() {
+            const dataStr = JSON.stringify(data, null, 2);
+            const blob = new Blob([dataStr], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `backup-gestione-direzionale-${new Date().toISOString().split('T')[0]}.json`;
+            a.click();
+            showNotification('Dati esportati con successo!');
+        }
+
+        function importData() {
+            document.getElementById('import-file').click();
+        }
+
+        function handleImport(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    try {
+                        data = JSON.parse(e.target.result);
+                        saveData();
+                        location.reload();
+                    } catch (error) {
+                        alert('Errore nel file importato!');
+                    }
+                };
+                reader.readAsText(file);
+            }
+        }
+
+        function clearAllData() {
+            if (confirm('ATTENZIONE: Questa operazione cancellerà tutti i dati. Sei sicura?')) {
+                if (confirm('Sei VERAMENTE sicura? Questa azione è irreversibile!')) {
+                    localStorage.removeItem('gestione-direzionale-data');
+                    location.reload();
+                }
+            }
+        }
+
+        // UTILITY
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            return date.toLocaleDateString('it-IT', { day: '2-digit', month: '2-digit', year: 'numeric' });
+        }
+
+        function showNotification(message) {
+            const notification = document.createElement('div');
+            notification.className = 'notification';
+            notification.textContent = message;
+            document.body.appendChild(notification);
+
+            setTimeout(() => {
+                notification.remove();
+            }, 3000);
+        }
+
+        // AVVIO
+        init();
+    </script>
+</body>
+</html>

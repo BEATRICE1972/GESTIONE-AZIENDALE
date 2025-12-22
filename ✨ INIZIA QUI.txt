@@ -1,0 +1,136 @@
+╔══════════════════════════════════════════════════════════════════════════╗
+║                                                                          ║
+║                    ✨ INIZIA DA QUI ✨                                   ║
+║            Benvenuta nel Sistema di Gestione Direzionale!                ║
+║                                                                          ║
+╚══════════════════════════════════════════════════════════════════════════╝
+
+
+🚀 3 PASSI PER INIZIARE SUBITO
+═══════════════════════════════════════════════════════════════════════════
+
+1️⃣  APRI IL PROGRAMMA
+   Doppio click su: sistema-gestione-direzionale.html
+
+
+2️⃣  CONFIGURA LE AZIENDE
+   • Clicca menu "Impostazioni" (in alto a destra)
+   • Cambia "Azienda 1, 2, 3, 4" con i nomi reali
+   • Clicca "Salva Configurazione"
+
+
+3️⃣  INIZIA AD USARLO!
+   • Vai in "Attività" → Aggiungi la prima attività
+   • Vai in "Dashboard" → Vedi la panoramica
+   • Vai in "Calendario" → Pianifica il mese
+   • Vai in "Procedure (SOP)" → Apri una procedura e prova!
+
+
+═══════════════════════════════════════════════════════════════════════════
+📚 DOCUMENTAZIONE DISPONIBILE
+═══════════════════════════════════════════════════════════════════════════
+
+📖 LEGGIMI - ISTRUZIONI.txt
+   → Guida completa passo-passo (LEGGI PRIMA!)
+
+📋 GUIDA-RAPIDA.txt
+   → Promemoria veloce (da stampare e tenere sulla scrivania)
+
+📋 RIEPILOGO SISTEMA.txt
+   → Elenco completo di tutte le funzionalità
+
+📋 CALENDARIO - GUIDA RAPIDA.txt
+   → Come usare il calendario mensile
+
+📋 SOP-DASHBOARD - GUIDA COMPLETA.txt
+   → Come usare le procedure interattive
+
+📋 AGGIORNAMENTI.txt
+   → Log di tutte le modifiche al sistema
+
+
+═══════════════════════════════════════════════════════════════════════════
+✨ COSA PUOI FARE CON QUESTO SISTEMA
+═══════════════════════════════════════════════════════════════════════════
+
+✅ Coordinare 4 aziende simultaneamente
+✅ Gestire attività con priorità (A+, A, B, C)
+✅ Tracciare scadenze fiscali/legali/HR
+✅ Pianificare con calendario mensile visivo
+✅ Eseguire procedure operative con checklist interattive
+✅ Generare report settimanali automatici
+✅ Monitorare statistiche di tutto
+✅ Fare backup completi dei dati
+
+
+═══════════════════════════════════════════════════════════════════════════
+🎯 ROUTINE CONSIGLIATA
+═══════════════════════════════════════════════════════════════════════════
+
+📅 LUNEDÌ MATTINA:
+   Dashboard + Calendario → Pianifica la settimana
+
+🔄 DURANTE LA SETTIMANA:
+   • Esegui procedure (SOP) mentre lavori
+   • Spunta attività completate
+   • Monitora Dashboard
+
+📝 VENERDÌ POMERIGGIO:
+   • Genera Report Direzionale
+   • FAI BACKUP DATI (Impostazioni → Esporta)
+
+
+═══════════════════════════════════════════════════════════════════════════
+⚠️ IMPORTANTISSIMO: BACKUP!
+═══════════════════════════════════════════════════════════════════════════
+
+OGNI VENERDÌ:
+1. Menu "Impostazioni"
+2. Click "📥 Esporta Tutti i Dati"
+3. Salva il file .json in posto sicuro (OneDrive, Dropbox, etc.)
+
+QUESTO SALVA: attività, scadenze, esecuzioni SOP, configurazioni
+
+
+═══════════════════════════════════════════════════════════════════════════
+🆕 NOVITÀ NELLA VERSIONE 2.0
+═══════════════════════════════════════════════════════════════════════════
+
+📅 CALENDARIO MENSILE VISUALE
+   • Vedi tutte le attività e scadenze del mese
+   • Colori per priorità
+   • Navigazione tra mesi
+
+📊 DASHBOARD SOP INTERATTIVE
+   • Checklist step-by-step per ogni procedura
+   • Progress bar in tempo reale
+   • Statistiche di esecuzione
+   • Storico completo
+   • Perfetto per audit e certificazioni!
+
+
+═══════════════════════════════════════════════════════════════════════════
+💡 CONSIGLIO
+═══════════════════════════════════════════════════════════════════════════
+
+Dedica 15 minuti ADESSO a leggere "LEGGIMI - ISTRUZIONI.txt"
+
+Poi usa il sistema per 2-3 giorni.
+
+Diventerà la tua seconda natura! 🎯
+
+
+═══════════════════════════════════════════════════════════════════════════
+✅ PRONTA? VIA!
+═══════════════════════════════════════════════════════════════════════════
+
+Doppio click su: sistema-gestione-direzionale.html
+
+E inizia a gestire le tue aziende come una professionista! 💼
+
+
+═══════════════════════════════════════════════════════════════════════════
+
+Buon lavoro! 🚀
+
+═══════════════════════════════════════════════════════════════════════════
