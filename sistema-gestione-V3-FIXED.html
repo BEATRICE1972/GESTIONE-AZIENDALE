@@ -2924,7 +2924,7 @@
                 if (deadline.date === dateStr && !deadline.completed) {
                     events.push({
                         type: 'deadline',
-                        title: deadline.type,
+                        title: `${deadline.type}${deadline.description ? ': ' + deadline.description : ''}`,
                         priority: null
                     });
                 }
