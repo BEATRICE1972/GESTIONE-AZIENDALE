@@ -545,6 +545,214 @@
             font-weight: 600;
         }
 
+        /* ARCHIVI DOCUMENTI */
+        .archivi-categories {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .archivi-section-header {
+            grid-column: 1 / -1;
+            margin: 20px 0 10px 0;
+        }
+
+        .archivi-section-header h3 {
+            color: var(--primary-color);
+            font-size: 1.3em;
+            padding: 10px 0;
+            border-bottom: 3px solid var(--secondary-color);
+        }
+
+        .category-card {
+            background: white;
+            border: 2px solid var(--border-color);
+            border-radius: 12px;
+            padding: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            gap: 15px;
+            align-items: flex-start;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .category-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+            border-color: var(--secondary-color);
+        }
+
+        .category-icon {
+            font-size: 2.5em;
+            min-width: 60px;
+            text-align: center;
+        }
+
+        .category-info {
+            flex: 1;
+        }
+
+        .category-info h4 {
+            color: var(--primary-color);
+            margin-bottom: 8px;
+            font-size: 1.1em;
+        }
+
+        .category-info p {
+            color: #7f8c8d;
+            font-size: 0.9em;
+            margin-bottom: 10px;
+            line-height: 1.4;
+        }
+
+        .doc-count {
+            display: inline-block;
+            background: var(--light-bg);
+            color: var(--dark-text);
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 0.85em;
+            font-weight: 600;
+        }
+
+        /* Modal Categoria */
+        .category-modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.5);
+            animation: fadeIn 0.3s;
+        }
+
+        .category-modal-content {
+            background-color: white;
+            margin: 3% auto;
+            padding: 30px;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 900px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            animation: slideDown 0.3s;
+        }
+
+        @keyframes slideDown {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        .modal-header h3 {
+            color: var(--primary-color);
+            font-size: 1.5em;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .close-modal {
+            font-size: 2em;
+            font-weight: bold;
+            color: #aaa;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .close-modal:hover {
+            color: var(--danger-color);
+        }
+
+        .document-form {
+            background: var(--light-bg);
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 25px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .documents-list {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .document-item {
+            background: white;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s;
+        }
+
+        .document-item:hover {
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            border-color: var(--secondary-color);
+        }
+
+        .document-details {
+            flex: 1;
+        }
+
+        .document-name {
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 5px;
+        }
+
+        .document-meta {
+            font-size: 0.85em;
+            color: #7f8c8d;
+        }
+
+        .document-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .document-link {
+            display: inline-block;
+            padding: 8px 15px;
+            background: var(--secondary-color);
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 0.9em;
+            transition: background 0.3s;
+        }
+
+        .document-link:hover {
+            background: var(--primary-color);
+        }
+
         /* RESPONSIVE */
         @media (max-width: 768px) {
             nav button {
@@ -812,6 +1020,7 @@
             <button onclick="showSection('scadenze')">Scadenze</button>
             <button onclick="showSection('spese')">Spese</button>
             <button onclick="showSection('calendario')">Calendario</button>
+            <button onclick="showSection('archivi')">Archivi Documenti</button>
             <button onclick="showSection('sop')">Procedure (SOP)</button>
             <button onclick="showSection('report')">Report Direzionale</button>
             <button onclick="showSection('settings')">Impostazioni</button>
@@ -1230,6 +1439,203 @@
                 </div>
             </div>
 
+            <!-- ARCHIVI DOCUMENTI SECTION -->
+            <div id="archivi" class="section">
+                <h2>📁 Archivi Documenti - <span id="archivi-company-name">Azienda 1</span></h2>
+
+                <p style="margin-bottom: 20px; color: var(--dark-text);">
+                    Sistema di archiviazione centralizzato per documenti aziendali e personali. Clicca su una categoria per gestire i documenti.
+                </p>
+
+                <div class="archivi-categories">
+                    <!-- CATEGORIE AZIENDALI -->
+                    <div class="archivi-section-header">
+                        <h3>📊 DOCUMENTI AZIENDALI</h3>
+                    </div>
+
+                    <div class="category-card" onclick="openCategory('contratti')">
+                        <div class="category-icon">📄</div>
+                        <div class="category-info">
+                            <h4>Contratti</h4>
+                            <p>Fornitori, clienti, dipendenti, locazioni, servizi</p>
+                            <span class="doc-count" id="count-contratti">0 documenti</span>
+                        </div>
+                    </div>
+
+                    <div class="category-card" onclick="openCategory('fiscale')">
+                        <div class="category-icon">💰</div>
+                        <div class="category-info">
+                            <h4>Fiscale e Tributario</h4>
+                            <p>Fatture, F24, dichiarazioni, CU, comunicazioni ADE</p>
+                            <span class="doc-count" id="count-fiscale">0 documenti</span>
+                        </div>
+                    </div>
+
+                    <div class="category-card" onclick="openCategory('legale')">
+                        <div class="category-icon">⚖️</div>
+                        <div class="category-info">
+                            <h4>Legale</h4>
+                            <p>Atti, PEC legali, diffide, contenziosi, sentenze</p>
+                            <span class="doc-count" id="count-legale">0 documenti</span>
+                        </div>
+                    </div>
+
+                    <div class="category-card" onclick="openCategory('risorse-umane')">
+                        <div class="category-icon">👥</div>
+                        <div class="category-info">
+                            <h4>Risorse Umane</h4>
+                            <p>Contratti lavoro, cedolini, documenti dipendenti, formazione</p>
+                            <span class="doc-count" id="count-risorse-umane">0 documenti</span>
+                        </div>
+                    </div>
+
+                    <div class="category-card" onclick="openCategory('assicurazioni-azienda')">
+                        <div class="category-icon">🛡️</div>
+                        <div class="category-info">
+                            <h4>Assicurazioni Aziendali</h4>
+                            <p>Polizze aziendali, sinistri, corrispondenza</p>
+                            <span class="doc-count" id="count-assicurazioni-azienda">0 documenti</span>
+                        </div>
+                    </div>
+
+                    <div class="category-card" onclick="openCategory('bancario')">
+                        <div class="category-icon">🏦</div>
+                        <div class="category-info">
+                            <h4>Bancario</h4>
+                            <p>Estratti conto, mutui, finanziamenti, garanzie fideiussorie</p>
+                            <span class="doc-count" id="count-bancario">0 documenti</span>
+                        </div>
+                    </div>
+
+                    <div class="category-card" onclick="openCategory('enti-istituzioni')">
+                        <div class="category-icon">🏛️</div>
+                        <div class="category-info">
+                            <h4>Enti e Istituzioni</h4>
+                            <p>Camera Commercio, INPS, INAIL, enti vari</p>
+                            <span class="doc-count" id="count-enti-istituzioni">0 documenti</span>
+                        </div>
+                    </div>
+
+                    <div class="category-card" onclick="openCategory('licenze')">
+                        <div class="category-icon">📜</div>
+                        <div class="category-info">
+                            <h4>Licenze e Certificazioni</h4>
+                            <p>Autorizzazioni, certificazioni qualità, HACCP, privacy</p>
+                            <span class="doc-count" id="count-licenze">0 documenti</span>
+                        </div>
+                    </div>
+
+                    <div class="category-card" onclick="openCategory('fornitori')">
+                        <div class="category-icon">📦</div>
+                        <div class="category-info">
+                            <h4>Fornitori</h4>
+                            <p>Preventivi, ordini, DDT, garanzie prodotti</p>
+                            <span class="doc-count" id="count-fornitori">0 documenti</span>
+                        </div>
+                    </div>
+
+                    <div class="category-card" onclick="openCategory('clienti')">
+                        <div class="category-icon">🤝</div>
+                        <div class="category-info">
+                            <h4>Clienti</h4>
+                            <p>Ordini, preventivi, reclami, documentazione commerciale</p>
+                            <span class="doc-count" id="count-clienti">0 documenti</span>
+                        </div>
+                    </div>
+
+                    <!-- CATEGORIE PERSONALI -->
+                    <div class="archivi-section-header" style="margin-top: 40px;">
+                        <h3>🏠 DOCUMENTI PERSONALI (Case)</h3>
+                    </div>
+
+                    <div class="category-card" onclick="openCategory('immobili')">
+                        <div class="category-icon">🏡</div>
+                        <div class="category-info">
+                            <h4>Immobili</h4>
+                            <p>Atti proprietà, catastali, mutui, ristrutturazioni</p>
+                            <span class="doc-count" id="count-immobili">0 documenti</span>
+                        </div>
+                    </div>
+
+                    <div class="category-card" onclick="openCategory('utenze-domestiche')">
+                        <div class="category-icon">💡</div>
+                        <div class="category-info">
+                            <h4>Utenze Domestiche</h4>
+                            <p>Bollette, contratti luce/gas/acqua/internet/telefono</p>
+                            <span class="doc-count" id="count-utenze-domestiche">0 documenti</span>
+                        </div>
+                    </div>
+
+                    <div class="category-card" onclick="openCategory('condominio')">
+                        <div class="category-icon">🏢</div>
+                        <div class="category-info">
+                            <h4>Condominio</h4>
+                            <p>Verbali assemblee, bilanci, lavori straordinari, millesimi</p>
+                            <span class="doc-count" id="count-condominio">0 documenti</span>
+                        </div>
+                    </div>
+
+                    <div class="category-card" onclick="openCategory('manutenzioni-casa')">
+                        <div class="category-icon">🔧</div>
+                        <div class="category-info">
+                            <h4>Manutenzioni Casa</h4>
+                            <p>Interventi, garanzie, contratti assistenza caldaia/climatizzatori</p>
+                            <span class="doc-count" id="count-manutenzioni-casa">0 documenti</span>
+                        </div>
+                    </div>
+
+                    <div class="category-card" onclick="openCategory('assicurazioni-casa')">
+                        <div class="category-icon">🛡️</div>
+                        <div class="category-info">
+                            <h4>Assicurazioni Casa</h4>
+                            <p>Polizze casa, RC, sinistri</p>
+                            <span class="doc-count" id="count-assicurazioni-casa">0 documenti</span>
+                        </div>
+                    </div>
+
+                    <div class="category-card" onclick="openCategory('documenti-personali')">
+                        <div class="category-icon">🆔</div>
+                        <div class="category-info">
+                            <h4>Documenti Personali</h4>
+                            <p>Passaporti, patenti, certificati, documenti famiglia</p>
+                            <span class="doc-count" id="count-documenti-personali">0 documenti</span>
+                        </div>
+                    </div>
+
+                    <!-- CATEGORIE COMUNICAZIONI -->
+                    <div class="archivi-section-header" style="margin-top: 40px;">
+                        <h3>✉️ COMUNICAZIONI</h3>
+                    </div>
+
+                    <div class="category-card" onclick="openCategory('email-archiviate')">
+                        <div class="category-icon">📧</div>
+                        <div class="category-info">
+                            <h4>Email Archiviate</h4>
+                            <p>Email importanti categorizzate</p>
+                            <span class="doc-count" id="count-email-archiviate">0 documenti</span>
+                        </div>
+                    </div>
+
+                    <div class="category-card" onclick="openCategory('pec-aziendale')">
+                        <div class="category-icon">📬</div>
+                        <div class="category-info">
+                            <h4>PEC Aziendale</h4>
+                            <p>Archivio PEC per ogni azienda</p>
+                            <span class="doc-count" id="count-pec-aziendale">0 documenti</span>
+                        </div>
+                    </div>
+
+                    <div class="category-card" onclick="openCategory('corrispondenza-ufficiale')">
+                        <div class="category-icon">📮</div>
+                        <div class="category-info">
+                            <h4>Corrispondenza Ufficiale</h4>
+                            <p>Raccomandate, atti giudiziari</p>
+                            <span class="doc-count" id="count-corrispondenza-ufficiale">0 documenti</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <!-- SOP SECTION -->
             <div id="sop" class="section">
                 <h2>Procedure Operative Standard (SOP)</h2>
@@ -1324,6 +1730,58 @@
                 </div>
             </div>
         </div>
+
+        <!-- MODAL ARCHIVI DOCUMENTI -->
+        <div id="category-modal" class="category-modal">
+            <div class="category-modal-content">
+                <div class="modal-header">
+                    <h3><span id="modal-category-icon"></span> <span id="modal-category-title"></span></h3>
+                    <span class="close-modal" onclick="closeCategory()">&times;</span>
+                </div>
+
+                <div class="document-form">
+                    <h4 style="margin-bottom: 15px; color: var(--primary-color);">Aggiungi Nuovo Documento</h4>
+                    <form id="document-form" onsubmit="addDocument(event)">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Nome Documento *</label>
+                                <input type="text" id="doc-name" required placeholder="es: Contratto_Fornitore_2024">
+                            </div>
+                            <div class="form-group">
+                                <label>Data Documento</label>
+                                <input type="date" id="doc-date">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Tipo Documento</label>
+                                <input type="text" id="doc-type" placeholder="es: Contratto, Fattura, PEC...">
+                            </div>
+                            <div class="form-group">
+                                <label>Riferimento/Protocollo</label>
+                                <input type="text" id="doc-reference" placeholder="es: Prot. 123/2024">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Note</label>
+                            <textarea id="doc-notes" rows="3" placeholder="Annotazioni sul documento..."></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Link/Percorso File</label>
+                            <input type="text" id="doc-link" placeholder="es: C:\Documenti\Contratti\file.pdf o URL">
+                        </div>
+                        <button type="submit" class="btn btn-success">Aggiungi Documento</button>
+                    </form>
+                </div>
+
+                <div>
+                    <h4 style="margin-bottom: 15px; color: var(--primary-color);">Documenti Archiviati (<span id="modal-doc-count">0</span>)</h4>
+                    <div class="documents-list" id="documents-list">
+                        <p style="text-align: center; color: #7f8c8d; padding: 20px;">Nessun documento in questa categoria</p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <script>
@@ -1332,13 +1790,14 @@
         let currentMonth = new Date().getMonth();
         let currentYear = new Date().getFullYear();
         let currentSOPChecklist = {}; // Stato checklist SOP corrente
+        let currentCategory = null; // Categoria archivio corrente
         let recognition = null; // Riconoscimento vocale
         let data = {
             companies: {
-                1: { name: 'Azienda 1', tasks: [], deadlines: [], sopExecutions: [], expenses: [], appointments: [] },
-                2: { name: 'Azienda 2', tasks: [], deadlines: [], sopExecutions: [], expenses: [], appointments: [] },
-                3: { name: 'Azienda 3', tasks: [], deadlines: [], sopExecutions: [], expenses: [], appointments: [] },
-                4: { name: 'Azienda 4', tasks: [], deadlines: [], sopExecutions: [], expenses: [], appointments: [] }
+                1: { name: 'Azienda 1', tasks: [], deadlines: [], sopExecutions: [], expenses: [], appointments: [], archives: {} },
+                2: { name: 'Azienda 2', tasks: [], deadlines: [], sopExecutions: [], expenses: [], appointments: [], archives: {} },
+                3: { name: 'Azienda 3', tasks: [], deadlines: [], sopExecutions: [], expenses: [], appointments: [], archives: {} },
+                4: { name: 'Azienda 4', tasks: [], deadlines: [], sopExecutions: [], expenses: [], appointments: [], archives: {} }
             }
         };
 
@@ -1462,8 +1921,336 @@
                     "Inviare entro venerdì sera o lunedì mattina 9:00",
                     "Archiviare nella cartella Reports/Anno/Settimana"
                 ]
+            },
+            {
+                title: "11. Prenotazione Viaggi e Trasferte",
+                description: "Procedura completa per organizzare viaggi di lavoro",
+                steps: [
+                    "Ricevere richiesta con date, destinazione e budget",
+                    "Verificare disponibilità treni/aerei su Trenitalia, Italo, comparatori voli",
+                    "Selezionare orari compatibili con appuntamenti",
+                    "Prenotare biglietti e inviare conferme via email",
+                    "Prenotare hotel (verificare cancellazione gratuita)",
+                    "Organizzare transfer se necessario",
+                    "Inviare itinerario completo 24h prima della partenza",
+                    "Archiviare ricevute per rimborso spese"
+                ]
+            },
+            {
+                title: "12. Gestione Sistemi Allarme Casa",
+                description: "Protocollo per gestione allarmi domestici",
+                steps: [
+                    "Attivazione: verificare chiusura porte/finestre",
+                    "Inserire codice e attivare modalità (totale/parziale/perimetrale)",
+                    "Verificare LED conferma attivazione",
+                    "Disattivazione: inserire codice entro 30 secondi dall'ingresso",
+                    "In caso di allarme accidentale: disattivare e chiamare centrale",
+                    "Test mensile sensori e batterie",
+                    "Manutenzione annuale con tecnico autorizzato"
+                ]
+            },
+            {
+                title: "13. Gestione Utenze Domestiche",
+                description: "Procedura per gestione bollette e contratti utenze",
+                steps: [
+                    "Verificare arrivo bollette luce/gas/acqua/internet",
+                    "Controllare consumi e confrontare con mese precedente",
+                    "Verificare correttezza importi e letture",
+                    "Pagare entro scadenza (domiciliazione o bollettino)",
+                    "Segnalare anomalie o contestare addebiti errati",
+                    "Valutare cambio fornitore annualmente per risparmio",
+                    "Archiviare bollette pagate per categoria"
+                ]
+            },
+            {
+                title: "14. Manutenzione Ordinaria Casa",
+                description: "Checklist manutenzione programmata impianti domestici",
+                steps: [
+                    "Revisione caldaia annuale (entro scadenza legale)",
+                    "Controllo filtri condizionatori (inizio estate/inverno)",
+                    "Pulizia canne fumarie annuale",
+                    "Controllo impianto elettrico (interruttori, prese)",
+                    "Verifica perdite idrauliche (rubinetti, tubi)",
+                    "Controllo serramenti e guarnizioni",
+                    "Tenere registro manutenzioni con date e tecnici"
+                ]
+            },
+            {
+                title: "15. Gestione Emergenze Domestiche",
+                description: "Protocollo per emergenze casa (perdite, guasti, effrazioni)",
+                steps: [
+                    "Identificare tipo emergenza e gravità",
+                    "Chiudere acqua/gas/elettricità se necessario",
+                    "Contattare tecnico di fiducia (idraulico/elettricista/fabbro)",
+                    "Se non disponibile, chiamare servizio emergenze 24h",
+                    "Documentare con foto il danno",
+                    "Avvisare assicurazione se sinistro coperto da polizza",
+                    "Richiedere fattura e archiviare per detrazioni fiscali"
+                ]
+            },
+            {
+                title: "16. Protocollazione e Archiviazione Documenti",
+                description: "Sistema standardizzato per gestione documentale aziendale",
+                steps: [
+                    "Ricevere documento (email, PEC, cartaceo)",
+                    "Assegnare numero protocollo progressivo annuale",
+                    "Classificare per tipo e categoria (vedi sezione Archivi)",
+                    "Digitalizzare se documento cartaceo",
+                    "Salvare con nomenclatura: AAAAMMGG_Tipo_Oggetto_V1",
+                    "Archiviare nella cartella Azienda/Anno/Categoria/Mese",
+                    "Aggiornare registro protocollo con metadati"
+                ]
+            },
+            {
+                title: "17. Gestione Ciclo Ordini Fornitori",
+                description: "Flusso completo dalla richiesta alla ricezione merce",
+                steps: [
+                    "Ricevere richiesta d'acquisto da reparto richiedente",
+                    "Verificare budget e autorizzazioni",
+                    "Richiedere preventivi a 3 fornitori qualificati",
+                    "Confrontare prezzi, tempi consegna, condizioni pagamento",
+                    "Emettere ordine al fornitore selezionato",
+                    "Tracciare ordine e sollecitare se ritardi",
+                    "Verificare merce in arrivo con DDT",
+                    "Archiviare ordine-DDT-fattura nella cartella Fornitori"
+                ]
+            },
+            {
+                title: "18. Rinnovo Licenze e Certificazioni Aziendali",
+                description: "Gestione scadenze certificazioni e autorizzazioni",
+                steps: [
+                    "Mantenere calendario scadenze licenze per ogni azienda",
+                    "Reminder a -60 giorni per avvio pratica rinnovo",
+                    "Raccogliere documentazione necessaria",
+                    "Contattare ente/consulente per iter rinnovo",
+                    "Monitorare avanzamento pratica",
+                    "Verificare emissione nuovo certificato prima scadenza",
+                    "Archiviare in cartella Licenze e aggiornare scadenziario"
+                ]
+            },
+            {
+                title: "19. Gestione Pagamenti e Bonifici",
+                description: "Procedura per esecuzione pagamenti sicuri",
+                steps: [
+                    "Verificare fattura e corrispondenza con ordine/DDT",
+                    "Controllare IBAN beneficiario (attenzione a frodi)",
+                    "Verificare autorizzazione pagamento dalla direzione",
+                    "Eseguire bonifico da home banking aziendale",
+                    "Inserire causale dettagliata con numero fattura",
+                    "Salvare CRO/ricevuta bonifico",
+                    "Archiviare ricevuta insieme a fattura pagata"
+                ]
+            },
+            {
+                title: "20. Controllo Scadenze Fiscali Mensili",
+                description: "Checklist mensile adempimenti fiscali per azienda",
+                steps: [
+                    "Giorno 16: verificare invio liquidazione IVA del mese precedente",
+                    "Giorno 16: controllare versamenti F24 (IVA, ritenute, contributi)",
+                    "Fine mese: sollecitare commercialista per chiusura contabilità",
+                    "Verificare invio fatture elettroniche e ricezione notifiche SDI",
+                    "Controllare registrazione fatture passive ricevute",
+                    "Aggiornare cash flow previsionale con incassi/pagamenti",
+                    "Report mensile alla direzione su posizione fiscale"
+                ]
+            },
+            {
+                title: "21. Negoziazione e Rinnovo Contratti",
+                description: "Strategia per rinnovo contratti fornitori e servizi",
+                steps: [
+                    "Identificare contratti in scadenza nei prossimi 90 giorni",
+                    "Analizzare performance attuale fornitore (qualità, puntualità, prezzo)",
+                    "Richiedere preventivi a fornitori alternativi per confronto",
+                    "Preparare punti di negoziazione (sconto, dilazioni, servizi extra)",
+                    "Condurre trattativa o delegare a direzione se importi rilevanti",
+                    "Formalizzare accordi per iscritto",
+                    "Archiviare nuovo contratto e aggiornare scadenziario"
+                ]
+            },
+            {
+                title: "22. Onboarding Nuovo Dipendente",
+                description: "Checklist accoglienza e inserimento nuova risorsa",
+                steps: [
+                    "Preparare postazione lavoro (PC, telefono, accessi, badge)",
+                    "Creare email aziendale e account sistemi IT",
+                    "Preparare kit welcome (contratto, regolamenti, organigramma)",
+                    "Programmare formazione obbligatoria (sicurezza, privacy)",
+                    "Assegnare tutor/responsabile per affiancamento",
+                    "Pianificare incontri con team e direzione prima settimana",
+                    "Follow-up a 7-30-90 giorni per feedback inserimento"
+                ]
+            },
+            {
+                title: "23. Gestione Sinistri Assicurativi",
+                description: "Procedura per denuncia e gestione sinistri",
+                steps: [
+                    "Verificare copertura assicurativa per il tipo di sinistro",
+                    "Raccogliere documentazione (foto, testimoni, verbali)",
+                    "Denunciare sinistro a compagnia entro termini polizza",
+                    "Aprire pratica e ottenere numero sinistro",
+                    "Collaborare con perito per sopralluogo",
+                    "Fornire documenti richiesti (preventivi riparazioni, fatture)",
+                    "Monitorare liquidazione e sollecitare se ritardi"
+                ]
+            },
+            {
+                title: "24. Richiesta e Confronto Preventivi",
+                description: "Metodo standardizzato per procurement trasparente",
+                steps: [
+                    "Definire specifiche tecniche dettagliate del bene/servizio",
+                    "Identificare almeno 3 fornitori qualificati",
+                    "Inviare richiesta preventivo con stesso capitolato a tutti",
+                    "Dare deadline chiara per invio offerte (es. 7 giorni)",
+                    "Creare matrice comparativa (prezzo, qualità, tempi, condizioni)",
+                    "Valutare anche affidabilità storica fornitore",
+                    "Documentare scelta e archiviare preventivi"
+                ]
+            },
+            {
+                title: "25. Gestione Reclami e Contestazioni Clienti",
+                description: "Protocollo per gestione professionale reclami",
+                steps: [
+                    "Ricevere reclamo e registrare in sistema ticketing",
+                    "Confermare ricezione al cliente entro 24 ore",
+                    "Investigare cause del problema (interno, fornitore, errore cliente)",
+                    "Proporre soluzione entro 48-72 ore",
+                    "Implementare azione correttiva concordata",
+                    "Follow-up con cliente per verificare soddisfazione",
+                    "Analizzare reclamo per prevenire ricorrenze future"
+                ]
             }
         ];
+
+        // CATEGORIE ARCHIVI CON ICONE E TITOLI
+        const categoryInfo = {
+            'contratti': { icon: '📄', title: 'Contratti' },
+            'fiscale': { icon: '💰', title: 'Fiscale e Tributario' },
+            'legale': { icon: '⚖️', title: 'Legale' },
+            'risorse-umane': { icon: '👥', title: 'Risorse Umane' },
+            'assicurazioni-azienda': { icon: '🛡️', title: 'Assicurazioni Aziendali' },
+            'bancario': { icon: '🏦', title: 'Bancario' },
+            'enti-istituzioni': { icon: '🏛️', title: 'Enti e Istituzioni' },
+            'licenze': { icon: '📜', title: 'Licenze e Certificazioni' },
+            'fornitori': { icon: '📦', title: 'Fornitori' },
+            'clienti': { icon: '🤝', title: 'Clienti' },
+            'immobili': { icon: '🏡', title: 'Immobili' },
+            'utenze-domestiche': { icon: '💡', title: 'Utenze Domestiche' },
+            'condominio': { icon: '🏢', title: 'Condominio' },
+            'manutenzioni-casa': { icon: '🔧', title: 'Manutenzioni Casa' },
+            'assicurazioni-casa': { icon: '🛡️', title: 'Assicurazioni Casa' },
+            'documenti-personali': { icon: '🆔', title: 'Documenti Personali' },
+            'email-archiviate': { icon: '📧', title: 'Email Archiviate' },
+            'pec-aziendale': { icon: '📬', title: 'PEC Aziendale' },
+            'corrispondenza-ufficiale': { icon: '📮', title: 'Corrispondenza Ufficiale' }
+        };
+
+        // GESTIONE ARCHIVI DOCUMENTI
+        function openCategory(categoryId) {
+            currentCategory = categoryId;
+            const info = categoryInfo[categoryId];
+
+            document.getElementById('modal-category-icon').textContent = info.icon;
+            document.getElementById('modal-category-title').textContent = info.title;
+
+            renderDocuments();
+            document.getElementById('category-modal').style.display = 'block';
+
+            // Reset form
+            document.getElementById('document-form').reset();
+            document.getElementById('doc-date').valueAsDate = new Date();
+        }
+
+        function closeCategory() {
+            document.getElementById('category-modal').style.display = 'none';
+            currentCategory = null;
+            updateArchivesCounts();
+        }
+
+        function addDocument(event) {
+            event.preventDefault();
+
+            const doc = {
+                id: Date.now(),
+                name: document.getElementById('doc-name').value,
+                date: document.getElementById('doc-date').value,
+                type: document.getElementById('doc-type').value,
+                reference: document.getElementById('doc-reference').value,
+                notes: document.getElementById('doc-notes').value,
+                link: document.getElementById('doc-link').value,
+                createdAt: new Date().toISOString(),
+                company: currentCompany
+            };
+
+            if (!data.companies[currentCompany].archives[currentCategory]) {
+                data.companies[currentCompany].archives[currentCategory] = [];
+            }
+
+            data.companies[currentCompany].archives[currentCategory].push(doc);
+            saveData();
+            renderDocuments();
+            document.getElementById('document-form').reset();
+            document.getElementById('doc-date').valueAsDate = new Date();
+        }
+
+        function renderDocuments() {
+            const documents = data.companies[currentCompany].archives[currentCategory] || [];
+            const documentsList = document.getElementById('documents-list');
+            const docCount = document.getElementById('modal-doc-count');
+
+            docCount.textContent = documents.length;
+
+            if (documents.length === 0) {
+                documentsList.innerHTML = '<p style="text-align: center; color: #7f8c8d; padding: 20px;">Nessun documento in questa categoria</p>';
+                return;
+            }
+
+            documentsList.innerHTML = documents.map(doc => `
+                <div class="document-item">
+                    <div class="document-details">
+                        <div class="document-name">${doc.name}</div>
+                        <div class="document-meta">
+                            ${doc.type ? `<span>📋 ${doc.type}</span> • ` : ''}
+                            ${doc.date ? `<span>📅 ${new Date(doc.date).toLocaleDateString('it-IT')}</span> • ` : ''}
+                            ${doc.reference ? `<span>🔖 ${doc.reference}</span> • ` : ''}
+                            <span>Aggiunto: ${new Date(doc.createdAt).toLocaleDateString('it-IT')}</span>
+                        </div>
+                        ${doc.notes ? `<div style="margin-top: 5px; font-size: 0.9em; color: #555;">${doc.notes}</div>` : ''}
+                    </div>
+                    <div class="document-actions">
+                        ${doc.link ? `<a href="${doc.link}" class="document-link" target="_blank">Apri</a>` : ''}
+                        <button class="btn btn-danger btn-small" onclick="deleteDocument(${doc.id})">Elimina</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function deleteDocument(docId) {
+            if (confirm('Sei sicuro di voler eliminare questo documento?')) {
+                const archives = data.companies[currentCompany].archives[currentCategory] || [];
+                data.companies[currentCompany].archives[currentCategory] = archives.filter(d => d.id !== docId);
+                saveData();
+                renderDocuments();
+                updateArchivesCounts();
+            }
+        }
+
+        function updateArchivesCounts() {
+            Object.keys(categoryInfo).forEach(categoryId => {
+                const count = (data.companies[currentCompany].archives[categoryId] || []).length;
+                const countElement = document.getElementById(`count-${categoryId}`);
+                if (countElement) {
+                    countElement.textContent = `${count} documento${count !== 1 ? 'i' : ''}`;
+                }
+            });
+        }
+
+        // Chiudi modal cliccando fuori
+        window.onclick = function(event) {
+            const modal = document.getElementById('category-modal');
+            if (event.target === modal) {
+                closeCategory();
+            }
+        }
 
         // INIZIALIZZAZIONE
         function init() {
@@ -1476,6 +2263,7 @@
             updateDeadlinesTable();
             updateExpenses();
             renderCalendar();
+            updateArchivesCounts();
             // Imposta data di oggi per i form
             document.getElementById('expense-date').valueAsDate = new Date();
             document.getElementById('appointment-date').valueAsDate = new Date();
@@ -1535,6 +2323,7 @@
             updateDeadlinesTable();
             updateExpenses();
             renderCalendar();
+            updateArchivesCounts();
         }
 
         // GESTIONE TASKS
