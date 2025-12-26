@@ -753,6 +753,99 @@
             background: var(--primary-color);
         }
 
+        /* CONTATTI */
+        .contact-card {
+            background: white;
+            border: 2px solid var(--border-color);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 15px;
+            transition: all 0.3s;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .contact-card:hover {
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transform: translateY(-2px);
+            border-color: var(--secondary-color);
+        }
+
+        .contact-info {
+            flex: 1;
+        }
+
+        .contact-name {
+            font-size: 1.3em;
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 5px;
+        }
+
+        .contact-company {
+            font-size: 1em;
+            color: #555;
+            margin-bottom: 10px;
+        }
+
+        .contact-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .contact-detail-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9em;
+            color: #666;
+        }
+
+        .contact-detail-item a {
+            color: var(--secondary-color);
+            text-decoration: none;
+        }
+
+        .contact-detail-item a:hover {
+            text-decoration: underline;
+        }
+
+        .contact-category-badge {
+            display: inline-block;
+            background: var(--secondary-color);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 0.8em;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .contact-category-badge.fornitore { background: #3498db; }
+        .contact-category-badge.cliente { background: #2ecc71; }
+        .contact-category-badge.consulente { background: #9b59b6; }
+        .contact-category-badge.dipendente { background: #f39c12; }
+        .contact-category-badge.partner { background: #1abc9c; }
+        .contact-category-badge.istituzione { background: #34495e; }
+        .contact-category-badge.personale { background: #e74c3c; }
+        .contact-category-badge.altro { background: #95a5a6; }
+
+        .contact-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .contact-notes-preview {
+            font-size: 0.85em;
+            color: #888;
+            font-style: italic;
+            margin-top: 8px;
+        }
+
         /* RESPONSIVE */
         @media (max-width: 768px) {
             nav button {
@@ -1020,6 +1113,7 @@
             <button onclick="showSection('scadenze')">Scadenze</button>
             <button onclick="showSection('spese')">Spese</button>
             <button onclick="showSection('calendario')">Calendario</button>
+            <button onclick="showSection('contatti')">Contatti</button>
             <button onclick="showSection('archivi')">Archivi Documenti</button>
             <button onclick="showSection('sop')">Procedure (SOP)</button>
             <button onclick="showSection('report')">Report Direzionale</button>
@@ -1439,6 +1533,127 @@
                 </div>
             </div>
 
+            <!-- CONTATTI SECTION -->
+            <div id="contatti" class="section">
+                <h2>👥 Rubrica Contatti - <span id="contatti-company-name">Azienda 1</span></h2>
+
+                <div class="card">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                        <h3>Gestione Contatti</h3>
+                        <div>
+                            <button onclick="showContactForm()" class="btn btn-success">➕ Nuovo Contatto</button>
+                            <button onclick="exportContacts()" class="btn">📥 Esporta CSV</button>
+                            <button onclick="document.getElementById('import-contacts-file').click()" class="btn">📤 Importa CSV</button>
+                            <input type="file" id="import-contacts-file" style="display:none" accept=".csv,.json" onchange="importContacts(event)">
+                        </div>
+                    </div>
+
+                    <!-- FORM NUOVO CONTATTO -->
+                    <div id="contact-form-container" style="display: none; background: var(--light-bg); padding: 20px; border-radius: 10px; margin-bottom: 20px;">
+                        <h4 style="margin-bottom: 15px; color: var(--primary-color);">Aggiungi/Modifica Contatto</h4>
+                        <form id="contact-form" onsubmit="saveContact(event)">
+                            <input type="hidden" id="contact-id">
+
+                            <div class="form-group">
+                                <label>Nome Completo *</label>
+                                <input type="text" id="contact-name" required placeholder="es: Mario Rossi">
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Azienda/Organizzazione</label>
+                                    <input type="text" id="contact-company" placeholder="es: Acme S.r.l.">
+                                </div>
+                                <div class="form-group">
+                                    <label>Ruolo</label>
+                                    <input type="text" id="contact-role" placeholder="es: Amministratore Delegato">
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Telefono 1</label>
+                                    <input type="tel" id="contact-phone1" placeholder="es: +39 123 456 7890">
+                                </div>
+                                <div class="form-group">
+                                    <label>Telefono 2</label>
+                                    <input type="tel" id="contact-phone2" placeholder="es: +39 098 765 4321">
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Email 1 *</label>
+                                    <input type="email" id="contact-email1" required placeholder="es: mario.rossi@email.com">
+                                </div>
+                                <div class="form-group">
+                                    <label>Email 2</label>
+                                    <input type="email" id="contact-email2" placeholder="es: mario@azienda.it">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Categoria</label>
+                                <select id="contact-category">
+                                    <option value="fornitore">Fornitore</option>
+                                    <option value="cliente">Cliente</option>
+                                    <option value="consulente">Consulente</option>
+                                    <option value="dipendente">Dipendente</option>
+                                    <option value="partner">Partner</option>
+                                    <option value="istituzione">Istituzione/Ente</option>
+                                    <option value="personale">Personale</option>
+                                    <option value="altro">Altro</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Indirizzo</label>
+                                <input type="text" id="contact-address" placeholder="Via, Città, CAP">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Note</label>
+                                <textarea id="contact-notes" rows="3" placeholder="Annotazioni sul contatto..."></textarea>
+                            </div>
+
+                            <div style="display: flex; gap: 10px;">
+                                <button type="submit" class="btn btn-success">💾 Salva Contatto</button>
+                                <button type="button" onclick="cancelContactForm()" class="btn">❌ Annulla</button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- FILTRI E RICERCA -->
+                    <div style="display: flex; gap: 15px; margin-bottom: 20px;">
+                        <input type="text" id="contact-search" placeholder="🔍 Cerca per nome, email, telefono, azienda..."
+                            style="flex: 1; padding: 12px; border: 2px solid var(--border-color); border-radius: 6px;"
+                            onkeyup="filterContacts()">
+                        <select id="contact-filter-category" onchange="filterContacts()"
+                            style="padding: 12px; border: 2px solid var(--border-color); border-radius: 6px;">
+                            <option value="">Tutte le categorie</option>
+                            <option value="fornitore">Fornitore</option>
+                            <option value="cliente">Cliente</option>
+                            <option value="consulente">Consulente</option>
+                            <option value="dipendente">Dipendente</option>
+                            <option value="partner">Partner</option>
+                            <option value="istituzione">Istituzione/Ente</option>
+                            <option value="personale">Personale</option>
+                            <option value="altro">Altro</option>
+                        </select>
+                    </div>
+
+                    <!-- CONTATORE -->
+                    <p style="color: var(--dark-text); margin-bottom: 15px;">
+                        <strong>Totale contatti: <span id="contacts-count">0</span></strong>
+                    </p>
+
+                    <!-- LISTA CONTATTI -->
+                    <div id="contacts-list" style="max-height: 600px; overflow-y: auto;">
+                        <p style="text-align: center; color: #7f8c8d; padding: 40px;">Nessun contatto presente. Clicca su "Nuovo Contatto" per aggiungerne uno.</p>
+                    </div>
+                </div>
+            </div>
+
             <!-- ARCHIVI DOCUMENTI SECTION -->
             <div id="archivi" class="section">
                 <h2>📁 Archivi Documenti - <span id="archivi-company-name">Azienda 1</span></h2>
@@ -1794,10 +2009,10 @@
         let recognition = null; // Riconoscimento vocale
         let data = {
             companies: {
-                1: { name: 'Azienda 1', tasks: [], deadlines: [], sopExecutions: [], expenses: [], appointments: [], archives: {} },
-                2: { name: 'Azienda 2', tasks: [], deadlines: [], sopExecutions: [], expenses: [], appointments: [], archives: {} },
-                3: { name: 'Azienda 3', tasks: [], deadlines: [], sopExecutions: [], expenses: [], appointments: [], archives: {} },
-                4: { name: 'Azienda 4', tasks: [], deadlines: [], sopExecutions: [], expenses: [], appointments: [], archives: {} }
+                1: { name: 'Azienda 1', tasks: [], deadlines: [], sopExecutions: [], expenses: [], appointments: [], archives: {}, contacts: [] },
+                2: { name: 'Azienda 2', tasks: [], deadlines: [], sopExecutions: [], expenses: [], appointments: [], archives: {}, contacts: [] },
+                3: { name: 'Azienda 3', tasks: [], deadlines: [], sopExecutions: [], expenses: [], appointments: [], archives: {}, contacts: [] },
+                4: { name: 'Azienda 4', tasks: [], deadlines: [], sopExecutions: [], expenses: [], appointments: [], archives: {}, contacts: [] }
             }
         };
 
@@ -2252,6 +2467,294 @@
             }
         }
 
+        // GESTIONE CONTATTI
+        function showContactForm() {
+            document.getElementById('contact-form-container').style.display = 'block';
+            document.getElementById('contact-form').reset();
+            document.getElementById('contact-id').value = '';
+        }
+
+        function cancelContactForm() {
+            document.getElementById('contact-form-container').style.display = 'none';
+            document.getElementById('contact-form').reset();
+        }
+
+        function saveContact(event) {
+            event.preventDefault();
+
+            const contactId = document.getElementById('contact-id').value;
+            const contact = {
+                id: contactId || Date.now(),
+                name: document.getElementById('contact-name').value,
+                company: document.getElementById('contact-company').value,
+                role: document.getElementById('contact-role').value,
+                phone1: document.getElementById('contact-phone1').value,
+                phone2: document.getElementById('contact-phone2').value,
+                email1: document.getElementById('contact-email1').value,
+                email2: document.getElementById('contact-email2').value,
+                category: document.getElementById('contact-category').value,
+                address: document.getElementById('contact-address').value,
+                notes: document.getElementById('contact-notes').value,
+                createdAt: new Date().toISOString()
+            };
+
+            if (contactId) {
+                // Modifica contatto esistente
+                const index = data.companies[currentCompany].contacts.findIndex(c => c.id == contactId);
+                if (index !== -1) {
+                    data.companies[currentCompany].contacts[index] = contact;
+                }
+            } else {
+                // Nuovo contatto
+                data.companies[currentCompany].contacts.push(contact);
+            }
+
+            saveData();
+            cancelContactForm();
+            renderContacts();
+            showNotification(contactId ? 'Contatto aggiornato!' : 'Contatto aggiunto con successo!');
+        }
+
+        function renderContacts() {
+            const contacts = data.companies[currentCompany].contacts || [];
+            const contactsList = document.getElementById('contacts-list');
+            const contactsCount = document.getElementById('contacts-count');
+
+            contactsCount.textContent = contacts.length;
+
+            if (contacts.length === 0) {
+                contactsList.innerHTML = '<p style="text-align: center; color: #7f8c8d; padding: 40px;">Nessun contatto presente. Clicca su "Nuovo Contatto" per aggiungerne uno.</p>';
+                return;
+            }
+
+            // Ordina per nome
+            const sortedContacts = [...contacts].sort((a, b) => a.name.localeCompare(b.name));
+
+            contactsList.innerHTML = sortedContacts.map(contact => `
+                <div class="contact-card" data-contact='${JSON.stringify(contact).replace(/'/g, "&#39;")}'>
+                    <div class="contact-info">
+                        <span class="contact-category-badge ${contact.category}">${getCategoryLabel(contact.category)}</span>
+                        <div class="contact-name">${contact.name}</div>
+                        ${contact.company ? `<div class="contact-company">🏢 ${contact.company}${contact.role ? ` - ${contact.role}` : ''}</div>` : ''}
+
+                        <div class="contact-details">
+                            ${contact.phone1 ? `<div class="contact-detail-item">📞 <a href="tel:${contact.phone1}">${contact.phone1}</a></div>` : ''}
+                            ${contact.phone2 ? `<div class="contact-detail-item">📱 <a href="tel:${contact.phone2}">${contact.phone2}</a></div>` : ''}
+                            ${contact.email1 ? `<div class="contact-detail-item">✉️ <a href="mailto:${contact.email1}">${contact.email1}</a></div>` : ''}
+                            ${contact.email2 ? `<div class="contact-detail-item">📧 <a href="mailto:${contact.email2}">${contact.email2}</a></div>` : ''}
+                            ${contact.address ? `<div class="contact-detail-item">📍 ${contact.address}</div>` : ''}
+                        </div>
+
+                        ${contact.notes ? `<div class="contact-notes-preview">📝 ${contact.notes}</div>` : ''}
+                    </div>
+
+                    <div class="contact-actions">
+                        <button class="btn btn-small" onclick='editContact(${contact.id})'>✏️ Modifica</button>
+                        <button class="btn btn-danger btn-small" onclick="deleteContact(${contact.id})">🗑️ Elimina</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function getCategoryLabel(category) {
+            const labels = {
+                'fornitore': 'Fornitore',
+                'cliente': 'Cliente',
+                'consulente': 'Consulente',
+                'dipendente': 'Dipendente',
+                'partner': 'Partner',
+                'istituzione': 'Istituzione',
+                'personale': 'Personale',
+                'altro': 'Altro'
+            };
+            return labels[category] || category;
+        }
+
+        function editContact(contactId) {
+            const contact = data.companies[currentCompany].contacts.find(c => c.id == contactId);
+            if (!contact) return;
+
+            document.getElementById('contact-id').value = contact.id;
+            document.getElementById('contact-name').value = contact.name;
+            document.getElementById('contact-company').value = contact.company || '';
+            document.getElementById('contact-role').value = contact.role || '';
+            document.getElementById('contact-phone1').value = contact.phone1 || '';
+            document.getElementById('contact-phone2').value = contact.phone2 || '';
+            document.getElementById('contact-email1').value = contact.email1;
+            document.getElementById('contact-email2').value = contact.email2 || '';
+            document.getElementById('contact-category').value = contact.category;
+            document.getElementById('contact-address').value = contact.address || '';
+            document.getElementById('contact-notes').value = contact.notes || '';
+
+            document.getElementById('contact-form-container').style.display = 'block';
+            document.getElementById('contact-form-container').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function deleteContact(contactId) {
+            if (confirm('Sei sicuro di voler eliminare questo contatto?')) {
+                data.companies[currentCompany].contacts = data.companies[currentCompany].contacts.filter(c => c.id !== contactId);
+                saveData();
+                renderContacts();
+                showNotification('Contatto eliminato!');
+            }
+        }
+
+        function filterContacts() {
+            const searchTerm = document.getElementById('contact-search').value.toLowerCase();
+            const categoryFilter = document.getElementById('contact-filter-category').value;
+            const contacts = data.companies[currentCompany].contacts || [];
+
+            const filtered = contacts.filter(contact => {
+                const matchesSearch = !searchTerm ||
+                    contact.name.toLowerCase().includes(searchTerm) ||
+                    (contact.company && contact.company.toLowerCase().includes(searchTerm)) ||
+                    (contact.email1 && contact.email1.toLowerCase().includes(searchTerm)) ||
+                    (contact.email2 && contact.email2.toLowerCase().includes(searchTerm)) ||
+                    (contact.phone1 && contact.phone1.includes(searchTerm)) ||
+                    (contact.phone2 && contact.phone2.includes(searchTerm));
+
+                const matchesCategory = !categoryFilter || contact.category === categoryFilter;
+
+                return matchesSearch && matchesCategory;
+            });
+
+            const contactsList = document.getElementById('contacts-list');
+            const contactsCount = document.getElementById('contacts-count');
+
+            contactsCount.textContent = contacts.length;
+
+            if (filtered.length === 0) {
+                contactsList.innerHTML = '<p style="text-align: center; color: #7f8c8d; padding: 40px;">Nessun contatto trovato con i filtri selezionati.</p>';
+                return;
+            }
+
+            const sortedContacts = [...filtered].sort((a, b) => a.name.localeCompare(b.name));
+
+            contactsList.innerHTML = sortedContacts.map(contact => `
+                <div class="contact-card">
+                    <div class="contact-info">
+                        <span class="contact-category-badge ${contact.category}">${getCategoryLabel(contact.category)}</span>
+                        <div class="contact-name">${contact.name}</div>
+                        ${contact.company ? `<div class="contact-company">🏢 ${contact.company}${contact.role ? ` - ${contact.role}` : ''}</div>` : ''}
+
+                        <div class="contact-details">
+                            ${contact.phone1 ? `<div class="contact-detail-item">📞 <a href="tel:${contact.phone1}">${contact.phone1}</a></div>` : ''}
+                            ${contact.phone2 ? `<div class="contact-detail-item">📱 <a href="tel:${contact.phone2}">${contact.phone2}</a></div>` : ''}
+                            ${contact.email1 ? `<div class="contact-detail-item">✉️ <a href="mailto:${contact.email1}">${contact.email1}</a></div>` : ''}
+                            ${contact.email2 ? `<div class="contact-detail-item">📧 <a href="mailto:${contact.email2}">${contact.email2}</a></div>` : ''}
+                            ${contact.address ? `<div class="contact-detail-item">📍 ${contact.address}</div>` : ''}
+                        </div>
+
+                        ${contact.notes ? `<div class="contact-notes-preview">📝 ${contact.notes}</div>` : ''}
+                    </div>
+
+                    <div class="contact-actions">
+                        <button class="btn btn-small" onclick='editContact(${contact.id})'>✏️ Modifica</button>
+                        <button class="btn btn-danger btn-small" onclick="deleteContact(${contact.id})">🗑️ Elimina</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function exportContacts() {
+            const contacts = data.companies[currentCompany].contacts || [];
+            if (contacts.length === 0) {
+                alert('Nessun contatto da esportare!');
+                return;
+            }
+
+            // Crea CSV
+            const headers = ['Nome', 'Azienda', 'Ruolo', 'Telefono 1', 'Telefono 2', 'Email 1', 'Email 2', 'Categoria', 'Indirizzo', 'Note'];
+            const csvContent = [
+                headers.join(','),
+                ...contacts.map(c => [
+                    `"${c.name}"`,
+                    `"${c.company || ''}"`,
+                    `"${c.role || ''}"`,
+                    `"${c.phone1 || ''}"`,
+                    `"${c.phone2 || ''}"`,
+                    `"${c.email1}"`,
+                    `"${c.email2 || ''}"`,
+                    `"${c.category}"`,
+                    `"${c.address || ''}"`,
+                    `"${c.notes || ''}"`
+                ].join(','))
+            ].join('\n');
+
+            // Download
+            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+            const link = document.createElement('a');
+            const url = URL.createObjectURL(blob);
+            link.setAttribute('href', url);
+            link.setAttribute('download', `contatti_${data.companies[currentCompany].name}_${new Date().toISOString().split('T')[0]}.csv`);
+            link.style.visibility = 'hidden';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+
+            showNotification('Contatti esportati in CSV!');
+        }
+
+        function importContacts(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const content = e.target.result;
+
+                    if (file.name.endsWith('.csv')) {
+                        // Importa CSV
+                        const lines = content.split('\n');
+                        const headers = lines[0].split(',');
+
+                        for (let i = 1; i < lines.length; i++) {
+                            if (!lines[i].trim()) continue;
+
+                            const values = lines[i].match(/(".*?"|[^",\s]+)(?=\s*,|\s*$)/g) || [];
+                            const cleanValues = values.map(v => v.replace(/^"|"$/g, '').trim());
+
+                            if (cleanValues.length >= 6) {
+                                const contact = {
+                                    id: Date.now() + i,
+                                    name: cleanValues[0],
+                                    company: cleanValues[1],
+                                    role: cleanValues[2],
+                                    phone1: cleanValues[3],
+                                    phone2: cleanValues[4],
+                                    email1: cleanValues[5],
+                                    email2: cleanValues[6] || '',
+                                    category: cleanValues[7] || 'altro',
+                                    address: cleanValues[8] || '',
+                                    notes: cleanValues[9] || '',
+                                    createdAt: new Date().toISOString()
+                                };
+                                data.companies[currentCompany].contacts.push(contact);
+                            }
+                        }
+                    } else if (file.name.endsWith('.json')) {
+                        // Importa JSON
+                        const importedContacts = JSON.parse(content);
+                        if (Array.isArray(importedContacts)) {
+                            importedContacts.forEach(c => {
+                                c.id = Date.now() + Math.random();
+                                data.companies[currentCompany].contacts.push(c);
+                            });
+                        }
+                    }
+
+                    saveData();
+                    renderContacts();
+                    showNotification('Contatti importati con successo!');
+                } catch (error) {
+                    alert('Errore durante l\'importazione: ' + error.message);
+                }
+            };
+            reader.readAsText(file);
+            event.target.value = '';
+        }
+
         // INIZIALIZZAZIONE
         function init() {
             loadData();
@@ -2264,6 +2767,7 @@
             updateExpenses();
             renderCalendar();
             updateArchivesCounts();
+            renderContacts();
             // Imposta data di oggi per i form
             document.getElementById('expense-date').valueAsDate = new Date();
             document.getElementById('appointment-date').valueAsDate = new Date();
@@ -2324,6 +2828,7 @@
             updateExpenses();
             renderCalendar();
             updateArchivesCounts();
+            renderContacts();
         }
 
         // GESTIONE TASKS
