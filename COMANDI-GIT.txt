@@ -1,0 +1,128 @@
+========================================
+COMANDI DA ESEGUIRE DOPO CREAZIONE REPO
+========================================
+
+STEP 1: Crea il repository su GitHub
+-------------------------------------
+Il browser si è appena aperto su github.com/new
+
+Compila così:
+  Repository name: sistema-gestione-direzionale
+  Description: Sistema di Gestione Direzionale Multi-Azienda
+  Public (seleziona PUBLIC per usare Vercel gratis)
+
+  ⚠️ NON SELEZIONARE:
+  - Add a README
+  - Add .gitignore
+  - Choose a license
+
+Click "Create repository"
+
+
+STEP 2: Copia il TUO URL
+-------------------------
+Dopo aver creato il repo, GitHub ti mostrerà un URL tipo:
+  https://github.com/TUO-USERNAME/sistema-gestione-direzionale.git
+
+COPIALO! Ti servirà tra poco.
+
+
+STEP 3: Apri PowerShell/CMD
+----------------------------
+Apri PowerShell (tasto Windows + X → PowerShell)
+
+
+STEP 4: Esegui questi comandi
+------------------------------
+Copia e incolla UNO PER VOLTA questi comandi:
+
+1. Vai nella cartella del progetto:
+
+cd "C:\Users\ASUS\Desktop\PROGETTI\Sistema Gestione Direzionale"
+
+
+2. Aggiungi il repository GitHub (SOSTITUISCI con il TUO URL!):
+
+git remote add origin https://github.com/TUO-USERNAME/sistema-gestione-direzionale.git
+
+
+3. Verifica che sia configurato:
+
+git remote -v
+
+
+4. Carica tutto su GitHub:
+
+git push -u origin main
+
+
+⚠️ SE TI CHIEDE USERNAME E PASSWORD:
+-------------------------------------
+Username: il tuo username GitHub
+Password: NON usare la password normale!
+
+Devi creare un Personal Access Token:
+1. Vai su github.com
+2. Click tua foto in alto a destra → Settings
+3. Scroll in fondo → Developer settings
+4. Personal access tokens → Tokens (classic)
+5. Generate new token (classic)
+6. Note: "Vercel Deploy"
+7. Seleziona: "repo" (tutte le checkbox sotto repo)
+8. Click "Generate token"
+9. COPIA IL TOKEN (lo vedrai una sola volta!)
+10. Usa il TOKEN come password quando fai git push
+
+
+STEP 5: Deploy su Vercel
+-------------------------
+Una volta completato il push su GitHub:
+
+1. Vai su vercel.com
+2. Login con GitHub (click "Continue with GitHub")
+3. Autorizza Vercel
+4. Click "+ New Project"
+5. Troverai "sistema-gestione-direzionale"
+6. Click "Import"
+7. NON CAMBIARE NULLA, click "Deploy"
+8. Aspetta 30 secondi
+9. FATTO! Avrai il tuo URL pubblico!
+
+
+IL TUO URL SARÀ TIPO:
+-----------------------
+https://sistema-gestione-direzionale.vercel.app
+
+Aprilo e inizia a usare il sistema!
+
+
+IMPORTA I DATI DI TEST:
+-----------------------
+1. Apri il sistema su Vercel
+2. Click "Impostazioni"
+3. Click "📤 Importa Dati"
+4. Seleziona il file "dati-test-aziende.json" da questa cartella
+5. Vedrai 2 aziende complete con tutti i dati!
+
+
+HAI FINITO! 🎉
+--------------
+Il sistema è online e accessibile da ovunque!
+
+Per aggiornamenti futuri:
+  git add .
+  git commit -m "Descrizione modifiche"
+  git push
+
+Vercel rideploya automaticamente!
+
+
+RICORDA:
+--------
+- Fai BACKUP regolari (Impostazioni → Esporta Dati)
+- I dati sono nel localStorage del browser
+- Ogni dispositivo ha dati separati
+- Importa/esporta per sincronizzare
+
+
+Buon lavoro! 💼✨
