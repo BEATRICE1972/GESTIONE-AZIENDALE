@@ -1578,6 +1578,340 @@
         .backup-indicator.show {
             opacity: 1;
         }
+
+        /* MODAL DETTAGLIO ELEMENTO */
+        .detail-modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.6);
+            animation: fadeIn 0.3s;
+        }
+
+        .detail-modal.active {
+            display: block;
+        }
+
+        .detail-modal-content {
+            background-color: white;
+            margin: 2% auto;
+            padding: 0;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 900px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            animation: slideDown 0.3s;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .detail-modal-header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 25px 30px;
+            border-radius: 15px 15px 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .detail-modal-header h2 {
+            margin: 0;
+            font-size: 1.5em;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .detail-modal-close {
+            font-size: 2em;
+            font-weight: bold;
+            color: white;
+            cursor: pointer;
+            transition: transform 0.3s;
+            line-height: 1;
+        }
+
+        .detail-modal-close:hover {
+            transform: rotate(90deg);
+        }
+
+        .detail-modal-body {
+            padding: 30px;
+        }
+
+        .detail-section {
+            margin-bottom: 30px;
+            padding-bottom: 25px;
+            border-bottom: 2px solid var(--light-bg);
+        }
+
+        .detail-section:last-child {
+            border-bottom: none;
+        }
+
+        .detail-section-title {
+            font-size: 1.2em;
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .detail-info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 15px;
+        }
+
+        .detail-info-item {
+            background: var(--light-bg);
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid var(--secondary-color);
+        }
+
+        .detail-info-label {
+            font-weight: 600;
+            color: var(--dark-text);
+            font-size: 0.85em;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+        }
+
+        .detail-info-value {
+            color: var(--dark-text);
+            font-size: 1.1em;
+        }
+
+        .detail-description {
+            background: var(--light-bg);
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 15px;
+            line-height: 1.6;
+        }
+
+        /* Documenti Allegati */
+        .attachments-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .attachment-item {
+            background: white;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s;
+        }
+
+        .attachment-item:hover {
+            border-color: var(--secondary-color);
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+
+        .attachment-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            flex: 1;
+        }
+
+        .attachment-icon {
+            font-size: 2em;
+            width: 50px;
+            text-align: center;
+        }
+
+        .attachment-details h4 {
+            color: var(--primary-color);
+            margin-bottom: 5px;
+        }
+
+        .attachment-meta {
+            font-size: 0.85em;
+            color: #7f8c8d;
+        }
+
+        .attachment-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .add-attachment-form {
+            background: var(--light-bg);
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 15px;
+        }
+
+        .form-inline {
+            display: flex;
+            gap: 10px;
+            align-items: flex-end;
+            flex-wrap: wrap;
+        }
+
+        .form-inline .form-group {
+            flex: 1;
+            min-width: 200px;
+            margin: 0;
+        }
+
+        /* Note e Cronologia */
+        .notes-section {
+            background: var(--light-bg);
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 15px;
+        }
+
+        .notes-list {
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .note-item {
+            background: white;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 6px;
+            border-left: 4px solid var(--secondary-color);
+        }
+
+        .note-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .note-date {
+            font-weight: 600;
+            color: var(--primary-color);
+            font-size: 0.9em;
+        }
+
+        .note-text {
+            color: var(--dark-text);
+            line-height: 1.5;
+        }
+
+        .add-note-form {
+            margin-top: 15px;
+        }
+
+        /* Timeline/Cronologia */
+        .timeline {
+            position: relative;
+            padding-left: 30px;
+            margin-top: 15px;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 10px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--border-color);
+        }
+
+        .timeline-item {
+            position: relative;
+            padding-bottom: 20px;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -24px;
+            top: 5px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--secondary-color);
+            border: 3px solid white;
+            box-shadow: 0 0 0 2px var(--secondary-color);
+        }
+
+        .timeline-content {
+            background: var(--light-bg);
+            padding: 12px 15px;
+            border-radius: 6px;
+        }
+
+        .timeline-date {
+            font-size: 0.85em;
+            color: var(--secondary-color);
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .timeline-text {
+            color: var(--dark-text);
+        }
+
+        /* Badge Status */
+        .status-badge {
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: 600;
+        }
+
+        .status-badge.completed {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .status-badge.pending {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .status-badge.overdue {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        /* Pulsanti azione modal */
+        .detail-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 2px solid var(--light-bg);
+            justify-content: flex-end;
+        }
+
+        .clickable-item {
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .clickable-item:hover {
+            transform: translateX(3px);
+        }
     </style>
 </head>
 <body>
@@ -2673,6 +3007,19 @@
             💾 Backup salvato
         </div>
 
+        <!-- MODAL DETTAGLIO ELEMENTO -->
+        <div id="detail-modal" class="detail-modal">
+            <div class="detail-modal-content">
+                <div class="detail-modal-header">
+                    <h2 id="detail-modal-title">Dettaglio</h2>
+                    <span class="detail-modal-close" onclick="closeDetailModal()">&times;</span>
+                </div>
+                <div class="detail-modal-body" id="detail-modal-body">
+                    <!-- Contenuto generato dinamicamente -->
+                </div>
+            </div>
+        </div>
+
         <!-- MODAL ARCHIVI DOCUMENTI -->
         <div id="category-modal" class="category-modal">
             <div class="category-modal-content">
@@ -3660,16 +4007,18 @@
             const sortedTasks = [...tasks].sort((a, b) => priorityOrder[a.priority] - priorityOrder[b.priority]);
 
             container.innerHTML = sortedTasks.map(task => `
-                <div class="task-item priority-${task.priority}" style="${task.completed ? 'opacity: 0.5; text-decoration: line-through;' : ''}">
-                    <input type="checkbox" ${task.completed ? 'checked' : ''} onchange="toggleTaskComplete(${task.id})">
+                <div class="task-item priority-${task.priority} clickable-item" style="${task.completed ? 'opacity: 0.5; text-decoration: line-through;' : ''}">
+                    <input type="checkbox" ${task.completed ? 'checked' : ''} onchange="event.stopPropagation(); toggleTaskComplete(${task.id})">
                     <span class="priority-badge ${task.priority}">${task.priority.toUpperCase()}</span>
-                    <div class="task-content">
+                    <div class="task-content" onclick="openDetailModal('task', ${task.id}, ${currentCompany})" style="cursor: pointer; flex: 1;">
                         <strong>${task.title}</strong>
                         ${task.description ? `<div style="font-size: 0.9em; margin-top: 5px;">${task.description}</div>` : ''}
                         ${task.deadline ? `<div style="font-size: 0.8em; margin-top: 5px; color: #e74c3c;">📅 Scadenza: ${formatDate(task.deadline)}</div>` : ''}
+                        ${task.attachments && task.attachments.length > 0 ? `<div style="font-size: 0.8em; margin-top: 5px; color: #3498db;">📎 ${task.attachments.length} documento/i allegato/i</div>` : ''}
                     </div>
                     <div class="task-actions">
-                        <button class="delete-btn" onclick="deleteTask(${task.id})">Elimina</button>
+                        <button class="btn btn-small" onclick="event.stopPropagation(); openDetailModal('task', ${task.id}, ${currentCompany})" title="Vedi dettagli">👁️</button>
+                        <button class="delete-btn" onclick="event.stopPropagation(); deleteTask(${task.id})">Elimina</button>
                     </div>
                 </div>
             `).join('');
@@ -3721,13 +4070,14 @@
             }
 
             tbody.innerHTML = deadlines.map(deadline => `
-                <tr ${deadline.completed ? 'style="opacity: 0.5; text-decoration: line-through;"' : ''}>
+                <tr ${deadline.completed ? 'style="opacity: 0.5; text-decoration: line-through;"' : 'class="clickable-item"'} onclick="openDetailModal('deadline', ${deadline.id}, ${currentCompany})" style="cursor: pointer;">
                     <td>${formatDate(deadline.date)}</td>
-                    <td><strong>${deadline.type}</strong></td>
+                    <td><strong>${deadline.type}</strong>${deadline.attachments && deadline.attachments.length > 0 ? ` <span style="color: #3498db; font-size: 0.8em;">📎${deadline.attachments.length}</span>` : ''}</td>
                     <td><span style="background: var(--secondary-color); color: white; padding: 3px 10px; border-radius: 10px; font-size: 0.8em;">${deadline.category}</span></td>
                     <td>${deadline.description || '-'}</td>
                     <td>
-                        <button class="delete-btn" onclick="deleteDeadline(${deadline.id})">Elimina</button>
+                        <button class="btn btn-small" onclick="event.stopPropagation(); openDetailModal('deadline', ${deadline.id}, ${currentCompany})" title="Vedi dettagli">👁️</button>
+                        <button class="delete-btn" onclick="event.stopPropagation(); deleteDeadline(${deadline.id})">Elimina</button>
                     </td>
                 </tr>
             `).join('');
@@ -3866,9 +4216,9 @@
             }
 
             tbody.innerHTML = sortedExpenses.map(expense => `
-                <tr>
+                <tr class="clickable-item" onclick="openDetailModal('expense', ${expense.id}, ${currentCompany})" style="cursor: pointer;">
                     <td>${formatDate(expense.date)}</td>
-                    <td><strong>${expense.description}</strong></td>
+                    <td><strong>${expense.description}</strong>${expense.attachments && expense.attachments.length > 0 ? ` <span style="color: #3498db; font-size: 0.8em;">📎${expense.attachments.length}</span>` : ''}</td>
                     <td>
                         <span style="background: var(--secondary-color); color: white; padding: 3px 10px; border-radius: 10px; font-size: 0.8em;">
                             ${getCategoryIcon(expense.category)} ${getCategoryName(expense.category)}
@@ -3877,7 +4227,8 @@
                     <td style="font-weight: bold; color: var(--danger-color);">€ ${expense.amount.toFixed(2)}</td>
                     <td style="font-size: 0.9em; color: #7f8c8d;">${expense.notes || '-'}</td>
                     <td>
-                        <button class="delete-btn" onclick="deleteExpense(${expense.id})">Elimina</button>
+                        <button class="btn btn-small" onclick="event.stopPropagation(); openDetailModal('expense', ${expense.id}, ${currentCompany})" title="Vedi dettagli">👁️</button>
+                        <button class="delete-btn" onclick="event.stopPropagation(); deleteExpense(${expense.id})">Elimina</button>
                     </td>
                 </tr>
             `).join('');
@@ -3966,14 +4317,15 @@
                 const aptDateTime = new Date(apt.date + 'T' + apt.time);
                 const isPast = aptDateTime < now;
                 return `
-                    <tr ${isPast ? 'style="opacity: 0.5;"' : ''}>
+                    <tr ${isPast ? 'style="opacity: 0.5; cursor: pointer;"' : 'class="clickable-item" style="cursor: pointer;"'} onclick="openDetailModal('appointment', ${apt.id}, ${currentCompany})">
                         <td>${formatDate(apt.date)}</td>
                         <td><strong>${apt.time}</strong></td>
-                        <td><strong>${apt.title}</strong></td>
+                        <td><strong>${apt.title}</strong>${apt.attachments && apt.attachments.length > 0 ? ` <span style="color: #3498db; font-size: 0.8em;">📎${apt.attachments.length}</span>` : ''}</td>
                         <td>${apt.location || '-'}</td>
                         <td style="font-size: 0.9em;">${apt.participants || '-'}</td>
                         <td>
-                            <button class="delete-btn" onclick="deleteAppointment(${apt.id})">Elimina</button>
+                            <button class="btn btn-small" onclick="event.stopPropagation(); openDetailModal('appointment', ${apt.id}, ${currentCompany})" title="Vedi dettagli">👁️</button>
+                            <button class="delete-btn" onclick="event.stopPropagation(); deleteAppointment(${apt.id})">Elimina</button>
                         </td>
                     </tr>
                 `;
@@ -5590,6 +5942,593 @@
             showNotification('Export Excel completato!');
             logAudit('create', 'Export Excel eseguito', 'all');
         }
+
+        // ===== SISTEMA DETTAGLIO ELEMENTI =====
+
+        // Apri modal dettaglio
+        function openDetailModal(type, id, companyId) {
+            const modal = document.getElementById('detail-modal');
+            const modalBody = document.getElementById('detail-modal-body');
+            const modalTitle = document.getElementById('detail-modal-title');
+
+            let item;
+            let titleIcon = '📋';
+
+            // Trova l'elemento
+            if (type === 'task') {
+                item = data.companies[companyId].tasks.find(t => t.id === id);
+                titleIcon = '✅';
+            } else if (type === 'deadline') {
+                item = data.companies[companyId].deadlines.find(d => d.id === id);
+                titleIcon = '📅';
+            } else if (type === 'appointment') {
+                item = data.companies[companyId].appointments.find(a => a.id === id);
+                titleIcon = '🗓️';
+            } else if (type === 'expense') {
+                item = data.companies[companyId].expenses.find(e => e.id === id);
+                titleIcon = '💰';
+            }
+
+            if (!item) {
+                showNotification('Elemento non trovato');
+                return;
+            }
+
+            // Inizializza attachments e notes se non esistono
+            if (!item.attachments) item.attachments = [];
+            if (!item.notes) item.notes = [];
+            if (!item.history) item.history = [{
+                date: item.createdAt,
+                action: 'Elemento creato'
+            }];
+
+            modalTitle.innerHTML = `${titleIcon} Dettaglio ${getTypeLabel(type)}`;
+
+            // Genera contenuto
+            modalBody.innerHTML = generateDetailContent(type, item, companyId);
+
+            // Mostra modal
+            modal.classList.add('active');
+        }
+
+        function closeDetailModal() {
+            document.getElementById('detail-modal').classList.remove('active');
+        }
+
+        function getTypeLabel(type) {
+            const labels = {
+                'task': 'Attività',
+                'deadline': 'Scadenza',
+                'appointment': 'Appuntamento',
+                'expense': 'Spesa'
+            };
+            return labels[type] || 'Elemento';
+        }
+
+        function generateDetailContent(type, item, companyId) {
+            let html = '';
+
+            // Informazioni principali
+            html += '<div class="detail-section">';
+            html += '<div class="detail-section-title">📊 Informazioni Principali</div>';
+
+            if (type === 'task') {
+                const status = item.completed ? 'completed' : (item.deadline && new Date(item.deadline) < new Date() ? 'overdue' : 'pending');
+                const statusLabel = item.completed ? 'Completata' : (status === 'overdue' ? 'In ritardo' : 'In corso');
+
+                html += '<div class="detail-info-grid">';
+                html += `<div class="detail-info-item">
+                    <div class="detail-info-label">Stato</div>
+                    <div class="detail-info-value"><span class="status-badge ${status}">${statusLabel}</span></div>
+                </div>`;
+                html += `<div class="detail-info-item" style="border-left-color: var(--priority-${item.priority})">
+                    <div class="detail-info-label">Priorità</div>
+                    <div class="detail-info-value"><span class="priority-badge ${item.priority}">${item.priority.toUpperCase()}</span></div>
+                </div>`;
+                html += `<div class="detail-info-item">
+                    <div class="detail-info-label">Categoria</div>
+                    <div class="detail-info-value">${item.category}</div>
+                </div>`;
+                if (item.deadline) {
+                    html += `<div class="detail-info-item">
+                        <div class="detail-info-label">Scadenza</div>
+                        <div class="detail-info-value">${formatDate(item.deadline)}</div>
+                    </div>`;
+                }
+                html += `<div class="detail-info-item">
+                    <div class="detail-info-label">Data Creazione</div>
+                    <div class="detail-info-value">${new Date(item.createdAt).toLocaleDateString('it-IT')}</div>
+                </div>`;
+                html += '</div>';
+
+                if (item.description) {
+                    html += `<div class="detail-description"><strong>Descrizione:</strong><br>${item.description}</div>`;
+                }
+            } else if (type === 'deadline') {
+                const status = item.completed ? 'completed' : (new Date(item.date) < new Date() ? 'overdue' : 'pending');
+                const statusLabel = item.completed ? 'Pagata' : (status === 'overdue' ? 'Scaduta' : 'Da pagare');
+
+                html += '<div class="detail-info-grid">';
+                html += `<div class="detail-info-item">
+                    <div class="detail-info-label">Stato</div>
+                    <div class="detail-info-value"><span class="status-badge ${status}">${statusLabel}</span></div>
+                </div>`;
+                html += `<div class="detail-info-item">
+                    <div class="detail-info-label">Tipo</div>
+                    <div class="detail-info-value">${item.type}</div>
+                </div>`;
+                html += `<div class="detail-info-item">
+                    <div class="detail-info-label">Categoria</div>
+                    <div class="detail-info-value">${item.category}</div>
+                </div>`;
+                html += `<div class="detail-info-item">
+                    <div class="detail-info-label">Data Scadenza</div>
+                    <div class="detail-info-value">${formatDate(item.date)}</div>
+                </div>`;
+                if (item.amount) {
+                    html += `<div class="detail-info-item" style="border-left-color: var(--warning-color)">
+                        <div class="detail-info-label">Importo</div>
+                        <div class="detail-info-value" style="font-size: 1.3em; font-weight: bold;">${item.amount}</div>
+                    </div>`;
+                }
+                html += '</div>';
+
+                if (item.description) {
+                    html += `<div class="detail-description"><strong>Note:</strong><br>${item.description}</div>`;
+                }
+            } else if (type === 'appointment') {
+                html += '<div class="detail-info-grid">';
+                html += `<div class="detail-info-item">
+                    <div class="detail-info-label">Data</div>
+                    <div class="detail-info-value">${formatDate(item.date)}</div>
+                </div>`;
+                html += `<div class="detail-info-item">
+                    <div class="detail-info-label">Ora</div>
+                    <div class="detail-info-value">${item.time}</div>
+                </div>`;
+                if (item.location) {
+                    html += `<div class="detail-info-item">
+                        <div class="detail-info-label">Luogo</div>
+                        <div class="detail-info-value">${item.location}</div>
+                    </div>`;
+                }
+                if (item.participants) {
+                    html += `<div class="detail-info-item">
+                        <div class="detail-info-label">Partecipanti</div>
+                        <div class="detail-info-value">${item.participants}</div>
+                    </div>`;
+                }
+                html += '</div>';
+
+                if (item.notes) {
+                    html += `<div class="detail-description"><strong>Note:</strong><br>${item.notes}</div>`;
+                }
+            } else if (type === 'expense') {
+                html += '<div class="detail-info-grid">';
+                html += `<div class="detail-info-item" style="border-left-color: var(--danger-color)">
+                    <div class="detail-info-label">Importo</div>
+                    <div class="detail-info-value" style="font-size: 1.4em; font-weight: bold; color: var(--danger-color)">€ ${item.amount.toFixed(2)}</div>
+                </div>`;
+                html += `<div class="detail-info-item">
+                    <div class="detail-info-label">Categoria</div>
+                    <div class="detail-info-value">${item.category}</div>
+                </div>`;
+                html += `<div class="detail-info-item">
+                    <div class="detail-info-label">Data</div>
+                    <div class="detail-info-value">${formatDate(item.date)}</div>
+                </div>`;
+                if (item.paymentMethod) {
+                    html += `<div class="detail-info-item">
+                        <div class="detail-info-label">Metodo Pagamento</div>
+                        <div class="detail-info-value">${item.paymentMethod}</div>
+                    </div>`;
+                }
+                html += '</div>';
+
+                if (item.description) {
+                    html += `<div class="detail-description"><strong>Descrizione:</strong><br>${item.description}</div>`;
+                }
+            }
+
+            html += '</div>';
+
+            // Documenti Allegati
+            html += '<div class="detail-section">';
+            html += '<div class="detail-section-title">📎 Documenti Allegati</div>';
+
+            if (item.attachments && item.attachments.length > 0) {
+                html += '<div class="attachments-list">';
+                item.attachments.forEach((att, index) => {
+                    const icon = getFileIcon(att.name);
+                    html += `
+                        <div class="attachment-item">
+                            <div class="attachment-info">
+                                <div class="attachment-icon">${icon}</div>
+                                <div class="attachment-details">
+                                    <h4>${att.name}</h4>
+                                    <div class="attachment-meta">
+                                        ${att.type || 'Documento'} • Aggiunto il ${new Date(att.addedAt).toLocaleDateString('it-IT')}
+                                        ${att.size ? ` • ${att.size}` : ''}
+                                    </div>
+                                    ${att.notes ? `<p style="margin-top: 5px; font-size: 0.9em;">${att.notes}</p>` : ''}
+                                </div>
+                            </div>
+                            <div class="attachment-actions">
+                                ${att.link ? `<a href="${att.link}" target="_blank" class="btn btn-small">Apri</a>` : ''}
+                                <button class="btn btn-danger btn-small" onclick="removeAttachment('${type}', ${item.id}, ${companyId}, ${index})">Elimina</button>
+                            </div>
+                        </div>
+                    `;
+                });
+                html += '</div>';
+            } else {
+                html += '<p style="text-align: center; color: #7f8c8d; padding: 20px;">Nessun documento allegato</p>';
+            }
+
+            // Form aggiungi allegato
+            html += `
+                <div class="add-attachment-form">
+                    <h4 style="margin-bottom: 15px;">Aggiungi Documento</h4>
+                    <form onsubmit="addAttachment(event, '${type}', ${item.id}, ${companyId})">
+                        <div class="form-inline">
+                            <div class="form-group">
+                                <label>Nome Documento *</label>
+                                <input type="text" id="attach-name" required placeholder="es: Contratto_firmato.pdf">
+                            </div>
+                            <div class="form-group">
+                                <label>Tipo</label>
+                                <select id="attach-type">
+                                    <option value="Documento">Documento</option>
+                                    <option value="Contratto">Contratto</option>
+                                    <option value="Fattura">Fattura</option>
+                                    <option value="Email">Email</option>
+                                    <option value="Preventivo">Preventivo</option>
+                                    <option value="Altro">Altro</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group" style="margin-top: 10px;">
+                            <label>Link/Percorso File</label>
+                            <input type="text" id="attach-link" placeholder="es: C:\\Documenti\\file.pdf o URL">
+                        </div>
+                        <div class="form-group">
+                            <label>Note</label>
+                            <input type="text" id="attach-notes" placeholder="Note sul documento...">
+                        </div>
+                        <button type="submit" class="btn btn-success">Aggiungi Documento</button>
+                    </form>
+                </div>
+            `;
+
+            html += '</div>';
+
+            // Note interne
+            html += '<div class="detail-section">';
+            html += '<div class="detail-section-title">📝 Note e Commenti</div>';
+
+            html += '<div class="notes-section">';
+            if (item.notes && item.notes.length > 0) {
+                html += '<div class="notes-list">';
+                item.notes.forEach((note, index) => {
+                    html += `
+                        <div class="note-item">
+                            <div class="note-header">
+                                <span class="note-date">${new Date(note.date).toLocaleString('it-IT')}</span>
+                                <button class="btn btn-danger btn-small" onclick="removeNote('${type}', ${item.id}, ${companyId}, ${index})">Elimina</button>
+                            </div>
+                            <div class="note-text">${note.text}</div>
+                        </div>
+                    `;
+                });
+                html += '</div>';
+            } else {
+                html += '<p style="text-align: center; color: #7f8c8d; padding: 20px;">Nessuna nota presente</p>';
+            }
+
+            // Form aggiungi nota
+            html += `
+                <div class="add-note-form">
+                    <form onsubmit="addNote(event, '${type}', ${item.id}, ${companyId})">
+                        <div class="form-group">
+                            <label>Aggiungi Nota</label>
+                            <textarea id="note-text" rows="3" required placeholder="Scrivi una nota o commento..."></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-success">Aggiungi Nota</button>
+                    </form>
+                </div>
+            `;
+            html += '</div>';
+
+            html += '</div>';
+
+            // Cronologia
+            if (item.history && item.history.length > 0) {
+                html += '<div class="detail-section">';
+                html += '<div class="detail-section-title">🕒 Cronologia</div>';
+                html += '<div class="timeline">';
+
+                item.history.slice().reverse().forEach(h => {
+                    html += `
+                        <div class="timeline-item">
+                            <div class="timeline-content">
+                                <div class="timeline-date">${new Date(h.date).toLocaleString('it-IT')}</div>
+                                <div class="timeline-text">${h.action}</div>
+                            </div>
+                        </div>
+                    `;
+                });
+
+                html += '</div>';
+                html += '</div>';
+            }
+
+            // Azioni
+            html += '<div class="detail-actions">';
+            if (type === 'task' && !item.completed) {
+                html += `<button class="btn btn-success" onclick="completeTaskFromDetail(${item.id}, ${companyId})">✓ Segna come Completata</button>`;
+            } else if (type === 'deadline' && !item.completed) {
+                html += `<button class="btn btn-success" onclick="completeDeadlineFromDetail(${item.id}, ${companyId})">✓ Segna come Pagata</button>`;
+            }
+            html += `<button class="btn btn-danger" onclick="deleteItemFromDetail('${type}', ${item.id}, ${companyId})">🗑️ Elimina</button>`;
+            html += '<button class="btn" onclick="closeDetailModal()">Chiudi</button>';
+            html += '</div>';
+
+            return html;
+        }
+
+        function getFileIcon(filename) {
+            const ext = filename.split('.').pop().toLowerCase();
+            const icons = {
+                'pdf': '📕',
+                'doc': '📘',
+                'docx': '📘',
+                'xls': '📗',
+                'xlsx': '📗',
+                'jpg': '🖼️',
+                'jpeg': '🖼️',
+                'png': '🖼️',
+                'zip': '📦',
+                'eml': '📧',
+                'msg': '📧'
+            };
+            return icons[ext] || '📄';
+        }
+
+        // Aggiungi allegato
+        function addAttachment(event, type, itemId, companyId) {
+            event.preventDefault();
+
+            const attachment = {
+                id: Date.now(),
+                name: document.getElementById('attach-name').value,
+                type: document.getElementById('attach-type').value,
+                link: document.getElementById('attach-link').value,
+                notes: document.getElementById('attach-notes').value,
+                size: '',
+                addedAt: new Date().toISOString()
+            };
+
+            let item;
+            if (type === 'task') {
+                item = data.companies[companyId].tasks.find(t => t.id === itemId);
+            } else if (type === 'deadline') {
+                item = data.companies[companyId].deadlines.find(d => d.id === itemId);
+            } else if (type === 'appointment') {
+                item = data.companies[companyId].appointments.find(a => a.id === itemId);
+            } else if (type === 'expense') {
+                item = data.companies[companyId].expenses.find(e => e.id === itemId);
+            }
+
+            if (!item.attachments) item.attachments = [];
+            item.attachments.push(attachment);
+
+            if (!item.history) item.history = [];
+            item.history.push({
+                date: new Date().toISOString(),
+                action: `Documento aggiunto: ${attachment.name}`
+            });
+
+            saveData();
+            logAudit('update', `Documento aggiunto a ${getTypeLabel(type)}: ${attachment.name}`, companyId);
+
+            showNotification('Documento aggiunto!');
+            openDetailModal(type, itemId, companyId);
+        }
+
+        // Rimuovi allegato
+        function removeAttachment(type, itemId, companyId, index) {
+            if (!confirm('Vuoi eliminare questo documento?')) return;
+
+            let item;
+            if (type === 'task') {
+                item = data.companies[companyId].tasks.find(t => t.id === itemId);
+            } else if (type === 'deadline') {
+                item = data.companies[companyId].deadlines.find(d => d.id === itemId);
+            } else if (type === 'appointment') {
+                item = data.companies[companyId].appointments.find(a => a.id === itemId);
+            } else if (type === 'expense') {
+                item = data.companies[companyId].expenses.find(e => e.id === itemId);
+            }
+
+            const removed = item.attachments.splice(index, 1)[0];
+
+            if (!item.history) item.history = [];
+            item.history.push({
+                date: new Date().toISOString(),
+                action: `Documento rimosso: ${removed.name}`
+            });
+
+            saveData();
+            logAudit('delete', `Documento rimosso da ${getTypeLabel(type)}: ${removed.name}`, companyId);
+
+            showNotification('Documento eliminato');
+            openDetailModal(type, itemId, companyId);
+        }
+
+        // Aggiungi nota
+        function addNote(event, type, itemId, companyId) {
+            event.preventDefault();
+
+            const note = {
+                id: Date.now(),
+                text: document.getElementById('note-text').value,
+                date: new Date().toISOString()
+            };
+
+            let item;
+            if (type === 'task') {
+                item = data.companies[companyId].tasks.find(t => t.id === itemId);
+            } else if (type === 'deadline') {
+                item = data.companies[companyId].deadlines.find(d => d.id === itemId);
+            } else if (type === 'appointment') {
+                item = data.companies[companyId].appointments.find(a => a.id === itemId);
+            } else if (type === 'expense') {
+                item = data.companies[companyId].expenses.find(e => e.id === itemId);
+            }
+
+            if (!item.notes) item.notes = [];
+            item.notes.push(note);
+
+            if (!item.history) item.history = [];
+            item.history.push({
+                date: new Date().toISOString(),
+                action: 'Nota aggiunta'
+            });
+
+            saveData();
+            logAudit('update', `Nota aggiunta a ${getTypeLabel(type)}`, companyId);
+
+            showNotification('Nota aggiunta!');
+            openDetailModal(type, itemId, companyId);
+        }
+
+        // Rimuovi nota
+        function removeNote(type, itemId, companyId, index) {
+            if (!confirm('Vuoi eliminare questa nota?')) return;
+
+            let item;
+            if (type === 'task') {
+                item = data.companies[companyId].tasks.find(t => t.id === itemId);
+            } else if (type === 'deadline') {
+                item = data.companies[companyId].deadlines.find(d => d.id === itemId);
+            } else if (type === 'appointment') {
+                item = data.companies[companyId].appointments.find(a => a.id === itemId);
+            } else if (type === 'expense') {
+                item = data.companies[companyId].expenses.find(e => e.id === itemId);
+            }
+
+            item.notes.splice(index, 1);
+
+            if (!item.history) item.history = [];
+            item.history.push({
+                date: new Date().toISOString(),
+                action: 'Nota rimossa'
+            });
+
+            saveData();
+            logAudit('delete', `Nota rimossa da ${getTypeLabel(type)}`, companyId);
+
+            showNotification('Nota eliminata');
+            openDetailModal(type, itemId, companyId);
+        }
+
+        // Completa task da dettaglio
+        function completeTaskFromDetail(taskId, companyId) {
+            const task = data.companies[companyId].tasks.find(t => t.id === taskId);
+            if (!task) return;
+
+            task.completed = true;
+            task.completedAt = new Date().toISOString().split('T')[0];
+
+            if (!task.history) task.history = [];
+            task.history.push({
+                date: new Date().toISOString(),
+                action: 'Attività completata'
+            });
+
+            saveData();
+            logAudit('update', `Attività completata: ${task.title}`, companyId);
+
+            showNotification('Attività completata!');
+            updateAllTasks();
+            updateDashboard();
+            openDetailModal('task', taskId, companyId);
+        }
+
+        // Completa deadline da dettaglio
+        function completeDeadlineFromDetail(deadlineId, companyId) {
+            const deadline = data.companies[companyId].deadlines.find(d => d.id === deadlineId);
+            if (!deadline) return;
+
+            deadline.completed = true;
+
+            if (!deadline.history) deadline.history = [];
+            deadline.history.push({
+                date: new Date().toISOString(),
+                action: 'Scadenza pagata'
+            });
+
+            saveData();
+            logAudit('update', `Scadenza completata: ${deadline.type}`, companyId);
+
+            showNotification('Scadenza segnata come pagata!');
+            updateDeadlinesTable();
+            openDetailModal('deadline', deadlineId, companyId);
+        }
+
+        // Elimina elemento da dettaglio
+        function deleteItemFromDetail(type, itemId, companyId) {
+            if (!confirm(`Vuoi eliminare questo ${getTypeLabel(type).toLowerCase()}?`)) return;
+
+            if (type === 'task') {
+                const index = data.companies[companyId].tasks.findIndex(t => t.id === itemId);
+                if (index !== -1) {
+                    const task = data.companies[companyId].tasks[index];
+                    data.companies[companyId].tasks.splice(index, 1);
+                    logAudit('delete', `Attività eliminata: ${task.title}`, companyId);
+                    updateAllTasks();
+                    updateDashboard();
+                }
+            } else if (type === 'deadline') {
+                const index = data.companies[companyId].deadlines.findIndex(d => d.id === itemId);
+                if (index !== -1) {
+                    const deadline = data.companies[companyId].deadlines[index];
+                    data.companies[companyId].deadlines.splice(index, 1);
+                    logAudit('delete', `Scadenza eliminata: ${deadline.type}`, companyId);
+                    updateDeadlinesTable();
+                }
+            } else if (type === 'appointment') {
+                const index = data.companies[companyId].appointments.findIndex(a => a.id === itemId);
+                if (index !== -1) {
+                    const appointment = data.companies[companyId].appointments[index];
+                    data.companies[companyId].appointments.splice(index, 1);
+                    logAudit('delete', `Appuntamento eliminato: ${appointment.title}`, companyId);
+                    updateAppointments();
+                }
+            } else if (type === 'expense') {
+                const index = data.companies[companyId].expenses.findIndex(e => e.id === itemId);
+                if (index !== -1) {
+                    const expense = data.companies[companyId].expenses[index];
+                    data.companies[companyId].expenses.splice(index, 1);
+                    logAudit('delete', `Spesa eliminata: ${expense.description}`, companyId);
+                    updateExpenses();
+                }
+            }
+
+            saveData();
+            closeDetailModal();
+            showNotification('Elemento eliminato');
+        }
+
+        // Chiudi modal con ESC
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                const detailModal = document.getElementById('detail-modal');
+                if (detailModal.classList.contains('active')) {
+                    closeDetailModal();
+                }
+            }
+        });
 
         // AVVIO
         init();
