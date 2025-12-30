@@ -1912,6 +1912,420 @@
         .clickable-item:hover {
             transform: translateX(3px);
         }
+
+        /* EMAIL TABS */
+        .email-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            background: var(--light-bg);
+            padding: 15px;
+            border-radius: 10px;
+        }
+
+        .email-tab {
+            background: white;
+            border: 2px solid var(--border-color);
+            padding: 12px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 600;
+            flex: 1;
+            min-width: 150px;
+        }
+
+        .email-tab:hover {
+            border-color: var(--secondary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .email-tab.active {
+            background: var(--secondary-color);
+            color: white;
+            border-color: var(--secondary-color);
+        }
+
+        .email-tab.compose-btn {
+            background: var(--success-color);
+            color: white;
+            border-color: var(--success-color);
+        }
+
+        .email-tab.compose-btn:hover {
+            background: #229954;
+            border-color: #229954;
+        }
+
+        /* EMAIL LIST */
+        .email-list-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .ai-assistant-btn {
+            background: linear-gradient(135deg, #9b59b6, #8e44ad);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .ai-assistant-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(155, 89, 182, 0.4);
+        }
+
+        .email-list-container {
+            max-height: 600px;
+            overflow-y: auto;
+        }
+
+        .email-item {
+            background: white;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            gap: 15px;
+            align-items: flex-start;
+        }
+
+        .email-item:hover {
+            border-color: var(--secondary-color);
+            transform: translateX(5px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .email-item.unread {
+            background: #e8f4f8;
+            border-left: 5px solid var(--secondary-color);
+            font-weight: 600;
+        }
+
+        .email-item.urgent {
+            border-left: 5px solid var(--danger-color);
+        }
+
+        .email-item.important {
+            border-left: 5px solid var(--warning-color);
+        }
+
+        .email-checkbox {
+            display: flex;
+            align-items: center;
+            min-width: 20px;
+        }
+
+        .email-star {
+            font-size: 1.5em;
+            cursor: pointer;
+            transition: transform 0.3s;
+            min-width: 30px;
+        }
+
+        .email-star:hover {
+            transform: scale(1.2);
+        }
+
+        .email-star.starred {
+            color: #f39c12;
+        }
+
+        .email-content {
+            flex: 1;
+        }
+
+        .email-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 8px;
+        }
+
+        .email-from {
+            font-weight: 600;
+            color: var(--primary-color);
+            font-size: 1.1em;
+        }
+
+        .email-date {
+            color: #7f8c8d;
+            font-size: 0.9em;
+            white-space: nowrap;
+        }
+
+        .email-subject {
+            font-size: 1em;
+            margin-bottom: 5px;
+            color: var(--dark-text);
+        }
+
+        .email-preview {
+            color: #7f8c8d;
+            font-size: 0.9em;
+            margin-bottom: 10px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .email-tags {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .email-tag {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.8em;
+            font-weight: 600;
+        }
+
+        .email-tag.priority-urgent {
+            background: #ffebee;
+            color: var(--danger-color);
+        }
+
+        .email-tag.priority-important {
+            background: #fff3e0;
+            color: var(--warning-color);
+        }
+
+        .email-tag.priority-normal {
+            background: #e8f5e9;
+            color: var(--success-color);
+        }
+
+        .email-tag.category {
+            background: #e3f2fd;
+            color: #1976d2;
+        }
+
+        .email-tag.has-attachment {
+            background: #f3e5f5;
+            color: #8e24aa;
+        }
+
+        /* EMAIL VIEW */
+        .email-view-header {
+            border-bottom: 2px solid var(--light-bg);
+            padding-bottom: 20px;
+            margin-bottom: 20px;
+        }
+
+        .email-view-subject {
+            font-size: 1.5em;
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+
+        .email-view-meta {
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: 10px 20px;
+            color: #7f8c8d;
+        }
+
+        .email-view-meta strong {
+            color: var(--dark-text);
+        }
+
+        .email-view-body {
+            line-height: 1.8;
+            color: var(--dark-text);
+            margin-bottom: 30px;
+            white-space: pre-wrap;
+        }
+
+        .email-view-actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            padding-top: 20px;
+            border-top: 2px solid var(--light-bg);
+        }
+
+        /* ASSISTANT PANEL */
+        .assistant-panel {
+            position: fixed;
+            right: -400px;
+            top: 0;
+            width: 400px;
+            height: 100vh;
+            background: white;
+            box-shadow: -5px 0 20px rgba(0,0,0,0.2);
+            z-index: 1500;
+            transition: right 0.3s;
+            overflow-y: auto;
+        }
+
+        .assistant-panel.active {
+            right: 0;
+        }
+
+        .assistant-panel-content {
+            padding: 20px;
+        }
+
+        .assistant-panel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--light-bg);
+            margin-bottom: 20px;
+        }
+
+        .assistant-panel-header h3 {
+            color: var(--primary-color);
+            font-size: 1.3em;
+        }
+
+        .assistant-panel-header .close-btn {
+            font-size: 2em;
+            cursor: pointer;
+            color: #7f8c8d;
+            transition: all 0.3s;
+        }
+
+        .assistant-panel-header .close-btn:hover {
+            color: var(--danger-color);
+            transform: rotate(90deg);
+        }
+
+        .assistant-section {
+            margin-bottom: 25px;
+            padding: 15px;
+            background: var(--light-bg);
+            border-radius: 10px;
+        }
+
+        .assistant-section h4 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            font-size: 1.1em;
+        }
+
+        .suggestion-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .suggestion-item {
+            display: flex;
+            gap: 12px;
+            align-items: flex-start;
+            background: white;
+            padding: 12px;
+            border-radius: 8px;
+            border-left: 4px solid var(--secondary-color);
+        }
+
+        .suggestion-icon {
+            font-size: 1.5em;
+        }
+
+        .btn-small {
+            background: var(--secondary-color);
+            color: white;
+            border: none;
+            padding: 5px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.85em;
+            margin-top: 5px;
+            transition: all 0.3s;
+        }
+
+        .btn-small:hover {
+            background: #2980b9;
+        }
+
+        .quick-replies {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .quick-reply-btn {
+            background: white;
+            border: 2px solid var(--border-color);
+            padding: 10px;
+            border-radius: 8px;
+            cursor: pointer;
+            text-align: left;
+            transition: all 0.3s;
+            font-weight: 600;
+        }
+
+        .quick-reply-btn:hover {
+            border-color: var(--secondary-color);
+            background: #e3f2fd;
+            transform: translateX(5px);
+        }
+
+        .analysis-box {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            border: 2px solid var(--border-color);
+        }
+
+        .analysis-item {
+            margin-bottom: 12px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--light-bg);
+        }
+
+        .analysis-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .analysis-item strong {
+            color: var(--primary-color);
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .actions-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .action-btn {
+            background: linear-gradient(135deg, var(--success-color), #229954);
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            text-align: left;
+            transition: all 0.3s;
+        }
+
+        .action-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(39, 174, 96, 0.4);
+        }
     </style>
 </head>
 <body>
@@ -1925,6 +2339,7 @@
             <button onclick="showSection('dashboard')" class="active">Dashboard</button>
             <button onclick="showSection('consolidated')">📈 Vista Consolidata</button>
             <button onclick="showSection('analytics')">📊 Analytics</button>
+            <button onclick="showSection('emails')">📧 Email & Assistente</button>
             <button onclick="showSection('tasks')">Attività</button>
             <button onclick="showSection('templates')">🔄 Template Ricorrenti</button>
             <button onclick="showSection('appuntamenti')">Appuntamenti</button>
@@ -2961,6 +3376,94 @@
                     </div>
                 </div>
             </div>
+
+            <!-- EMAIL & ASSISTENTE SECTION -->
+            <div id="emails" class="section">
+                <h2>📧 Gestione Email con Assistente IA - <span id="emails-company-name">Azienda 1</span></h2>
+
+                <!-- Statistiche Email -->
+                <div class="stats-container" style="margin-bottom: 30px;">
+                    <div class="stat-box" style="background: linear-gradient(135deg, #e74c3c, #c0392b);">
+                        <h3 id="stat-unread-emails">0</h3>
+                        <p>Email Non Lette</p>
+                    </div>
+                    <div class="stat-box" style="background: linear-gradient(135deg, #f39c12, #d68910);">
+                        <h3 id="stat-urgent-emails">0</h3>
+                        <p>Email Urgenti</p>
+                    </div>
+                    <div class="stat-box" style="background: linear-gradient(135deg, #3498db, #2980b9);">
+                        <h3 id="stat-today-emails">0</h3>
+                        <p>Ricevute Oggi</p>
+                    </div>
+                    <div class="stat-box" style="background: linear-gradient(135deg, #9b59b6, #8e44ad);">
+                        <h3 id="stat-flagged-emails">0</h3>
+                        <p>Con Stella ⭐</p>
+                    </div>
+                </div>
+
+                <!-- Tabs Email -->
+                <div class="email-tabs">
+                    <button class="email-tab active" onclick="switchEmailTab('inbox')">📥 Posta in Arrivo (<span id="inbox-count">0</span>)</button>
+                    <button class="email-tab" onclick="switchEmailTab('sent')">📤 Inviati (<span id="sent-count">0</span>)</button>
+                    <button class="email-tab" onclick="switchEmailTab('archived')">📦 Archiviati (<span id="archived-count">0</span>)</button>
+                    <button class="email-tab" onclick="switchEmailTab('trash')">🗑️ Cestino (<span id="trash-count">0</span>)</button>
+                    <button class="email-tab compose-btn" onclick="composeNewEmail()">✉️ Nuova Email</button>
+                </div>
+
+                <!-- Filtri e Ricerca -->
+                <div class="card">
+                    <div class="filter-bar">
+                        <div class="filter-group">
+                            <input type="text" id="email-search" placeholder="🔍 Cerca email..." oninput="filterEmails()" style="width: 300px; padding: 10px; border: 2px solid var(--border-color); border-radius: 8px;">
+                        </div>
+                        <div class="filter-group">
+                            <label>Priorità:</label>
+                            <select id="email-filter-priority" onchange="filterEmails()">
+                                <option value="all">Tutte</option>
+                                <option value="urgent">🔴 Urgenti</option>
+                                <option value="important">🟡 Importanti</option>
+                                <option value="normal">🟢 Normali</option>
+                            </select>
+                        </div>
+                        <div class="filter-group">
+                            <label>Categoria:</label>
+                            <select id="email-filter-category" onchange="filterEmails()">
+                                <option value="all">Tutte</option>
+                                <option value="clienti">👥 Clienti</option>
+                                <option value="fornitori">🏭 Fornitori</option>
+                                <option value="fiscale">💰 Fiscale</option>
+                                <option value="hr">👔 HR</option>
+                                <option value="commerciale">📈 Commerciale</option>
+                                <option value="legale">⚖️ Legale</option>
+                                <option value="altro">📋 Altro</option>
+                            </select>
+                        </div>
+                        <div class="filter-group">
+                            <label>
+                                <input type="checkbox" id="email-filter-unread" onchange="filterEmails()">
+                                Solo non lette
+                            </label>
+                            <label style="margin-left: 15px;">
+                                <input type="checkbox" id="email-filter-starred" onchange="filterEmails()">
+                                Solo con stella ⭐
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Lista Email -->
+                <div class="card">
+                    <div class="email-list-header">
+                        <h3>
+                            <span id="current-email-tab-title">📥 Posta in Arrivo</span>
+                            <button class="ai-assistant-btn" onclick="toggleEmailAssistant()" title="Assistente IA">🤖 Assistente IA</button>
+                        </h3>
+                    </div>
+                    <div id="email-list-container" class="email-list-container">
+                        <!-- Email list will be rendered here -->
+                    </div>
+                </div>
+            </div>
         </div>
 
         <!-- RICERCA GLOBALE -->
@@ -3071,6 +3574,154 @@
                 </div>
             </div>
         </div>
+
+        <!-- MODAL VISUALIZZA EMAIL -->
+        <div id="email-view-modal" class="detail-modal">
+            <div class="detail-modal-content" style="max-width: 1000px;">
+                <div class="detail-modal-header">
+                    <h2 id="email-view-title">📧 Email</h2>
+                    <span class="detail-modal-close" onclick="closeEmailView()">&times;</span>
+                </div>
+                <div class="detail-modal-body" id="email-view-body">
+                    <!-- Contenuto email generato dinamicamente -->
+                </div>
+            </div>
+        </div>
+
+        <!-- MODAL COMPONI EMAIL -->
+        <div id="email-compose-modal" class="detail-modal">
+            <div class="detail-modal-content" style="max-width: 900px;">
+                <div class="detail-modal-header">
+                    <h2>✉️ Nuova Email</h2>
+                    <span class="detail-modal-close" onclick="closeEmailCompose()">&times;</span>
+                </div>
+                <div class="detail-modal-body">
+                    <form id="email-compose-form" onsubmit="sendEmail(event)">
+                        <div class="form-group">
+                            <label>A: *</label>
+                            <input type="email" id="email-to" required placeholder="destinatario@example.com" multiple>
+                            <small style="color: #7f8c8d;">Separa più destinatari con virgola</small>
+                        </div>
+                        <div class="form-group">
+                            <label>Oggetto: *</label>
+                            <input type="text" id="email-subject" required placeholder="Oggetto dell'email">
+                        </div>
+                        <div class="form-group">
+                            <label>Categoria:</label>
+                            <select id="email-compose-category">
+                                <option value="clienti">👥 Clienti</option>
+                                <option value="fornitori">🏭 Fornitori</option>
+                                <option value="fiscale">💰 Fiscale</option>
+                                <option value="hr">👔 HR</option>
+                                <option value="commerciale">📈 Commerciale</option>
+                                <option value="legale">⚖️ Legale</option>
+                                <option value="altro">📋 Altro</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Priorità:</label>
+                            <select id="email-compose-priority">
+                                <option value="normal">🟢 Normale</option>
+                                <option value="important">🟡 Importante</option>
+                                <option value="urgent">🔴 Urgente</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Messaggio: *</label>
+                            <textarea id="email-body" rows="10" required placeholder="Scrivi il messaggio qui..."></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>
+                                <input type="checkbox" id="email-use-template">
+                                Usa Template
+                            </label>
+                            <select id="email-template-select" style="display: none; margin-left: 10px;" onchange="applyEmailTemplate()">
+                                <option value="">-- Seleziona Template --</option>
+                                <option value="conferma-ordine">Conferma Ordine</option>
+                                <option value="sollecito-pagamento">Sollecito Pagamento</option>
+                                <option value="richiesta-info">Richiesta Informazioni</option>
+                                <option value="conferma-appuntamento">Conferma Appuntamento</option>
+                                <option value="risposta-reclamo">Risposta a Reclamo</option>
+                            </select>
+                        </div>
+                        <div style="display: flex; gap: 10px; justify-content: flex-end; margin-top: 20px;">
+                            <button type="button" class="btn" onclick="closeEmailCompose()">Annulla</button>
+                            <button type="button" class="btn" onclick="saveDraft()">💾 Salva Bozza</button>
+                            <button type="submit" class="btn btn-success">📤 Invia Email</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- PANNELLO ASSISTENTE IA -->
+        <div id="email-assistant-panel" class="assistant-panel">
+            <div class="assistant-panel-content">
+                <div class="assistant-panel-header">
+                    <h3>🤖 Assistente Email IA</h3>
+                    <span class="close-btn" onclick="toggleEmailAssistant()">&times;</span>
+                </div>
+                <div class="assistant-panel-body">
+                    <!-- Suggerimenti Intelligenti -->
+                    <div class="assistant-section">
+                        <h4>💡 Suggerimenti Intelligenti</h4>
+                        <div id="assistant-suggestions" class="suggestion-list">
+                            <div class="suggestion-item">
+                                <span class="suggestion-icon">⚡</span>
+                                <div>
+                                    <strong>3 email urgenti</strong> richiedono attenzione immediata
+                                    <button class="btn-small" onclick="showUrgentEmails()">Visualizza</button>
+                                </div>
+                            </div>
+                            <div class="suggestion-item">
+                                <span class="suggestion-icon">📅</span>
+                                <div>
+                                    <strong>Scadenza richiesta info</strong> entro domani
+                                    <button class="btn-small" onclick="showDeadlineEmails()">Visualizza</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Risposte Rapide Suggerite -->
+                    <div class="assistant-section">
+                        <h4>⚡ Risposte Rapide</h4>
+                        <div class="quick-replies">
+                            <button class="quick-reply-btn" onclick="applyQuickReply('conferma')">✅ Conferma Ricevuta</button>
+                            <button class="quick-reply-btn" onclick="applyQuickReply('informazioni')">📋 Richiedi Informazioni</button>
+                            <button class="quick-reply-btn" onclick="applyQuickReply('ringrazia')">🙏 Ringraziamento</button>
+                            <button class="quick-reply-btn" onclick="applyQuickReply('sollecito')">⏰ Sollecito</button>
+                        </div>
+                    </div>
+
+                    <!-- Analisi Email Corrente -->
+                    <div class="assistant-section">
+                        <h4>🔍 Analisi IA</h4>
+                        <div id="email-analysis" class="analysis-box">
+                            <p style="color: #7f8c8d; text-align: center; padding: 20px;">
+                                Seleziona un'email per vedere l'analisi IA
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Azioni Suggerite -->
+                    <div class="assistant-section">
+                        <h4>🎯 Azioni Suggerite</h4>
+                        <div id="suggested-actions" class="actions-list">
+                            <button class="action-btn" onclick="convertEmailToTask()">
+                                📝 Converti in Attività
+                            </button>
+                            <button class="action-btn" onclick="convertEmailToDeadline()">
+                                📅 Aggiungi Scadenza
+                            </button>
+                            <button class="action-btn" onclick="convertEmailToContact()">
+                                👤 Salva Contatto
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <script>
@@ -3085,10 +3736,10 @@
         let backupInterval = null; // Intervallo backup automatico
         let data = {
             companies: {
-                1: { name: 'Azienda 1', tasks: [], deadlines: [], sopExecutions: [], expenses: [], appointments: [], archives: {}, contacts: [] },
-                2: { name: 'Azienda 2', tasks: [], deadlines: [], sopExecutions: [], expenses: [], appointments: [], archives: {}, contacts: [] },
-                3: { name: 'Azienda 3', tasks: [], deadlines: [], sopExecutions: [], expenses: [], appointments: [], archives: {}, contacts: [] },
-                4: { name: 'Azienda 4', tasks: [], deadlines: [], sopExecutions: [], expenses: [], appointments: [], archives: {}, contacts: [] }
+                1: { name: 'Azienda 1', tasks: [], deadlines: [], sopExecutions: [], expenses: [], appointments: [], archives: {}, contacts: [], emails: [] },
+                2: { name: 'Azienda 2', tasks: [], deadlines: [], sopExecutions: [], expenses: [], appointments: [], archives: {}, contacts: [], emails: [] },
+                3: { name: 'Azienda 3', tasks: [], deadlines: [], sopExecutions: [], expenses: [], appointments: [], archives: {}, contacts: [], emails: [] },
+                4: { name: 'Azienda 4', tasks: [], deadlines: [], sopExecutions: [], expenses: [], appointments: [], archives: {}, contacts: [], emails: [] }
             },
             templates: [], // Template attività ricorrenti
             auditLog: [], // Storico modifiche
@@ -3885,6 +4536,9 @@
                 document.getElementById('notification-status').textContent = '✓ Notifiche abilitate';
                 document.getElementById('notification-status').style.color = '#2ecc71';
             }
+
+            // Inizializza gestione email
+            initializeEmailSection();
         }
 
         // GESTIONE SEZIONI
@@ -3945,6 +4599,8 @@
             renderCalendar();
             updateArchivesCounts();
             renderContacts();
+            updateEmailStats();
+            renderEmailList();
         }
 
         // GESTIONE TASKS
@@ -6527,8 +7183,809 @@
                 if (detailModal.classList.contains('active')) {
                     closeDetailModal();
                 }
+
+                const emailViewModal = document.getElementById('email-view-modal');
+                if (emailViewModal && emailViewModal.classList.contains('active')) {
+                    closeEmailView();
+                }
+
+                const emailComposeModal = document.getElementById('email-compose-modal');
+                if (emailComposeModal && emailComposeModal.classList.contains('active')) {
+                    closeEmailCompose();
+                }
+
+                const assistantPanel = document.getElementById('email-assistant-panel');
+                if (assistantPanel && assistantPanel.classList.contains('active')) {
+                    toggleEmailAssistant();
+                }
             }
         });
+
+        // ===================================
+        // GESTIONE EMAIL & ASSISTENTE IA
+        // ===================================
+
+        let currentEmailTab = 'inbox'; // inbox, sent, archived, trash
+        let currentSelectedEmail = null; // Email selezionata per l'assistente
+        let currentEmailFilter = {
+            search: '',
+            priority: 'all',
+            category: 'all',
+            unread: false,
+            starred: false
+        };
+
+        // Inizializza sezione email
+        function initializeEmailSection() {
+            // Migrazione dati - aggiunge emails array se non esiste
+            Object.keys(data.companies).forEach(companyId => {
+                if (!data.companies[companyId].emails) {
+                    data.companies[companyId].emails = [];
+                }
+            });
+
+            // Aggiorna UI
+            updateEmailStats();
+            renderEmailList();
+
+            // Checkbox template
+            const useTemplateCheckbox = document.getElementById('email-use-template');
+            if (useTemplateCheckbox) {
+                useTemplateCheckbox.addEventListener('change', function() {
+                    const templateSelect = document.getElementById('email-template-select');
+                    if (templateSelect) {
+                        templateSelect.style.display = this.checked ? 'inline-block' : 'none';
+                    }
+                });
+            }
+        }
+
+        // Cambia tab email
+        function switchEmailTab(tab) {
+            currentEmailTab = tab;
+
+            // Aggiorna bottoni
+            document.querySelectorAll('.email-tab').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            // Aggiorna titolo
+            const titles = {
+                'inbox': '📥 Posta in Arrivo',
+                'sent': '📤 Inviati',
+                'archived': '📦 Archiviati',
+                'trash': '🗑️ Cestino'
+            };
+            document.getElementById('current-email-tab-title').textContent = titles[tab];
+
+            renderEmailList();
+        }
+
+        // Aggiorna statistiche email
+        function updateEmailStats() {
+            const emails = data.companies[currentCompany].emails || [];
+
+            const unread = emails.filter(e => e.folder === 'inbox' && !e.read).length;
+            const urgent = emails.filter(e => e.folder === 'inbox' && e.priority === 'urgent').length;
+            const today = emails.filter(e => {
+                const emailDate = new Date(e.date);
+                const now = new Date();
+                return emailDate.toDateString() === now.toDateString() && e.folder === 'inbox';
+            }).length;
+            const starred = emails.filter(e => e.starred).length;
+
+            document.getElementById('stat-unread-emails').textContent = unread;
+            document.getElementById('stat-urgent-emails').textContent = urgent;
+            document.getElementById('stat-today-emails').textContent = today;
+            document.getElementById('stat-flagged-emails').textContent = starred;
+
+            // Aggiorna contatori tab
+            document.getElementById('inbox-count').textContent = emails.filter(e => e.folder === 'inbox').length;
+            document.getElementById('sent-count').textContent = emails.filter(e => e.folder === 'sent').length;
+            document.getElementById('archived-count').textContent = emails.filter(e => e.folder === 'archived').length;
+            document.getElementById('trash-count').textContent = emails.filter(e => e.folder === 'trash').length;
+        }
+
+        // Filtra email
+        function filterEmails() {
+            currentEmailFilter = {
+                search: document.getElementById('email-search').value.toLowerCase(),
+                priority: document.getElementById('email-filter-priority').value,
+                category: document.getElementById('email-filter-category').value,
+                unread: document.getElementById('email-filter-unread').checked,
+                starred: document.getElementById('email-filter-starred').checked
+            };
+
+            renderEmailList();
+        }
+
+        // Renderizza lista email
+        function renderEmailList() {
+            const container = document.getElementById('email-list-container');
+            if (!container) return;
+
+            const emails = data.companies[currentCompany].emails || [];
+
+            // Filtra per tab
+            let filtered = emails.filter(e => e.folder === currentEmailTab);
+
+            // Applica filtri
+            if (currentEmailFilter.search) {
+                filtered = filtered.filter(e =>
+                    e.from.toLowerCase().includes(currentEmailFilter.search) ||
+                    e.to.toLowerCase().includes(currentEmailFilter.search) ||
+                    e.subject.toLowerCase().includes(currentEmailFilter.search) ||
+                    e.body.toLowerCase().includes(currentEmailFilter.search)
+                );
+            }
+
+            if (currentEmailFilter.priority !== 'all') {
+                filtered = filtered.filter(e => e.priority === currentEmailFilter.priority);
+            }
+
+            if (currentEmailFilter.category !== 'all') {
+                filtered = filtered.filter(e => e.category === currentEmailFilter.category);
+            }
+
+            if (currentEmailFilter.unread) {
+                filtered = filtered.filter(e => !e.read);
+            }
+
+            if (currentEmailFilter.starred) {
+                filtered = filtered.filter(e => e.starred);
+            }
+
+            // Ordina per data (più recenti prima)
+            filtered.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+            if (filtered.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <p>Nessuna email in questa cartella</p>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = filtered.map(email => `
+                <div class="email-item ${email.read ? '' : 'unread'} ${email.priority !== 'normal' ? email.priority : ''}"
+                     onclick="openEmailView(${email.id})">
+                    <div class="email-checkbox">
+                        <input type="checkbox" onclick="event.stopPropagation()">
+                    </div>
+                    <div class="email-star ${email.starred ? 'starred' : ''}"
+                         onclick="event.stopPropagation(); toggleEmailStar(${email.id})">
+                        ${email.starred ? '⭐' : '☆'}
+                    </div>
+                    <div class="email-content">
+                        <div class="email-header">
+                            <div class="email-from">${currentEmailTab === 'sent' ? 'A: ' + email.to : email.from}</div>
+                            <div class="email-date">${formatEmailDate(email.date)}</div>
+                        </div>
+                        <div class="email-subject">${email.subject}</div>
+                        <div class="email-preview">${email.body.substring(0, 100)}...</div>
+                        <div class="email-tags">
+                            ${email.priority !== 'normal' ? `<span class="email-tag priority-${email.priority}">${getPriorityLabel(email.priority)}</span>` : ''}
+                            <span class="email-tag category">${getCategoryLabel(email.category)}</span>
+                            ${email.attachments && email.attachments.length > 0 ? `<span class="email-tag has-attachment">📎 ${email.attachments.length}</span>` : ''}
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Apri visualizzazione email
+        function openEmailView(emailId) {
+            const email = data.companies[currentCompany].emails.find(e => e.id === emailId);
+            if (!email) return;
+
+            // Segna come letta
+            if (!email.read && email.folder === 'inbox') {
+                email.read = true;
+                saveData();
+                updateEmailStats();
+                renderEmailList();
+            }
+
+            // Imposta email corrente per l'assistente
+            currentSelectedEmail = email;
+            updateEmailAssistantAnalysis(email);
+
+            const modal = document.getElementById('email-view-modal');
+            const body = document.getElementById('email-view-body');
+            const title = document.getElementById('email-view-title');
+
+            title.textContent = `📧 ${email.subject}`;
+
+            body.innerHTML = `
+                <div class="email-view-header">
+                    <div class="email-view-subject">${email.subject}</div>
+                    <div class="email-view-meta">
+                        <strong>Da:</strong> <span>${email.from}</span>
+                        <strong>A:</strong> <span>${email.to}</span>
+                        <strong>Data:</strong> <span>${formatEmailDate(email.date)}</span>
+                        <strong>Priorità:</strong> <span class="email-tag priority-${email.priority}">${getPriorityLabel(email.priority)}</span>
+                        <strong>Categoria:</strong> <span class="email-tag category">${getCategoryLabel(email.category)}</span>
+                        ${email.attachments && email.attachments.length > 0 ? `
+                            <strong>Allegati:</strong>
+                            <span>${email.attachments.map(a => `📎 ${a.name}`).join(', ')}</span>
+                        ` : ''}
+                    </div>
+                </div>
+
+                <div class="email-view-body">
+                    ${email.body}
+                </div>
+
+                <div class="email-view-actions">
+                    ${email.folder !== 'trash' ? `
+                        <button class="btn btn-success" onclick="replyEmail(${emailId})">↩️ Rispondi</button>
+                        <button class="btn" onclick="forwardEmail(${emailId})">➡️ Inoltra</button>
+                    ` : ''}
+                    ${email.folder === 'inbox' ? `
+                        <button class="btn" onclick="archiveEmail(${emailId})">📦 Archivia</button>
+                    ` : ''}
+                    ${email.folder === 'archived' ? `
+                        <button class="btn" onclick="moveToInbox(${emailId})">📥 Sposta in Inbox</button>
+                    ` : ''}
+                    ${email.folder !== 'trash' ? `
+                        <button class="btn btn-danger" onclick="deleteEmail(${emailId})">🗑️ Elimina</button>
+                    ` : ''}
+                    ${email.folder === 'trash' ? `
+                        <button class="btn" onclick="restoreEmail(${emailId})">↩️ Ripristina</button>
+                        <button class="btn btn-danger" onclick="permanentDeleteEmail(${emailId})">⚠️ Elimina Definitivamente</button>
+                    ` : ''}
+                </div>
+            `;
+
+            modal.classList.add('active');
+        }
+
+        // Chiudi visualizzazione email
+        function closeEmailView() {
+            document.getElementById('email-view-modal').classList.remove('active');
+        }
+
+        // Toggle stella email
+        function toggleEmailStar(emailId) {
+            const email = data.companies[currentCompany].emails.find(e => e.id === emailId);
+            if (!email) return;
+
+            email.starred = !email.starred;
+            saveData();
+            updateEmailStats();
+            renderEmailList();
+        }
+
+        // Componi nuova email
+        function composeNewEmail() {
+            document.getElementById('email-compose-form').reset();
+            document.getElementById('email-compose-modal').classList.add('active');
+        }
+
+        // Rispondi email
+        function replyEmail(emailId) {
+            const email = data.companies[currentCompany].emails.find(e => e.id === emailId);
+            if (!email) return;
+
+            closeEmailView();
+            composeNewEmail();
+
+            document.getElementById('email-to').value = email.from;
+            document.getElementById('email-subject').value = 'Re: ' + email.subject;
+            document.getElementById('email-compose-category').value = email.category;
+            document.getElementById('email-compose-priority').value = email.priority;
+
+            const originalBody = `
+
+------- Messaggio Originale -------
+Da: ${email.from}
+Data: ${formatEmailDate(email.date)}
+Oggetto: ${email.subject}
+
+${email.body}`;
+
+            document.getElementById('email-body').value = originalBody;
+            // Posiziona cursore all'inizio
+            document.getElementById('email-body').setSelectionRange(0, 0);
+            document.getElementById('email-body').focus();
+        }
+
+        // Inoltra email
+        function forwardEmail(emailId) {
+            const email = data.companies[currentCompany].emails.find(e => e.id === emailId);
+            if (!email) return;
+
+            closeEmailView();
+            composeNewEmail();
+
+            document.getElementById('email-subject').value = 'Fwd: ' + email.subject;
+            document.getElementById('email-compose-category').value = email.category;
+            document.getElementById('email-compose-priority').value = email.priority;
+
+            const forwardBody = `
+
+------- Messaggio Inoltrato -------
+Da: ${email.from}
+A: ${email.to}
+Data: ${formatEmailDate(email.date)}
+Oggetto: ${email.subject}
+
+${email.body}`;
+
+            document.getElementById('email-body').value = forwardBody;
+            document.getElementById('email-body').setSelectionRange(0, 0);
+            document.getElementById('email-to').focus();
+        }
+
+        // Archivia email
+        function archiveEmail(emailId) {
+            const email = data.companies[currentCompany].emails.find(e => e.id === emailId);
+            if (!email) return;
+
+            email.folder = 'archived';
+            saveData();
+            closeEmailView();
+            updateEmailStats();
+            renderEmailList();
+            showNotification('Email archiviata');
+        }
+
+        // Sposta in inbox
+        function moveToInbox(emailId) {
+            const email = data.companies[currentCompany].emails.find(e => e.id === emailId);
+            if (!email) return;
+
+            email.folder = 'inbox';
+            saveData();
+            closeEmailView();
+            updateEmailStats();
+            renderEmailList();
+            showNotification('Email spostata in Posta in Arrivo');
+        }
+
+        // Elimina email (sposta in cestino)
+        function deleteEmail(emailId) {
+            const email = data.companies[currentCompany].emails.find(e => e.id === emailId);
+            if (!email) return;
+
+            email.folder = 'trash';
+            saveData();
+            closeEmailView();
+            updateEmailStats();
+            renderEmailList();
+            showNotification('Email spostata nel cestino');
+        }
+
+        // Ripristina email
+        function restoreEmail(emailId) {
+            const email = data.companies[currentCompany].emails.find(e => e.id === emailId);
+            if (!email) return;
+
+            email.folder = 'inbox';
+            saveData();
+            closeEmailView();
+            updateEmailStats();
+            renderEmailList();
+            showNotification('Email ripristinata');
+        }
+
+        // Elimina definitivamente
+        function permanentDeleteEmail(emailId) {
+            if (!confirm('Sei sicura di voler eliminare definitivamente questa email? Questa azione non può essere annullata.')) {
+                return;
+            }
+
+            const index = data.companies[currentCompany].emails.findIndex(e => e.id === emailId);
+            if (index !== -1) {
+                data.companies[currentCompany].emails.splice(index, 1);
+                saveData();
+                closeEmailView();
+                updateEmailStats();
+                renderEmailList();
+                showNotification('Email eliminata definitivamente');
+            }
+        }
+
+        // Invia email
+        function sendEmail(event) {
+            event.preventDefault();
+
+            const newEmail = {
+                id: Date.now(),
+                from: 'me@company.com', // Email dell'azienda
+                to: document.getElementById('email-to').value,
+                subject: document.getElementById('email-subject').value,
+                body: document.getElementById('email-body').value,
+                category: document.getElementById('email-compose-category').value,
+                priority: document.getElementById('email-compose-priority').value,
+                date: new Date().toISOString(),
+                folder: 'sent',
+                read: true,
+                starred: false,
+                attachments: []
+            };
+
+            data.companies[currentCompany].emails.push(newEmail);
+
+            logAudit('create', 'email', newEmail.id, `Email inviata a: ${newEmail.to}`);
+            saveData();
+            closeEmailCompose();
+            updateEmailStats();
+            renderEmailList();
+            showNotification('✅ Email inviata con successo!');
+        }
+
+        // Salva bozza
+        function saveDraft() {
+            const draft = {
+                id: Date.now(),
+                from: 'me@company.com',
+                to: document.getElementById('email-to').value || '',
+                subject: document.getElementById('email-subject').value || '(Nessun oggetto)',
+                body: document.getElementById('email-body').value || '',
+                category: document.getElementById('email-compose-category').value,
+                priority: document.getElementById('email-compose-priority').value,
+                date: new Date().toISOString(),
+                folder: 'drafts',
+                read: true,
+                starred: false,
+                attachments: []
+            };
+
+            data.companies[currentCompany].emails.push(draft);
+            saveData();
+            closeEmailCompose();
+            showNotification('💾 Bozza salvata');
+        }
+
+        // Chiudi modal composizione
+        function closeEmailCompose() {
+            document.getElementById('email-compose-modal').classList.remove('active');
+        }
+
+        // Applica template email
+        function applyEmailTemplate() {
+            const templateId = document.getElementById('email-template-select').value;
+            if (!templateId) return;
+
+            const templates = {
+                'conferma-ordine': {
+                    subject: 'Conferma Ordine',
+                    body: `Gentile Cliente,
+
+Confermiamo la ricezione del Vostro ordine n. ______ del _______.
+
+I prodotti ordinati sono i seguenti:
+- _______
+- _______
+
+Tempi di consegna previsti: _______ giorni lavorativi.
+
+Restiamo a disposizione per qualsiasi chiarimento.
+
+Cordiali saluti,
+${data.companies[currentCompany].name}`
+                },
+                'sollecito-pagamento': {
+                    subject: 'Sollecito Pagamento - Fattura n. _____',
+                    body: `Gentile Cliente,
+
+Con la presente Vi informiamo che la fattura n. _____ del _______ risulta ancora non saldata.
+
+Importo: € _______
+Scadenza: _______
+
+Vi chiediamo cortesemente di provvedere al saldo entro _______ giorni.
+
+In caso di problemi o necessità di chiarimenti, non esitate a contattarci.
+
+Cordiali saluti,
+${data.companies[currentCompany].name}`
+                },
+                'richiesta-info': {
+                    subject: 'Richiesta Informazioni',
+                    body: `Gentile _______,
+
+Con la presente desideriamo richiedere informazioni riguardo a:
+
+_______
+
+Restiamo in attesa di Vs cortese riscontro.
+
+Cordiali saluti,
+${data.companies[currentCompany].name}`
+                },
+                'conferma-appuntamento': {
+                    subject: 'Conferma Appuntamento',
+                    body: `Gentile _______,
+
+Confermiamo l'appuntamento fissato per:
+
+Data: _______
+Ora: _______
+Luogo: _______
+
+In caso di impedimenti, Vi preghiamo di comunicarcelo tempestivamente.
+
+Cordiali saluti,
+${data.companies[currentCompany].name}`
+                },
+                'risposta-reclamo': {
+                    subject: 'Re: Reclamo - Ns. Rif. _______',
+                    body: `Gentile Cliente,
+
+Facciamo riferimento alla Vostra comunicazione del _______ relativa a _______.
+
+Ci scusiamo per il disagio arrecato e Vi informiamo che:
+
+_______
+
+Restiamo a disposizione per ulteriori chiarimenti.
+
+Cordiali saluti,
+${data.companies[currentCompany].name}`
+                }
+            };
+
+            const template = templates[templateId];
+            if (template) {
+                document.getElementById('email-subject').value = template.subject;
+                document.getElementById('email-body').value = template.body;
+            }
+        }
+
+        // Toggle pannello assistente
+        function toggleEmailAssistant() {
+            const panel = document.getElementById('email-assistant-panel');
+            panel.classList.toggle('active');
+        }
+
+        // Aggiorna analisi assistente
+        function updateEmailAssistantAnalysis(email) {
+            if (!email) return;
+
+            const analysisContainer = document.getElementById('email-analysis');
+
+            // Analisi IA simulata basata su parole chiave
+            const urgentKeywords = ['urgente', 'immediato', 'asap', 'entro', 'scadenza', 'importante'];
+            const questionKeywords = ['?', 'quando', 'come', 'perché', 'informazioni', 'chiarimenti'];
+            const actionKeywords = ['approvare', 'confermare', 'verificare', 'controllare', 'rispondere'];
+
+            const bodyLower = email.body.toLowerCase();
+            const subjectLower = email.subject.toLowerCase();
+
+            let urgencyScore = 0;
+            urgentKeywords.forEach(keyword => {
+                if (bodyLower.includes(keyword) || subjectLower.includes(keyword)) urgencyScore++;
+            });
+
+            let hasQuestions = questionKeywords.some(keyword =>
+                bodyLower.includes(keyword) || subjectLower.includes(keyword)
+            );
+
+            let requiresAction = actionKeywords.some(keyword =>
+                bodyLower.includes(keyword) || subjectLower.includes(keyword)
+            );
+
+            analysisContainer.innerHTML = `
+                <div class="analysis-item">
+                    <strong>📊 Livello di Urgenza</strong>
+                    ${urgencyScore > 2 ? '🔴 Alta' : urgencyScore > 0 ? '🟡 Media' : '🟢 Bassa'}
+                </div>
+                <div class="analysis-item">
+                    <strong>❓ Contiene Domande</strong>
+                    ${hasQuestions ? 'Sì - Richiede risposta informativa' : 'No'}
+                </div>
+                <div class="analysis-item">
+                    <strong>⚡ Richiede Azione</strong>
+                    ${requiresAction ? 'Sì - Richiede azione concreta' : 'No'}
+                </div>
+                <div class="analysis-item">
+                    <strong>📝 Suggerimento IA</strong>
+                    ${urgencyScore > 2 ? 'Rispondere entro oggi' :
+                      requiresAction ? 'Creare un\'attività da questa email' :
+                      hasQuestions ? 'Preparare risposta dettagliata' :
+                      'Email informativa, archiviare dopo lettura'}
+                </div>
+            `;
+        }
+
+        // Risposte rapide
+        function applyQuickReply(type) {
+            composeNewEmail();
+
+            if (currentSelectedEmail) {
+                document.getElementById('email-to').value = currentSelectedEmail.from;
+                document.getElementById('email-subject').value = 'Re: ' + currentSelectedEmail.subject;
+
+                const quickReplies = {
+                    'conferma': `Gentile ${currentSelectedEmail.from.split('@')[0]},
+
+Confermiamo la ricezione della Vostra email.
+
+Cordiali saluti,
+${data.companies[currentCompany].name}`,
+
+                    'informazioni': `Gentile ${currentSelectedEmail.from.split('@')[0]},
+
+Grazie per la Vostra email. Per fornirVi le informazioni richieste, avremmo bisogno di ulteriori dettagli:
+
+- _______
+- _______
+
+Restiamo in attesa di Vs. cortese riscontro.
+
+Cordiali saluti,
+${data.companies[currentCompany].name}`,
+
+                    'ringrazia': `Gentile ${currentSelectedEmail.from.split('@')[0]},
+
+Vi ringraziamo per la Vostra comunicazione.
+
+Cordiali saluti,
+${data.companies[currentCompany].name}`,
+
+                    'sollecito': `Gentile ${currentSelectedEmail.from.split('@')[0]},
+
+Facciamo seguito alla nostra precedente comunicazione, per la quale non abbiamo ancora ricevuto riscontro.
+
+Vi chiediamo cortesemente di fornirci un aggiornamento.
+
+Cordiali saluti,
+${data.companies[currentCompany].name}`
+                };
+
+                document.getElementById('email-body').value = quickReplies[type];
+            }
+        }
+
+        // Converti email in task
+        function convertEmailToTask() {
+            if (!currentSelectedEmail) {
+                alert('Seleziona prima un\'email');
+                return;
+            }
+
+            const newTask = {
+                id: Date.now(),
+                title: 'Email: ' + currentSelectedEmail.subject,
+                description: `Da: ${currentSelectedEmail.from}\n\n${currentSelectedEmail.body.substring(0, 200)}...`,
+                category: currentSelectedEmail.category === 'clienti' ? 'important' :
+                         currentSelectedEmail.category === 'fiscale' ? 'fiscal' : 'normal',
+                priority: currentSelectedEmail.priority === 'urgent' ? 'aplus' :
+                         currentSelectedEmail.priority === 'important' ? 'a' : 'b',
+                deadline: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString().split('T')[0], // +7 giorni
+                completed: false,
+                createdAt: new Date().toISOString()
+            };
+
+            data.companies[currentCompany].tasks.push(newTask);
+            logAudit('create', 'task', newTask.id, `Task creato da email: ${currentSelectedEmail.subject}`);
+            saveData();
+
+            showNotification('✅ Email convertita in attività!');
+            showSection('tasks');
+            renderTasks();
+        }
+
+        // Converti email in scadenza
+        function convertEmailToDeadline() {
+            if (!currentSelectedEmail) {
+                alert('Seleziona prima un\'email');
+                return;
+            }
+
+            const newDeadline = {
+                id: Date.now(),
+                title: currentSelectedEmail.subject,
+                date: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString().split('T')[0], // +7 giorni
+                description: `Email da: ${currentSelectedEmail.from}\n\n${currentSelectedEmail.body.substring(0, 200)}...`,
+                type: currentSelectedEmail.category === 'fiscale' ? 'fiscal' : 'other',
+                createdAt: new Date().toISOString()
+            };
+
+            data.companies[currentCompany].deadlines.push(newDeadline);
+            logAudit('create', 'deadline', newDeadline.id, `Scadenza creata da email: ${currentSelectedEmail.subject}`);
+            saveData();
+
+            showNotification('✅ Email convertita in scadenza!');
+            showSection('scadenze');
+            renderDeadlines();
+        }
+
+        // Converti email in contatto
+        function convertEmailToContact() {
+            if (!currentSelectedEmail) {
+                alert('Seleziona prima un\'email');
+                return;
+            }
+
+            const emailAddress = currentSelectedEmail.from;
+            const nameParts = emailAddress.split('@')[0].split('.');
+            const firstName = nameParts[0] || 'Nome';
+            const lastName = nameParts[1] || 'Cognome';
+
+            const newContact = {
+                id: Date.now(),
+                name: `${firstName.charAt(0).toUpperCase() + firstName.slice(1)} ${lastName.charAt(0).toUpperCase() + lastName.slice(1)}`,
+                role: 'Da definire',
+                company: '',
+                email: emailAddress,
+                phone: '',
+                notes: `Contatto aggiunto da email: "${currentSelectedEmail.subject}"`,
+                createdAt: new Date().toISOString()
+            };
+
+            data.companies[currentCompany].contacts.push(newContact);
+            logAudit('create', 'contact', newContact.id, `Contatto creato da email: ${emailAddress}`);
+            saveData();
+
+            showNotification('✅ Contatto salvato!');
+            showSection('contatti');
+            renderContacts();
+        }
+
+        // Mostra email urgenti
+        function showUrgentEmails() {
+            currentEmailFilter.priority = 'urgent';
+            document.getElementById('email-filter-priority').value = 'urgent';
+            renderEmailList();
+            toggleEmailAssistant();
+        }
+
+        // Mostra email con scadenza
+        function showDeadlineEmails() {
+            // Logica per mostrare email con scadenze imminenti
+            currentEmailFilter.search = 'scadenza';
+            document.getElementById('email-search').value = 'scadenza';
+            renderEmailList();
+            toggleEmailAssistant();
+        }
+
+        // Formatta data email
+        function formatEmailDate(dateStr) {
+            const date = new Date(dateStr);
+            const now = new Date();
+            const diff = now - date;
+            const minutes = Math.floor(diff / 60000);
+            const hours = Math.floor(diff / 3600000);
+            const days = Math.floor(diff / 86400000);
+
+            if (minutes < 1) return 'Adesso';
+            if (minutes < 60) return `${minutes} min fa`;
+            if (hours < 24) return `${hours} ore fa`;
+            if (days < 7) return `${days} giorni fa`;
+
+            return date.toLocaleDateString('it-IT', {
+                day: '2-digit',
+                month: 'short',
+                year: date.getFullYear() !== now.getFullYear() ? 'numeric' : undefined
+            });
+        }
+
+        // Label priorità
+        function getPriorityLabel(priority) {
+            const labels = {
+                'urgent': '🔴 Urgente',
+                'important': '🟡 Importante',
+                'normal': '🟢 Normale'
+            };
+            return labels[priority] || '🟢 Normale';
+        }
+
+        // Label categoria
+        function getCategoryLabel(category) {
+            const labels = {
+                'clienti': '👥 Clienti',
+                'fornitori': '🏭 Fornitori',
+                'fiscale': '💰 Fiscale',
+                'hr': '👔 HR',
+                'commerciale': '📈 Commerciale',
+                'legale': '⚖️ Legale',
+                'altro': '📋 Altro'
+            };
+            return labels[category] || '📋 Altro';
+        }
 
         // AVVIO
         init();
