@@ -3401,6 +3401,13 @@
                     </div>
                 </div>
 
+                <!-- Daily Briefing Button -->
+                <div style="margin-bottom: 20px;">
+                    <button onclick="showDailyBriefing()" style="width: 100%; padding: 20px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; border-radius: 10px; font-size: 1.3em; font-weight: 600; cursor: pointer; transition: all 0.3s; box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);">
+                        ☀️ Daily Briefing - Cosa fare oggi
+                    </button>
+                </div>
+
                 <!-- Tabs Email -->
                 <div class="email-tabs">
                     <button class="email-tab active" onclick="switchEmailTab('inbox')">📥 Posta in Arrivo (<span id="inbox-count">0</span>)</button>
@@ -7740,54 +7747,148 @@ ${data.companies[currentCompany].name}`
             panel.classList.toggle('active');
         }
 
-        // Aggiorna analisi assistente
+        // Aggiorna analisi assistente (VERSIONE AVANZATA con IA)
         function updateEmailAssistantAnalysis(email) {
             if (!email) return;
 
             const analysisContainer = document.getElementById('email-analysis');
 
-            // Analisi IA simulata basata su parole chiave
-            const urgentKeywords = ['urgente', 'immediato', 'asap', 'entro', 'scadenza', 'importante'];
-            const questionKeywords = ['?', 'quando', 'come', 'perché', 'informazioni', 'chiarimenti'];
-            const actionKeywords = ['approvare', 'confermare', 'verificare', 'controllare', 'rispondere'];
+            // Usa il classificatore IA avanzato
+            const analysis = advancedClassifyEmail(email);
 
-            const bodyLower = email.body.toLowerCase();
-            const subjectLower = email.subject.toLowerCase();
+            // Estrai appuntamenti se presenti
+            let appointmentsHtml = '';
+            if (analysis.hasAppointment) {
+                const appointments = extractAppointmentsFromEmail(email);
+                if (appointments.length > 0) {
+                    appointmentsHtml = `
+                        <div class="analysis-item">
+                            <strong>📅 Appuntamenti Rilevati</strong>
+                            ${appointments.map(apt => `
+                                <div style="margin-top: 8px; padding: 8px; background: #e3f2fd; border-radius: 5px;">
+                                    📌 ${apt.title}<br>
+                                    ⏰ ${apt.date} alle ${apt.time}
+                                    ${apt.location ? `<br>📍 ${apt.location}` : ''}
+                                    <button class="btn-small" style="margin-top: 5px;" onclick="quickAddAppointment('${apt.title}', '${apt.date}', '${apt.time}', '${apt.description}')">
+                                        Aggiungi al Calendario
+                                    </button>
+                                </div>
+                            `).join('')}
+                        </div>
+                    `;
+                }
+            }
 
-            let urgencyScore = 0;
-            urgentKeywords.forEach(keyword => {
-                if (bodyLower.includes(keyword) || subjectLower.includes(keyword)) urgencyScore++;
-            });
-
-            let hasQuestions = questionKeywords.some(keyword =>
-                bodyLower.includes(keyword) || subjectLower.includes(keyword)
-            );
-
-            let requiresAction = actionKeywords.some(keyword =>
-                bodyLower.includes(keyword) || subjectLower.includes(keyword)
-            );
+            // Estrai scadenze se presenti
+            let deadlinesHtml = '';
+            if (analysis.hasDeadline) {
+                const deadlines = extractDeadlinesFromEmail(email);
+                if (deadlines.length > 0) {
+                    deadlinesHtml = `
+                        <div class="analysis-item">
+                            <strong>⏰ Scadenze Rilevate</strong>
+                            ${deadlines.map(dl => `
+                                <div style="margin-top: 8px; padding: 8px; background: #fff3e0; border-radius: 5px;">
+                                    📌 ${dl.title}<br>
+                                    📅 ${dl.date}
+                                    <button class="btn-small" style="margin-top: 5px;" onclick="quickAddDeadline('${dl.title}', '${dl.date}', '${dl.description}')">
+                                        Aggiungi Scadenza
+                                    </button>
+                                </div>
+                            `).join('')}
+                        </div>
+                    `;
+                }
+            }
 
             analysisContainer.innerHTML = `
                 <div class="analysis-item">
-                    <strong>📊 Livello di Urgenza</strong>
-                    ${urgencyScore > 2 ? '🔴 Alta' : urgencyScore > 0 ? '🟡 Media' : '🟢 Bassa'}
+                    <strong>🎯 Classificazione IA</strong>
+                    <div style="margin-top: 8px;">
+                        Categoria: ${getCategoryLabel(analysis.category)}<br>
+                        Priorità: ${getPriorityLabel(analysis.priority)}<br>
+                        Confidenza: ${(analysis.confidence * 100).toFixed(0)}%
+                    </div>
                 </div>
                 <div class="analysis-item">
-                    <strong>❓ Contiene Domande</strong>
-                    ${hasQuestions ? 'Sì - Richiede risposta informativa' : 'No'}
+                    <strong>📊 Punteggio Urgenza</strong>
+                    <div style="margin-top: 8px;">
+                        ${analysis.urgencyScore >= 4 ? '🔴 Molto Alta' :
+                          analysis.urgencyScore >= 2 ? '🟡 Media-Alta' :
+                          analysis.urgencyScore >= 1 ? '🟢 Media' : '⚪ Bassa'}
+                        (${analysis.urgencyScore.toFixed(1)}/10)
+                    </div>
                 </div>
                 <div class="analysis-item">
-                    <strong>⚡ Richiede Azione</strong>
-                    ${requiresAction ? 'Sì - Richiede azione concreta' : 'No'}
+                    <strong>✅ Richieste Rilevate</strong>
+                    <div style="margin-top: 8px;">
+                        ${analysis.requiresReply ? '✓ Richiede risposta' : '○ Non richiede risposta'}<br>
+                        ${analysis.requiresAction ? '✓ Richiede azione' : '○ Non richiede azione'}<br>
+                        ${analysis.hasDeadline ? '✓ Contiene scadenze' : '○ Nessuna scadenza'}<br>
+                        ${analysis.hasAppointment ? '✓ Contiene appuntamenti' : '○ Nessun appuntamento'}
+                    </div>
+                </div>
+                ${appointmentsHtml}
+                ${deadlinesHtml}
+                <div class="analysis-item">
+                    <strong>🤖 Regole Attivate</strong>
+                    <div style="margin-top: 8px; font-size: 0.85em; color: #666;">
+                        ${analysis.matchedRules.length > 0 ?
+                            analysis.matchedRules.map(r => `• ${r}`).join('<br>') :
+                            'Nessuna regola speciale attivata'
+                        }
+                    </div>
                 </div>
                 <div class="analysis-item">
-                    <strong>📝 Suggerimento IA</strong>
-                    ${urgencyScore > 2 ? 'Rispondere entro oggi' :
-                      requiresAction ? 'Creare un\'attività da questa email' :
-                      hasQuestions ? 'Preparare risposta dettagliata' :
-                      'Email informativa, archiviare dopo lettura'}
+                    <strong>💡 Suggerimento IA</strong>
+                    <div style="margin-top: 8px; padding: 10px; background: #e8f5e9; border-radius: 5px; color: #2e7d32;">
+                        ${analysis.urgencyScore >= 4 ? '🚨 Rispondere URGENTEMENTE - Entro oggi!' :
+                          analysis.requiresAction ? '✅ Creare un\'attività da questa email' :
+                          analysis.requiresReply ? '📧 Preparare risposta dettagliata entro 24-48h' :
+                          analysis.hasAppointment ? '📅 Aggiungere appuntamento al calendario' :
+                          analysis.hasDeadline ? '⏰ Inserire scadenza nel sistema' :
+                          '📖 Email informativa - Archiviare dopo lettura'}
+                    </div>
                 </div>
             `;
+        }
+
+        // Quick add appuntamento
+        function quickAddAppointment(title, date, time, description) {
+            const newAppointment = {
+                id: Date.now(),
+                title: title,
+                date: date,
+                time: time,
+                description: description,
+                createdAt: new Date().toISOString()
+            };
+
+            data.companies[currentCompany].appointments.push(newAppointment);
+            logAudit('create', 'appointment', newAppointment.id, `Appuntamento creato da email: ${title}`);
+            saveData();
+
+            showNotification('✅ Appuntamento aggiunto al calendario!');
+            updateAppointments();
+        }
+
+        // Quick add scadenza
+        function quickAddDeadline(title, date, description) {
+            const newDeadline = {
+                id: Date.now(),
+                title: title,
+                date: date,
+                description: description,
+                type: 'other',
+                createdAt: new Date().toISOString()
+            };
+
+            data.companies[currentCompany].deadlines.push(newDeadline);
+            logAudit('create', 'deadline', newDeadline.id, `Scadenza creata da email: ${title}`);
+            saveData();
+
+            showNotification('✅ Scadenza aggiunta!');
+            renderDeadlines();
         }
 
         // Risposte rapide
@@ -7985,6 +8086,581 @@ ${data.companies[currentCompany].name}`
                 'altro': '📋 Altro'
             };
             return labels[category] || '📋 Altro';
+        }
+
+        // ===================================
+        // ASSISTENTE IA AVANZATO
+        // (Integrato dal progetto ASSISTENTE)
+        // ===================================
+
+        // Classificatore IA avanzato
+        function advancedClassifyEmail(email) {
+            const subject = email.subject.toLowerCase();
+            const body = email.body.toLowerCase();
+            const sender = email.from.toLowerCase();
+
+            let urgencyScore = 0;
+            let category = email.category || 'altro';
+            let priority = email.priority || 'normal';
+            let matchedRules = [];
+            let requiresReply = false;
+            let requiresAction = false;
+            let hasDeadline = false;
+            let hasAppointment = false;
+
+            // RILEVAMENTO SPAM
+            const spamKeywords = ['click here', 'free money', 'winner', 'congratulat', 'limited time', 'act now', '!!!', 'urgent!!!'];
+            const spamScore = spamKeywords.filter(k => subject.includes(k) || body.includes(k)).length;
+
+            if (spamScore > 2) {
+                return {
+                    category: 'spam',
+                    priority: 'normal',
+                    urgencyScore: 0,
+                    matchedRules: ['spam_detection'],
+                    requiresReply: false,
+                    requiresAction: false,
+                    confidence: 0.9
+                };
+            }
+
+            // PAROLE CHIAVE URGENTI (dal classifier.py)
+            const urgentKeywords = [
+                'urgente', 'immediat', 'asap', 'entro oggi', 'entro domani',
+                'scadenza', 'deadline', 'importante', 'critico', 'emergency',
+                'attenzione', 'priorit', 'quanto prima'
+            ];
+
+            urgentKeywords.forEach(keyword => {
+                if (subject.includes(keyword) || body.includes(keyword)) {
+                    urgencyScore += 2;
+                    matchedRules.push(`urgent_keyword: ${keyword}`);
+                }
+            });
+
+            // RILEVAMENTO RICHIESTA DI RISPOSTA
+            const replyKeywords = [
+                'per favore rispondi', 'please reply', 'attendo riscontro',
+                'puoi confermare', 'can you confirm', 'risposta', 'response',
+                'fammi sapere', 'let me know', 'conferma', 'confirm'
+            ];
+
+            replyKeywords.forEach(keyword => {
+                if (subject.includes(keyword) || body.includes(keyword)) {
+                    requiresReply = true;
+                    urgencyScore += 1;
+                    matchedRules.push('requires_reply');
+                }
+            });
+
+            // Se c'è un punto interrogativo nel subject = richiede risposta
+            if (subject.includes('?')) {
+                requiresReply = true;
+                urgencyScore += 0.5;
+            }
+
+            // RILEVAMENTO AZIONE RICHIESTA
+            const actionKeywords = [
+                'per favore invia', 'please send', 'devi', 'you need to',
+                'completa', 'complete', 'approva', 'approve', 'verifica',
+                'verify', 'controlla', 'check', 'firma', 'sign'
+            ];
+
+            actionKeywords.forEach(keyword => {
+                if (subject.includes(keyword) || body.includes(keyword)) {
+                    requiresAction = true;
+                    urgencyScore += 1.5;
+                    matchedRules.push('requires_action');
+                }
+            });
+
+            // RILEVAMENTO SCADENZE
+            const deadlinePatterns = [
+                /entro\s+(oggi|domani|lunedì|martedì|mercoledì|giovedì|venerdì|sabato|domenica)/gi,
+                /scadenz\w*/gi,
+                /deadline/gi,
+                /by\s+(today|tomorrow|monday|tuesday|wednesday|thursday|friday)/gi,
+                /\d{1,2}[/-]\d{1,2}[/-]\d{2,4}/g
+            ];
+
+            deadlinePatterns.forEach(pattern => {
+                if (pattern.test(subject + ' ' + body)) {
+                    hasDeadline = true;
+                    urgencyScore += 2;
+                    matchedRules.push('has_deadline');
+                }
+            });
+
+            // RILEVAMENTO APPUNTAMENTI
+            const appointmentKeywords = [
+                'riunione', 'meeting', 'appuntamento', 'call',
+                'videochiamata', 'video call', 'incontro', 'colloquio'
+            ];
+
+            appointmentKeywords.forEach(keyword => {
+                if (subject.includes(keyword) || body.includes(keyword)) {
+                    hasAppointment = true;
+                    urgencyScore += 1;
+                    matchedRules.push('has_appointment');
+                }
+            });
+
+            // RILEVAMENTO PATTERN TEMPO (orari)
+            if (/\d{1,2}:\d{2}/.test(subject + ' ' + body)) {
+                urgencyScore += 0.5;
+                matchedRules.push('time_mentioned');
+            }
+
+            // DETERMINA PRIORITÀ FINALE
+            if (urgencyScore >= 4) {
+                priority = 'urgent';
+            } else if (urgencyScore >= 2) {
+                priority = 'important';
+            } else {
+                priority = 'normal';
+            }
+
+            // DETERMINA CATEGORIA INTELLIGENTE
+            if (body.includes('fattura') || body.includes('invoice') || body.includes('pagamento')) {
+                category = 'fiscale';
+            } else if (body.includes('contratto') || body.includes('legale') || body.includes('avvocato')) {
+                category = 'legale';
+            } else if (body.includes('dipendent') || body.includes('assunzione') || body.includes('colloquio')) {
+                category = 'hr';
+            } else if (body.includes('ordine') || body.includes('preventivo') || body.includes('offerta')) {
+                category = 'commerciale';
+            }
+
+            const confidence = Math.min(0.5 + (matchedRules.length * 0.1), 0.95);
+
+            return {
+                category,
+                priority,
+                urgencyScore,
+                matchedRules,
+                requiresReply,
+                requiresAction,
+                hasDeadline,
+                hasAppointment,
+                confidence
+            };
+        }
+
+        // Estrai appuntamenti da email (dal calendar_manager.py)
+        function extractAppointmentsFromEmail(email) {
+            const subject = email.subject;
+            const body = email.body;
+            const text = `${subject}. ${body}`;
+
+            const appointments = [];
+
+            // Pattern 1: Data esplicita + orario (15/12/2024 alle 14:30)
+            const pattern1 = /(\d{1,2}[/-]\d{1,2}[/-]\d{2,4})\s+(?:alle|at|@|ore)?\s*(\d{1,2}[:]\d{2})/gi;
+            let match;
+
+            while ((match = pattern1.exec(text)) !== null) {
+                try {
+                    const dateStr = match[1];
+                    const timeStr = match[2];
+
+                    // Parse data
+                    const dateParts = dateStr.split(/[/-]/);
+                    const day = parseInt(dateParts[0]);
+                    const month = parseInt(dateParts[1]) - 1;
+                    const year = dateParts[2].length === 2 ? 2000 + parseInt(dateParts[2]) : parseInt(dateParts[2]);
+
+                    // Parse orario
+                    const timeParts = timeStr.split(':');
+                    const hour = parseInt(timeParts[0]);
+                    const minute = parseInt(timeParts[1]);
+
+                    const startTime = new Date(year, month, day, hour, minute);
+
+                    // Solo appuntamenti futuri
+                    if (startTime > new Date()) {
+                        appointments.push({
+                            title: extractAppointmentTitle(subject, body),
+                            date: startTime.toISOString().split('T')[0],
+                            time: timeStr,
+                            description: `Da email: ${email.from}\n\n${body.substring(0, 200)}...`,
+                            location: extractLocation(body),
+                            confidence: 0.9
+                        });
+                    }
+                } catch (e) {
+                    console.error('Error parsing appointment:', e);
+                }
+            }
+
+            // Pattern 2: Solo orario (14:30, 3:00 PM)
+            const pattern2 = /\b(\d{1,2}):(\d{2})\b/g;
+
+            while ((match = pattern2.exec(body)) !== null) {
+                try {
+                    const hour = parseInt(match[1]);
+                    const minute = parseInt(match[2]);
+
+                    const now = new Date();
+                    let appointmentDate = new Date(now.getFullYear(), now.getMonth(), now.getDate(), hour, minute);
+
+                    // Se l'orario è passato, assume domani
+                    if (appointmentDate < now) {
+                        appointmentDate.setDate(appointmentDate.getDate() + 1);
+                    }
+
+                    appointments.push({
+                        title: extractAppointmentTitle(subject, body),
+                        date: appointmentDate.toISOString().split('T')[0],
+                        time: `${hour.toString().padStart(2, '0')}:${minute.toString().padStart(2, '0')}`,
+                        description: `Da email: ${email.from}\n\n${body.substring(0, 200)}...`,
+                        location: extractLocation(body),
+                        confidence: 0.5
+                    });
+                } catch (e) {
+                    console.error('Error parsing time:', e);
+                }
+            }
+
+            // Pattern 3: "domani alle 15:00", "oggi alle 10:00"
+            const pattern3 = /(oggi|domani|dopodomani)\s+(?:alle|at)?\s*(\d{1,2}):(\d{2})/gi;
+
+            while ((match = pattern3.exec(text)) !== null) {
+                try {
+                    const when = match[1].toLowerCase();
+                    const hour = parseInt(match[2]);
+                    const minute = parseInt(match[3]);
+
+                    const now = new Date();
+                    let appointmentDate = new Date(now.getFullYear(), now.getMonth(), now.getDate(), hour, minute);
+
+                    if (when === 'domani') {
+                        appointmentDate.setDate(appointmentDate.getDate() + 1);
+                    } else if (when === 'dopodomani') {
+                        appointmentDate.setDate(appointmentDate.getDate() + 2);
+                    }
+
+                    if (appointmentDate > now) {
+                        appointments.push({
+                            title: extractAppointmentTitle(subject, body),
+                            date: appointmentDate.toISOString().split('T')[0],
+                            time: `${hour.toString().padStart(2, '0')}:${minute.toString().padStart(2, '0')}`,
+                            description: `Da email: ${email.from}\n\n${body.substring(0, 200)}...`,
+                            location: extractLocation(body),
+                            confidence: 0.8
+                        });
+                    }
+                } catch (e) {
+                    console.error('Error parsing relative date:', e);
+                }
+            }
+
+            return appointments.slice(0, 3); // Max 3 appuntamenti per email
+        }
+
+        // Estrai titolo appuntamento
+        function extractAppointmentTitle(subject, body) {
+            // Cerca pattern tipo "Riunione: Titolo"
+            const titlePatterns = [
+                /(?:riunione|meeting|appuntamento|call):\s*([^\n]+)/i,
+                /(?:oggetto|subject):\s*([^\n]+)/i
+            ];
+
+            for (const pattern of titlePatterns) {
+                const match = pattern.exec(subject + ' ' + body);
+                if (match) {
+                    return match[1].trim().substring(0, 100);
+                }
+            }
+
+            // Fallback al subject o prima riga
+            if (subject && subject.length > 5) {
+                return subject.substring(0, 100);
+            }
+
+            return 'Appuntamento da email';
+        }
+
+        // Estrai location
+        function extractLocation(body) {
+            const locationPatterns = [
+                /(?:location|luogo|dove|where|presso|at):\s*([^\n]+)/i,
+                /(?:sala|room|ufficio|office)\s+([A-Za-z0-9]+)/i,
+                /(?:via|viale|piazza)\s+([^,\n]+)/i
+            ];
+
+            for (const pattern of locationPatterns) {
+                const match = pattern.exec(body);
+                if (match) {
+                    return match[1].trim().substring(0, 100);
+                }
+            }
+
+            return null;
+        }
+
+        // Estrai scadenze da email
+        function extractDeadlinesFromEmail(email) {
+            const subject = email.subject;
+            const body = email.body;
+            const text = `${subject}. ${body}`;
+
+            const deadlines = [];
+
+            // Pattern 1: "entro il 15/12/2024"
+            const pattern1 = /entro\s+(?:il\s+)?(\d{1,2}[/-]\d{1,2}[/-]\d{2,4})/gi;
+            let match;
+
+            while ((match = pattern1.exec(text)) !== null) {
+                try {
+                    const dateStr = match[1];
+                    const dateParts = dateStr.split(/[/-]/);
+                    const day = parseInt(dateParts[0]);
+                    const month = parseInt(dateParts[1]) - 1;
+                    const year = dateParts[2].length === 2 ? 2000 + parseInt(dateParts[2]) : parseInt(dateParts[2]);
+
+                    const deadlineDate = new Date(year, month, day);
+
+                    if (deadlineDate > new Date()) {
+                        deadlines.push({
+                            title: `Scadenza: ${subject}`,
+                            date: deadlineDate.toISOString().split('T')[0],
+                            description: `Da email: ${email.from}\n\n${body.substring(0, 200)}...`,
+                            type: 'other',
+                            confidence: 0.9
+                        });
+                    }
+                } catch (e) {
+                    console.error('Error parsing deadline:', e);
+                }
+            }
+
+            // Pattern 2: "scadenza: 30/12/2024"
+            const pattern2 = /(?:scadenz\w*|deadline):\s*(\d{1,2}[/-]\d{1,2}[/-]\d{2,4})/gi;
+
+            while ((match = pattern2.exec(text)) !== null) {
+                try {
+                    const dateStr = match[1];
+                    const dateParts = dateStr.split(/[/-]/);
+                    const day = parseInt(dateParts[0]);
+                    const month = parseInt(dateParts[1]) - 1;
+                    const year = dateParts[2].length === 2 ? 2000 + parseInt(dateParts[2]) : parseInt(dateParts[2]);
+
+                    const deadlineDate = new Date(year, month, day);
+
+                    if (deadlineDate > new Date()) {
+                        deadlines.push({
+                            title: `Scadenza: ${subject}`,
+                            date: deadlineDate.toISOString().split('T')[0],
+                            description: `Da email: ${email.from}\n\n${body.substring(0, 200)}...`,
+                            type: 'other',
+                            confidence: 0.9
+                        });
+                    }
+                } catch (e) {
+                    console.error('Error parsing deadline:', e);
+                }
+            }
+
+            // Pattern 3: "entro domani", "entro oggi"
+            const pattern3 = /entro\s+(oggi|domani|dopodomani)/gi;
+
+            while ((match = pattern3.exec(text)) !== null) {
+                const when = match[1].toLowerCase();
+                const now = new Date();
+                let deadlineDate = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+
+                if (when === 'domani') {
+                    deadlineDate.setDate(deadlineDate.getDate() + 1);
+                } else if (when === 'dopodomani') {
+                    deadlineDate.setDate(deadlineDate.getDate() + 2);
+                }
+
+                deadlines.push({
+                    title: `Scadenza urgente: ${subject}`,
+                    date: deadlineDate.toISOString().split('T')[0],
+                    description: `Da email: ${email.from}\n\n${body.substring(0, 200)}...`,
+                    type: 'other',
+                    confidence: 0.8
+                });
+            }
+
+            return deadlines.slice(0, 2); // Max 2 scadenze per email
+        }
+
+        // DAILY BRIEFING - Dashboard giornaliera intelligente
+        function generateDailyBriefing() {
+            const emails = data.companies[currentCompany].emails || [];
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+            const tomorrow = new Date(today);
+            tomorrow.setDate(tomorrow.getDate() + 1);
+
+            // Analizza tutte le email in inbox
+            const inboxEmails = emails.filter(e => e.folder === 'inbox');
+
+            let urgentEmails = [];
+            let deadlinesToday = [];
+            let appointmentsToday = [];
+            let requiresReply = [];
+            let requiresAction = [];
+
+            inboxEmails.forEach(email => {
+                // Classifica con IA avanzata
+                const analysis = advancedClassifyEmail(email);
+
+                email._aiAnalysis = analysis; // Salva analisi
+
+                if (analysis.priority === 'urgent') {
+                    urgentEmails.push(email);
+                }
+
+                if (analysis.requiresReply && !email.read) {
+                    requiresReply.push(email);
+                }
+
+                if (analysis.requiresAction) {
+                    requiresAction.push(email);
+                }
+
+                // Estrai appuntamenti
+                if (analysis.hasAppointment) {
+                    const appointments = extractAppointmentsFromEmail(email);
+                    appointments.forEach(apt => {
+                        const aptDate = new Date(apt.date);
+                        if (aptDate.toDateString() === today.toDateString()) {
+                            appointmentsToday.push({...apt, emailId: email.id});
+                        }
+                    });
+                }
+
+                // Estrai scadenze
+                if (analysis.hasDeadline) {
+                    const deadlines = extractDeadlinesFromEmail(email);
+                    deadlines.forEach(dl => {
+                        const dlDate = new Date(dl.date);
+                        if (dlDate.toDateString() === today.toDateString()) {
+                            deadlinesToday.push({...dl, emailId: email.id});
+                        }
+                    });
+                }
+            });
+
+            return {
+                date: today.toLocaleDateString('it-IT', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' }),
+                urgentEmails,
+                deadlinesToday,
+                appointmentsToday,
+                requiresReply,
+                requiresAction,
+                totalInbox: inboxEmails.length,
+                unreadCount: inboxEmails.filter(e => !e.read).length
+            };
+        }
+
+        // Mostra Daily Briefing
+        function showDailyBriefing() {
+            const briefing = generateDailyBriefing();
+
+            const briefingHtml = `
+                <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 30px; border-radius: 15px; margin-bottom: 30px;">
+                    <h2 style="margin: 0 0 10px 0;">☀️ Buongiorno! Daily Briefing</h2>
+                    <p style="margin: 0; opacity: 0.9;">${briefing.date}</p>
+                </div>
+
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-bottom: 30px;">
+                    <div style="background: #e74c3c; color: white; padding: 20px; border-radius: 10px; text-align: center;">
+                        <div style="font-size: 3em; font-weight: bold;">${briefing.urgentEmails.length}</div>
+                        <div style="font-size: 1.2em;">Email Urgenti</div>
+                    </div>
+                    <div style="background: #f39c12; color: white; padding: 20px; border-radius: 10px; text-align: center;">
+                        <div style="font-size: 3em; font-weight: bold;">${briefing.deadlinesToday.length}</div>
+                        <div style="font-size: 1.2em;">Scadenze Oggi</div>
+                    </div>
+                    <div style="background: #3498db; color: white; padding: 20px; border-radius: 10px; text-align: center;">
+                        <div style="font-size: 3em; font-weight: bold;">${briefing.appointmentsToday.length}</div>
+                        <div style="font-size: 1.2em;">Appuntamenti Oggi</div>
+                    </div>
+                    <div style="background: #9b59b6; color: white; padding: 20px; border-radius: 10px; text-align: center;">
+                        <div style="font-size: 3em; font-weight: bold;">${briefing.requiresReply.length}</div>
+                        <div style="font-size: 1.2em;">Richieste Risposta</div>
+                    </div>
+                </div>
+
+                ${briefing.urgentEmails.length > 0 ? `
+                    <div class="card" style="margin-bottom: 20px;">
+                        <h3 style="color: #e74c3c;">🚨 EMAIL URGENTI</h3>
+                        ${briefing.urgentEmails.map(email => `
+                            <div style="padding: 15px; border-left: 4px solid #e74c3c; background: #ffebee; margin-bottom: 10px; cursor: pointer;" onclick="openEmailView(${email.id})">
+                                <div style="font-weight: bold;">${email.subject}</div>
+                                <div style="color: #666; font-size: 0.9em;">Da: ${email.from}</div>
+                            </div>
+                        `).join('')}
+                    </div>
+                ` : ''}
+
+                ${briefing.deadlinesToday.length > 0 ? `
+                    <div class="card" style="margin-bottom: 20px;">
+                        <h3 style="color: #f39c12;">⏰ SCADENZE OGGI</h3>
+                        ${briefing.deadlinesToday.map(dl => `
+                            <div style="padding: 15px; border-left: 4px solid #f39c12; background: #fff3e0; margin-bottom: 10px;">
+                                <div style="font-weight: bold;">${dl.title}</div>
+                                <div style="color: #666; font-size: 0.9em;">${dl.description.substring(0, 100)}...</div>
+                            </div>
+                        `).join('')}
+                    </div>
+                ` : ''}
+
+                ${briefing.appointmentsToday.length > 0 ? `
+                    <div class="card" style="margin-bottom: 20px;">
+                        <h3 style="color: #3498db;">📅 APPUNTAMENTI OGGI</h3>
+                        ${briefing.appointmentsToday.map(apt => `
+                            <div style="padding: 15px; border-left: 4px solid #3498db; background: #e3f2fd; margin-bottom: 10px;">
+                                <div style="font-weight: bold;">${apt.title}</div>
+                                <div style="color: #666; font-size: 0.9em;">⏰ ${apt.time} ${apt.location ? `• 📍 ${apt.location}` : ''}</div>
+                            </div>
+                        `).join('')}
+                    </div>
+                ` : ''}
+
+                ${briefing.requiresAction.length > 0 ? `
+                    <div class="card" style="margin-bottom: 20px;">
+                        <h3 style="color: #9b59b6;">✅ AZIONI RICHIESTE</h3>
+                        ${briefing.requiresAction.slice(0, 5).map(email => `
+                            <div style="padding: 15px; border-left: 4px solid #9b59b6; background: #f3e5f5; margin-bottom: 10px; cursor: pointer;" onclick="openEmailView(${email.id})">
+                                <div style="font-weight: bold;">${email.subject}</div>
+                                <div style="color: #666; font-size: 0.9em;">Da: ${email.from}</div>
+                            </div>
+                        `).join('')}
+                    </div>
+                ` : ''}
+
+                <div class="card">
+                    <h3>🎯 PRIORITÀ PER OGGI</h3>
+                    <ol style="line-height: 2;">
+                        ${briefing.urgentEmails.length > 0 ? `<li>Rispondere a ${briefing.urgentEmails.length} email urgenti</li>` : ''}
+                        ${briefing.deadlinesToday.length > 0 ? `<li>Completare ${briefing.deadlinesToday.length} scadenze</li>` : ''}
+                        ${briefing.appointmentsToday.length > 0 ? `<li>Partecipare a ${briefing.appointmentsToday.length} appuntamenti</li>` : ''}
+                        ${briefing.requiresReply.length > 0 ? `<li>Rispondere a ${briefing.requiresReply.length} email</li>` : ''}
+                        ${briefing.urgentEmails.length === 0 && briefing.deadlinesToday.length === 0 && briefing.appointmentsToday.length === 0 ? `<li>✅ Tutto sotto controllo! Nessuna urgenza oggi.</li>` : ''}
+                    </ol>
+                </div>
+
+                <div style="margin-top: 30px; padding: 20px; background: #ecf0f1; border-radius: 10px; text-align: center;">
+                    <p style="margin: 0; color: #7f8c8d;">
+                        <strong>Inbox:</strong> ${briefing.totalInbox} email totali •
+                        <strong>${briefing.unreadCount}</strong> non lette
+                    </p>
+                </div>
+            `;
+
+            // Mostra in un modal
+            const modal = document.getElementById('email-view-modal');
+            const body = document.getElementById('email-view-body');
+            const title = document.getElementById('email-view-title');
+
+            title.textContent = '☀️ Daily Briefing';
+            body.innerHTML = briefingHtml;
+            modal.classList.add('active');
         }
 
         // AVVIO
