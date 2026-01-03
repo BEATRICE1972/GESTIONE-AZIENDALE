@@ -30,44 +30,112 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: #f5f7fa;
             min-height: 100vh;
-            padding: 20px;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
         }
 
+        /* Vecchi stili nascosti - non più utilizzati con nuova sidebar */
         .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            background: white;
-            border-radius: 15px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
-            overflow: hidden;
+            display: none;
         }
 
-        /* HEADER */
         header {
-            background: var(--primary-color);
-            color: white;
-            padding: 30px;
-            text-align: center;
-        }
-
-        header h1 {
-            font-size: 2em;
-            margin-bottom: 10px;
-        }
-
-        header p {
-            opacity: 0.9;
-            font-size: 1.1em;
+            display: none;
         }
 
         /* NAVIGAZIONE */
-        nav {
-            background: var(--secondary-color);
+        /* SIDEBAR NAVIGATION - Migliorata per UX */
+        .app-layout {
             display: flex;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            width: 280px;
+            background: linear-gradient(180deg, var(--primary-color) 0%, #1a252f 100%);
+            color: white;
+            position: fixed;
+            left: 0;
+            top: 0;
+            height: 100vh;
+            overflow-y: auto;
+            overflow-x: hidden;
+            transition: all 0.3s;
+            z-index: 1000;
+            box-shadow: 4px 0 15px rgba(0,0,0,0.1);
+        }
+
+        .sidebar.collapsed {
+            width: 80px;
+        }
+
+        .sidebar-header {
+            padding: 25px 20px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            position: sticky;
+            top: 0;
+            background: var(--primary-color);
+            z-index: 10;
+        }
+
+        .sidebar-header h2 {
+            margin: 0;
+            font-size: 1.3em;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .sidebar.collapsed .sidebar-header h2 span {
+            display: none;
+        }
+
+        .sidebar-toggle {
+            position: absolute;
+            right: -15px;
+            top: 30px;
+            background: var(--secondary-color);
+            color: white;
+            border: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
             justify-content: center;
-            flex-wrap: wrap;
+            font-size: 1.2em;
+            transition: all 0.3s;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+
+        .sidebar-toggle:hover {
+            transform: scale(1.1);
+            background: #2980b9;
+        }
+
+        .nav-section {
+            padding: 15px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .nav-section-title {
+            padding: 10px 20px;
+            font-size: 0.75em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            opacity: 0.6;
+            font-weight: 600;
+        }
+
+        .sidebar.collapsed .nav-section-title {
+            display: none;
+        }
+
+        nav {
             padding: 0;
         }
 
@@ -75,73 +143,315 @@
             background: transparent;
             color: white;
             border: none;
-            padding: 15px 30px;
+            padding: 15px 20px;
             cursor: pointer;
-            font-size: 1em;
-            font-weight: 600;
+            font-size: 0.95em;
+            font-weight: 500;
             transition: all 0.3s;
-            border-bottom: 3px solid transparent;
+            border-left: 3px solid transparent;
+            width: 100%;
+            text-align: left;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            position: relative;
+        }
+
+        nav button .icon {
+            font-size: 1.3em;
+            min-width: 24px;
+            text-align: center;
+        }
+
+        .sidebar.collapsed nav button span:not(.icon) {
+            display: none;
         }
 
         nav button:hover {
             background: rgba(255,255,255,0.1);
+            padding-left: 25px;
         }
 
         nav button.active {
-            background: rgba(255,255,255,0.2);
-            border-bottom-color: white;
+            background: rgba(255,255,255,0.15);
+            border-left-color: var(--secondary-color);
+            font-weight: 600;
         }
 
-        /* SELETTORE AZIENDE */
-        .company-selector {
-            background: var(--light-bg);
-            padding: 20px;
-            display: flex;
-            justify-content: space-around;
-            flex-wrap: wrap;
-            gap: 10px;
+        nav button .badge {
+            margin-left: auto;
+            background: var(--danger-color);
+            color: white;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 0.75em;
+            font-weight: 600;
         }
 
-        .company-btn {
-            flex: 1;
-            min-width: 200px;
-            padding: 15px;
+        .sidebar.collapsed nav button .badge {
+            position: absolute;
+            right: 15px;
+            top: 10px;
+        }
+
+        /* MAIN CONTENT AREA */
+        .main-content {
+            margin-left: 280px;
+            width: calc(100% - 280px);
+            transition: all 0.3s;
+            min-height: 100vh;
+            background: #f5f7fa;
+        }
+
+        .sidebar.collapsed ~ .main-content {
+            margin-left: 80px;
+            width: calc(100% - 80px);
+        }
+
+        /* TOPBAR */
+        .topbar {
             background: white;
-            border: 3px solid var(--border-color);
+            padding: 15px 30px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .breadcrumbs {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #7f8c8d;
+            font-size: 0.9em;
+        }
+
+        .breadcrumbs a {
+            color: var(--secondary-color);
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+
+        .breadcrumbs a:hover {
+            color: var(--primary-color);
+        }
+
+        .breadcrumbs .separator {
+            color: #bdc3c7;
+        }
+
+        .breadcrumbs .current {
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+
+        /* COMPANY SWITCHER - Dropdown Style */
+        .company-switcher {
+            position: relative;
+        }
+
+        .company-switcher-btn {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 20px;
+            background: white;
+            border: 2px solid var(--border-color);
             border-radius: 8px;
             cursor: pointer;
             transition: all 0.3s;
             font-weight: 600;
-            font-size: 1em;
         }
 
-        .company-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        }
-
-        .company-btn.active {
+        .company-switcher-btn:hover {
             border-color: var(--secondary-color);
-            background: var(--secondary-color);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .company-switcher-btn .company-color {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .company-dropdown {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            margin-top: 10px;
+            background: white;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+            min-width: 250px;
+            display: none;
+            z-index: 1000;
+        }
+
+        .company-dropdown.active {
+            display: block;
+        }
+
+        .company-dropdown-item {
+            padding: 15px 20px;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border-bottom: 1px solid var(--light-bg);
+        }
+
+        .company-dropdown-item:last-child {
+            border-bottom: none;
+        }
+
+        .company-dropdown-item:hover {
+            background: var(--light-bg);
+        }
+
+        .company-dropdown-item.active {
+            background: #e3f2fd;
+            font-weight: 600;
+        }
+
+        .company-dropdown-item .company-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+        }
+
+        .company-dropdown-item.azienda-1 .company-icon { background: #e74c3c; }
+        .company-dropdown-item.azienda-2 .company-icon { background: #3498db; }
+        .company-dropdown-item.azienda-3 .company-icon { background: #2ecc71; }
+        .company-dropdown-item.azienda-4 .company-icon { background: #f39c12; }
+
+        /* FLOATING ACTION BUTTON (FAB) */
+        .fab-container {
+            position: fixed;
+            right: 30px;
+            bottom: 30px;
+            z-index: 999;
+        }
+
+        .fab {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--success-color), #229954);
+            color: white;
+            border: none;
+            font-size: 1.5em;
+            cursor: pointer;
+            box-shadow: 0 4px 20px rgba(39, 174, 96, 0.4);
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 999;
+        }
+
+        .fab:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 28px rgba(39, 174, 96, 0.6);
+        }
+
+        .fab-menu {
+            position: absolute;
+            bottom: 70px;
+            right: 0;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+            padding: 10px;
+            min-width: 200px;
+            display: none;
+        }
+
+        .fab-menu.active {
+            display: block;
+        }
+
+        .fab-menu-item {
+            padding: 12px 16px;
+            cursor: pointer;
+            border-radius: 6px;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 500;
+        }
+
+        .fab-menu-item:hover {
+            background: var(--light-bg);
+        }
+
+        .fab-menu-item .icon {
+            font-size: 1.2em;
+        }
+
+        /* SELETTORE AZIENDE - Sidebar Version */
+        .company-selector-sidebar {
+            padding: 15px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .company-selector-sidebar select {
+            width: 100%;
+            padding: 12px;
+            background: rgba(255,255,255,0.1);
+            color: white;
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .company-selector-sidebar select:hover {
+            background: rgba(255,255,255,0.15);
+        }
+
+        .company-selector-sidebar select option {
+            background: var(--primary-color);
             color: white;
         }
 
-        .company-btn.azienda-1.active { background: #e74c3c; border-color: #e74c3c; }
-        .company-btn.azienda-2.active { background: #3498db; border-color: #3498db; }
-        .company-btn.azienda-3.active { background: #2ecc71; border-color: #2ecc71; }
-        .company-btn.azienda-4.active { background: #f39c12; border-color: #f39c12; }
-
         /* CONTENUTO PRINCIPALE */
         .content {
-            padding: 30px;
+            padding: 30px 30px 30px 50px;
+            overflow-x: hidden;
+            width: 100%;
+            box-sizing: border-box;
         }
 
         .section {
             display: none;
+            width: 100%;
+            box-sizing: border-box;
         }
 
         .section.active {
             display: block;
+        }
+
+        /* Assicura che card, form e table non escano dal contenitore */
+        .card, .form-group, table {
+            max-width: 100%;
+            overflow-x: auto;
         }
 
         /* DASHBOARD */
@@ -149,7 +459,9 @@
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 20px;
-            margin-top: 20px;
+            margin: 20px 0;
+            width: 100%;
+            max-width: 100%;
         }
 
         .card {
@@ -276,7 +588,7 @@
         table th,
         table td {
             padding: 12px;
-            text-align: left;
+            text-align: center;
             border-bottom: 1px solid var(--border-color);
         }
 
@@ -309,6 +621,9 @@
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 15px;
             margin: 20px 0;
+            width: 100%;
+            max-width: 100%;
+            overflow-x: auto;
         }
 
         .stat-box {
@@ -317,16 +632,20 @@
             padding: 20px;
             border-radius: 10px;
             text-align: center;
+            min-width: 180px;
         }
 
         .stat-box h3 {
             font-size: 2.5em;
             margin-bottom: 5px;
+            color: white;
+            font-weight: bold;
         }
 
         .stat-box p {
             opacity: 0.9;
             font-size: 1em;
+            color: white;
         }
 
         /* PROCEDURA SOP */
@@ -617,6 +936,32 @@
             font-weight: 600;
         }
 
+        /* Modal Generico */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1100;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.5);
+            animation: fadeIn 0.3s;
+        }
+
+        .modal-content {
+            background-color: white;
+            margin: 5% auto;
+            padding: 30px;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            animation: slideDown 0.3s;
+            position: relative;
+        }
+
         /* Modal Categoria */
         .category-modal {
             display: none;
@@ -848,6 +1193,67 @@
 
         /* RESPONSIVE */
         @media (max-width: 768px) {
+            /* Sidebar collassata di default su mobile */
+            .sidebar {
+                width: 80px;
+            }
+
+            .sidebar.collapsed {
+                width: 80px;
+            }
+
+            .sidebar:not(.collapsed) {
+                width: 280px;
+            }
+
+            /* Main content si adatta */
+            .main-content {
+                margin-left: 80px;
+                width: calc(100% - 80px);
+            }
+
+            .sidebar:not(.collapsed) ~ .main-content {
+                margin-left: 280px;
+                width: calc(100% - 280px);
+            }
+
+            /* Nascondi testo in sidebar collassata */
+            .sidebar.collapsed nav button span:not(.icon) {
+                display: none;
+            }
+
+            .sidebar.collapsed .nav-section-title {
+                display: none;
+            }
+
+            .sidebar.collapsed .badge {
+                display: none;
+            }
+
+            /* Riduci padding content su mobile */
+            .content {
+                padding: 15px;
+            }
+
+            /* Dashboard grid a colonna singola */
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+
+            /* Topbar più compatta */
+            .topbar {
+                padding: 10px 15px;
+            }
+
+            /* FAB più piccolo su mobile */
+            .fab {
+                width: 50px;
+                height: 50px;
+                bottom: 20px;
+                right: 20px;
+                font-size: 1.2em;
+            }
+
             nav button {
                 padding: 12px 15px;
                 font-size: 0.9em;
@@ -855,10 +1261,6 @@
 
             .company-selector {
                 flex-direction: column;
-            }
-
-            .dashboard-grid {
-                grid-template-columns: 1fr;
             }
 
             header h1 {
@@ -2268,7 +2670,7 @@
             padding: 10px;
             border-radius: 8px;
             cursor: pointer;
-            text-align: left;
+            text-align: center;
             transition: all 0.3s;
             font-weight: 600;
         }
@@ -2318,7 +2720,7 @@
             border-radius: 8px;
             cursor: pointer;
             font-weight: 600;
-            text-align: left;
+            text-align: center;
             transition: all 0.3s;
         }
 
@@ -2329,38 +2731,155 @@
     </style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>📊 Sistema di Gestione Direzionale Multi-Azienda</h1>
-            <p>Assistente di Direzione Senior e Coordinatrice Operativa Multiazienda</p>
-        </header>
-
-        <nav>
-            <button onclick="showSection('dashboard')" class="active">Dashboard</button>
-            <button onclick="showSection('consolidated')">📈 Vista Consolidata</button>
-            <button onclick="showSection('analytics')">📊 Analytics</button>
-            <button onclick="showSection('emails')">📧 Email & Assistente</button>
-            <button onclick="showSection('tasks')">Attività</button>
-            <button onclick="showSection('templates')">🔄 Template Ricorrenti</button>
-            <button onclick="showSection('appuntamenti')">Appuntamenti</button>
-            <button onclick="showSection('scadenze')">Scadenze</button>
-            <button onclick="showSection('spese')">Spese</button>
-            <button onclick="showSection('calendario')">Calendario</button>
-            <button onclick="showSection('contatti')">Contatti</button>
-            <button onclick="showSection('archivi')">Archivi Documenti</button>
-            <button onclick="showSection('sop')">Procedure (SOP)</button>
-            <button onclick="showSection('report')">Report Direzionale</button>
-            <button onclick="showSection('audit-log')">📜 Storico Modifiche</button>
-            <button onclick="showSection('settings')">Impostazioni</button>
-        </nav>
-
-        <div class="company-selector">
-            <button class="company-btn azienda-1 active" onclick="selectCompany(1)">Azienda 1</button>
-            <button class="company-btn azienda-2" onclick="selectCompany(2)">Azienda 2</button>
-            <button class="company-btn azienda-3" onclick="selectCompany(3)">Azienda 3</button>
-            <button class="company-btn azienda-4" onclick="selectCompany(4)">Azienda 4</button>
+    <!-- SIDEBAR NAVIGATION -->
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h2>
+                <span class="icon">📊</span>
+                <span>Gestione Direzionale</span>
+            </h2>
+            <button class="sidebar-toggle" onclick="toggleSidebar()" title="Riduci/Espandi Sidebar">
+                ◀
+            </button>
         </div>
 
+        <!-- Company Selector in Sidebar -->
+        <div class="company-selector-sidebar">
+            <select id="company-selector-dropdown" onchange="selectCompany(parseInt(this.value))">
+                <option value="1">🔴 Azienda 1</option>
+                <option value="2">🔵 Azienda 2</option>
+                <option value="3">🟢 Azienda 3</option>
+                <option value="4">🟡 Azienda 4</option>
+            </select>
+        </div>
+
+        <nav>
+            <!-- Sezione PANORAMICA -->
+            <div class="nav-section">
+                <div class="nav-section-title">Panoramica</div>
+                <button onclick="showSection('dashboard')" class="active" id="nav-dashboard">
+                    <span class="icon">🏠</span>
+                    <span>Dashboard</span>
+                </button>
+                <button onclick="showSection('consolidated')" id="nav-consolidated">
+                    <span class="icon">📈</span>
+                    <span>Vista Consolidata</span>
+                </button>
+                <button onclick="showSection('analytics')" id="nav-analytics">
+                    <span class="icon">📊</span>
+                    <span>Analytics</span>
+                </button>
+            </div>
+
+            <!-- Sezione COMUNICAZIONE -->
+            <div class="nav-section">
+                <div class="nav-section-title">Comunicazione</div>
+                <button onclick="showSection('emails')" id="nav-emails">
+                    <span class="icon">📧</span>
+                    <span>Email & Assistente IA</span>
+                    <span class="badge" id="badge-emails" style="display: none;">0</span>
+                </button>
+            </div>
+
+            <!-- Sezione OPERAZIONI -->
+            <div class="nav-section">
+                <div class="nav-section-title">Operazioni</div>
+                <button onclick="showSection('tasks')" id="nav-tasks">
+                    <span class="icon">✅</span>
+                    <span>Attività</span>
+                    <span class="badge" id="badge-tasks" style="display: none;">0</span>
+                </button>
+                <button onclick="showSection('appuntamenti')" id="nav-appuntamenti">
+                    <span class="icon">📅</span>
+                    <span>Appuntamenti</span>
+                </button>
+                <button onclick="showSection('scadenze')" id="nav-scadenze">
+                    <span class="icon">⏰</span>
+                    <span>Scadenze</span>
+                    <span class="badge" id="badge-deadlines" style="display: none;">0</span>
+                </button>
+                <button onclick="showSection('spese')" id="nav-spese">
+                    <span class="icon">💰</span>
+                    <span>Spese</span>
+                </button>
+                <button onclick="showSection('calendario')" id="nav-calendario">
+                    <span class="icon">📆</span>
+                    <span>Calendario</span>
+                </button>
+            </div>
+
+            <!-- Sezione RISORSE -->
+            <div class="nav-section">
+                <div class="nav-section-title">Risorse</div>
+                <button onclick="showSection('contatti')" id="nav-contatti">
+                    <span class="icon">👥</span>
+                    <span>Contatti</span>
+                </button>
+                <button onclick="showSection('archivi')" id="nav-archivi">
+                    <span class="icon">📁</span>
+                    <span>Archivi Documenti</span>
+                </button>
+                <button onclick="showSection('templates')" id="nav-templates">
+                    <span class="icon">🔄</span>
+                    <span>Template Ricorrenti</span>
+                </button>
+            </div>
+
+            <!-- Sezione GESTIONE -->
+            <div class="nav-section">
+                <div class="nav-section-title">Gestione</div>
+                <button onclick="showSection('sop')" id="nav-sop">
+                    <span class="icon">📋</span>
+                    <span>Procedure (SOP)</span>
+                </button>
+                <button onclick="showSection('report')" id="nav-report">
+                    <span class="icon">📄</span>
+                    <span>Report Direzionale</span>
+                </button>
+                <button onclick="showSection('audit-log')" id="nav-audit-log">
+                    <span class="icon">📜</span>
+                    <span>Storico Modifiche</span>
+                </button>
+            </div>
+
+            <!-- Sezione SISTEMA -->
+            <div class="nav-section">
+                <div class="nav-section-title">Sistema</div>
+                <button onclick="showSection('settings')" id="nav-settings">
+                    <span class="icon">⚙️</span>
+                    <span>Impostazioni</span>
+                </button>
+            </div>
+        </nav>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div class="main-content">
+        <!-- TOPBAR -->
+        <div class="topbar">
+            <div class="breadcrumbs" id="breadcrumbs">
+                <a href="#" onclick="showSection('dashboard'); return false;">Home</a>
+                <span class="separator">›</span>
+                <span class="current" id="breadcrumb-current">Dashboard</span>
+            </div>
+
+            <div style="display: flex; align-items: center; gap: 20px;">
+                <!-- Search Global -->
+                <div class="search-global" style="position: relative;">
+                    <button onclick="toggleGlobalSearch()" style="background: var(--light-bg); border: 2px solid var(--border-color); padding: 8px 16px; border-radius: 8px; cursor: pointer; display: flex; align-items: center; gap: 8px; transition: all 0.3s;">
+                        <span>🔍</span>
+                        <span style="color: #7f8c8d; font-size: 0.9em;">Cerca... (Ctrl+K)</span>
+                    </button>
+                </div>
+
+                <!-- Company Switcher Topbar (opzionale) -->
+                <div style="font-weight: 600; color: var(--primary-color);" id="topbar-company-name">
+                    Azienda 1
+                </div>
+            </div>
+        </div>
+
+        <!-- CONTENT AREA -->
         <div class="content">
             <!-- DASHBOARD SECTION -->
             <div id="dashboard" class="section active fade-in">
@@ -3090,9 +3609,20 @@
                 <h2>Procedure Operative Standard (SOP)</h2>
 
                 <p style="margin-bottom: 20px; color: var(--dark-text);">
-                    Le 10 procedure fondamentali per ottimizzare il lavoro quotidiano e ridurre le ripetizioni.
+                    Procedure standardizzate per ottimizzare il lavoro quotidiano e la gestione della casa.
                 </p>
 
+                <!-- TAB NAVIGAZIONE -->
+                <div style="display: flex; gap: 10px; margin-bottom: 30px; border-bottom: 2px solid var(--border-color);">
+                    <button onclick="filterSOPs('business')" id="sop-tab-business" class="sop-tab active" style="padding: 15px 30px; border: none; background: none; cursor: pointer; font-weight: 600; border-bottom: 3px solid var(--secondary-color); color: var(--secondary-color);">
+                        💼 SOP Aziendali
+                    </button>
+                    <button onclick="filterSOPs('personal')" id="sop-tab-personal" class="sop-tab" style="padding: 15px 30px; border: none; background: none; cursor: pointer; font-weight: 600; border-bottom: 3px solid transparent; color: #7f8c8d;">
+                        🏠 SOP Personali/Casa
+                    </button>
+                </div>
+
+                <!-- LISTA SOP FILTRATA -->
                 <ul class="sop-list" id="sop-list"></ul>
             </div>
 
@@ -3731,6 +4261,60 @@
         </div>
     </div>
 
+        </div><!-- END CONTENT -->
+    </div><!-- END MAIN-CONTENT -->
+
+    <!-- FAB (Floating Action Button) per azioni rapide -->
+    <div class="fab" onclick="showQuickActions()" title="Azioni Rapide">
+        <span style="font-size: 28px;">➕</span>
+    </div>
+
+    <!-- Modal Azioni Rapide -->
+    <div class="modal" id="quick-actions-modal">
+        <div class="modal-content" style="max-width: 400px;">
+            <h3 style="margin-top: 0;">⚡ Azioni Rapide</h3>
+            <div style="display: grid; gap: 10px;">
+                <button class="btn" onclick="showSection('tasks'); closeQuickActions();">
+                    ✅ Nuova Attività
+                </button>
+                <button class="btn" onclick="showSection('deadlines'); closeQuickActions();">
+                    📅 Nuova Scadenza
+                </button>
+                <button class="btn" onclick="showSection('expenses'); closeQuickActions();">
+                    💰 Nuova Spesa
+                </button>
+                <button class="btn" onclick="showSection('appointments'); closeQuickActions();">
+                    📅 Nuovo Appuntamento
+                </button>
+                <button class="btn" onclick="showSection('emails'); closeQuickActions();">
+                    📧 Nuova Email
+                </button>
+                <button class="btn" onclick="showSection('contacts'); closeQuickActions();">
+                    👤 Nuovo Contatto
+                </button>
+            </div>
+            <div style="margin-top: 20px; text-align: center;">
+                <button class="btn-secondary" onclick="closeQuickActions()">Annulla</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Ricerca Globale -->
+    <div class="modal" id="global-search-modal">
+        <div class="modal-content" style="max-width: 700px;">
+            <h3 style="margin-top: 0;">🔍 Ricerca Globale</h3>
+            <input type="text" id="global-search-input" placeholder="Cerca ovunque..."
+                   style="width: 100%; padding: 15px; font-size: 16px; border: 2px solid var(--primary-color); border-radius: 8px;"
+                   onkeyup="performGlobalSearch(this.value)">
+            <div id="global-search-results" style="margin-top: 20px; max-height: 400px; overflow-y: auto;">
+                <p style="text-align: center; color: #7f8c8d;">Inizia a digitare per cercare...</p>
+            </div>
+            <div style="margin-top: 20px; text-align: center;">
+                <button class="btn-secondary" onclick="closeGlobalSearch()">Chiudi</button>
+            </div>
+        </div>
+    </div>
+
     <script>
         // STATO GLOBALE
         let currentCompany = 1;
@@ -3758,11 +4342,15 @@
             }
         };
 
-        // SOP PREDEFINITE
+        // ==========================================
+        // SOP PREDEFINITE - ORGANIZZATE PER CATEGORIA
+        // ==========================================
         const sopTemplates = [
+            // ==================== SOP AZIENDALI ====================
             {
                 title: "1. Gestione Email Direzionali",
                 description: "Procedura per la gestione quotidiana delle email della direzione",
+                category: "business",
                 steps: [
                     "Controllare email ogni 2 ore (9:00, 11:00, 14:00, 16:00)",
                     "Classificare per priorità: A+ (urgenti), A (importanti), B (normali), C (info)",
@@ -3774,6 +4362,7 @@
             {
                 title: "2. Gestione Documentazione Fornitori/Clienti",
                 description: "Protocollo per la gestione della documentazione in entrata/uscita",
+                category: "business",
                 steps: [
                     "Ricevere documento via email/PEC",
                     "Protocollare con numero progressivo e data",
@@ -3786,6 +4375,7 @@
             {
                 title: "3. Standardizzazione Richieste Interne",
                 description: "Template e procedura per gestire richieste dai dipendenti",
+                category: "business",
                 steps: [
                     "Ricevere richiesta via form standardizzato",
                     "Verificare autorizzazioni e policy aziendali",
@@ -3798,6 +4388,7 @@
             {
                 title: "4. Flusso di Approvazione Documenti",
                 description: "Procedura per l'approvazione di contratti, ordini e documenti formali",
+                category: "business",
                 steps: [
                     "Ricevere documento in bozza dal richiedente",
                     "Verificare completezza formale e correttezza dati",
@@ -3810,6 +4401,7 @@
             {
                 title: "5. Archiviazione Digitale",
                 description: "Sistema di archiviazione e nomenclatura file",
+                category: "business",
                 steps: [
                     "Struttura cartelle: /Azienda/Anno/Categoria/Mese",
                     "Nomenclatura file: AAAAMMGG_TipoDoc_Oggetto_VX",
@@ -3822,6 +4414,7 @@
             {
                 title: "6. Preparazione Meeting Direzionali",
                 description: "Checklist pre-meeting per la direzione",
+                category: "business",
                 steps: [
                     "Confermare presenza partecipanti 24h prima",
                     "Preparare ordine del giorno e materiali",
@@ -3834,6 +4427,7 @@
             {
                 title: "7. Follow-up Automatico Scadenze",
                 description: "Sistema di reminder e tracking scadenze",
+                category: "business",
                 steps: [
                     "Inserire scadenza nel sistema con preavviso (7, 3, 1 giorno)",
                     "Primo reminder a -7 giorni via email",
@@ -3846,6 +4440,7 @@
             {
                 title: "8. Protocollo Comunicazione tra Aziende",
                 description: "Standard per coordinamento multi-aziendale",
+                category: "business",
                 steps: [
                     "Identificare chiaramente l'azienda mittente/destinataria",
                     "Usare template email standardizzato con logo azienda",
@@ -3858,6 +4453,7 @@
             {
                 title: "9. Protocollo Contatti con Consulenti",
                 description: "Gestione rapporti con commercialista, legale, consulenti HR",
+                category: "business",
                 steps: [
                     "Mantenere elenco aggiornato consulenti per azienda",
                     "Centralizzare tutte le comunicazioni via email aziendale",
@@ -3870,6 +4466,7 @@
             {
                 title: "10. Preparazione Report Settimanale al Management",
                 description: "Template e timing per il report direzionale",
+                category: "business",
                 steps: [
                     "Raccogliere dati venerdì pomeriggio (entro le 16:00)",
                     "Compilare sezioni: completato, in corso, decisioni, rischi, scadenze",
@@ -3882,6 +4479,7 @@
             {
                 title: "11. Prenotazione Viaggi e Trasferte",
                 description: "Procedura completa per organizzare viaggi di lavoro",
+                category: "business",
                 steps: [
                     "Ricevere richiesta con date, destinazione e budget",
                     "Verificare disponibilità treni/aerei su Trenitalia, Italo, comparatori voli",
@@ -3893,9 +4491,11 @@
                     "Archiviare ricevute per rimborso spese"
                 ]
             },
+            // ==================== SOP PERSONALI/CASA ====================
             {
                 title: "12. Gestione Sistemi Allarme Casa",
                 description: "Protocollo per gestione allarmi domestici",
+                category: "personal",
                 steps: [
                     "Attivazione: verificare chiusura porte/finestre",
                     "Inserire codice e attivare modalità (totale/parziale/perimetrale)",
@@ -3909,6 +4509,7 @@
             {
                 title: "13. Gestione Utenze Domestiche",
                 description: "Procedura per gestione bollette e contratti utenze",
+                category: "personal",
                 steps: [
                     "Verificare arrivo bollette luce/gas/acqua/internet",
                     "Controllare consumi e confrontare con mese precedente",
@@ -3922,6 +4523,7 @@
             {
                 title: "14. Manutenzione Ordinaria Casa",
                 description: "Checklist manutenzione programmata impianti domestici",
+                category: "personal",
                 steps: [
                     "Revisione caldaia annuale (entro scadenza legale)",
                     "Controllo filtri condizionatori (inizio estate/inverno)",
@@ -3935,6 +4537,7 @@
             {
                 title: "15. Gestione Emergenze Domestiche",
                 description: "Protocollo per emergenze casa (perdite, guasti, effrazioni)",
+                category: "personal",
                 steps: [
                     "Identificare tipo emergenza e gravità",
                     "Chiudere acqua/gas/elettricità se necessario",
@@ -3948,6 +4551,7 @@
             {
                 title: "16. Protocollazione e Archiviazione Documenti",
                 description: "Sistema standardizzato per gestione documentale aziendale",
+                category: "business",
                 steps: [
                     "Ricevere documento (email, PEC, cartaceo)",
                     "Assegnare numero protocollo progressivo annuale",
@@ -3961,6 +4565,7 @@
             {
                 title: "17. Gestione Ciclo Ordini Fornitori",
                 description: "Flusso completo dalla richiesta alla ricezione merce",
+                category: "business",
                 steps: [
                     "Ricevere richiesta d'acquisto da reparto richiedente",
                     "Verificare budget e autorizzazioni",
@@ -3975,6 +4580,7 @@
             {
                 title: "18. Rinnovo Licenze e Certificazioni Aziendali",
                 description: "Gestione scadenze certificazioni e autorizzazioni",
+                category: "business",
                 steps: [
                     "Mantenere calendario scadenze licenze per ogni azienda",
                     "Reminder a -60 giorni per avvio pratica rinnovo",
@@ -3988,6 +4594,7 @@
             {
                 title: "19. Gestione Pagamenti e Bonifici",
                 description: "Procedura per esecuzione pagamenti sicuri",
+                category: "business",
                 steps: [
                     "Verificare fattura e corrispondenza con ordine/DDT",
                     "Controllare IBAN beneficiario (attenzione a frodi)",
@@ -4001,6 +4608,7 @@
             {
                 title: "20. Controllo Scadenze Fiscali Mensili",
                 description: "Checklist mensile adempimenti fiscali per azienda",
+                category: "business",
                 steps: [
                     "Giorno 16: verificare invio liquidazione IVA del mese precedente",
                     "Giorno 16: controllare versamenti F24 (IVA, ritenute, contributi)",
@@ -4014,6 +4622,7 @@
             {
                 title: "21. Negoziazione e Rinnovo Contratti",
                 description: "Strategia per rinnovo contratti fornitori e servizi",
+                category: "business",
                 steps: [
                     "Identificare contratti in scadenza nei prossimi 90 giorni",
                     "Analizzare performance attuale fornitore (qualità, puntualità, prezzo)",
@@ -4027,6 +4636,7 @@
             {
                 title: "22. Onboarding Nuovo Dipendente",
                 description: "Checklist accoglienza e inserimento nuova risorsa",
+                category: "business",
                 steps: [
                     "Preparare postazione lavoro (PC, telefono, accessi, badge)",
                     "Creare email aziendale e account sistemi IT",
@@ -4040,6 +4650,7 @@
             {
                 title: "23. Gestione Sinistri Assicurativi",
                 description: "Procedura per denuncia e gestione sinistri",
+                category: "business",
                 steps: [
                     "Verificare copertura assicurativa per il tipo di sinistro",
                     "Raccogliere documentazione (foto, testimoni, verbali)",
@@ -4053,6 +4664,7 @@
             {
                 title: "24. Richiesta e Confronto Preventivi",
                 description: "Metodo standardizzato per procurement trasparente",
+                category: "business",
                 steps: [
                     "Definire specifiche tecniche dettagliate del bene/servizio",
                     "Identificare almeno 3 fornitori qualificati",
@@ -4066,6 +4678,7 @@
             {
                 title: "25. Gestione Reclami e Contestazioni Clienti",
                 description: "Protocollo per gestione professionale reclami",
+                category: "business",
                 steps: [
                     "Ricevere reclamo e registrare in sistema ticketing",
                     "Confermare ricezione al cliente entro 24 ore",
@@ -4548,64 +5161,31 @@
             initializeEmailSection();
         }
 
-        // GESTIONE SEZIONI
-        function showSection(sectionId) {
-            document.querySelectorAll('.section').forEach(section => {
-                section.classList.remove('active');
-            });
-            document.getElementById(sectionId).classList.add('active', 'fade-in');
+        // GESTIONE SEZIONI - Ora gestite dalle nuove funzioni nella sezione NAVIGAZIONE SIDEBAR
 
-            document.querySelectorAll('nav button').forEach(btn => {
-                btn.classList.remove('active');
-            });
+        // GESTIONE AZIENDE - Ora gestite dalle nuove funzioni nella sezione NAVIGAZIONE SIDEBAR
 
-            // Trova e attiva il bottone corrispondente
-            const buttons = document.querySelectorAll('nav button');
-            buttons.forEach(btn => {
-                if (btn.getAttribute('onclick') && btn.getAttribute('onclick').includes(sectionId)) {
-                    btn.classList.add('active');
-                }
-            });
-
+        // Funzioni legacy mantenute per compatibilità (chiamate dalle nuove funzioni)
+        function legacyUpdateSection(sectionId) {
             if (sectionId === 'dashboard') updateDashboard();
-            if (sectionId === 'tasks') updateAllTasks();
-            if (sectionId === 'appuntamenti') updateAppointments();
-            if (sectionId === 'scadenze') updateDeadlinesTable();
-            if (sectionId === 'spese') updateExpenses();
-            if (sectionId === 'calendario') renderCalendar();
-            if (sectionId === 'consolidated') updateConsolidatedDashboard();
-            if (sectionId === 'analytics') updateAnalytics();
-            if (sectionId === 'templates') renderTemplates();
-            if (sectionId === 'audit-log') renderAuditLog();
+            if (sectionId === 'tasks') { if (typeof updateAllTasks !== 'undefined') updateAllTasks(); }
+            if (sectionId === 'appointments') { if (typeof updateAppointments !== 'undefined') updateAppointments(); }
+            if (sectionId === 'deadlines') { if (typeof updateDeadlinesTable !== 'undefined') updateDeadlinesTable(); }
+            if (sectionId === 'expenses') { if (typeof updateExpenses !== 'undefined') updateExpenses(); }
+            if (sectionId === 'calendar') renderCalendar();
+            if (sectionId === 'consolidated') { if (typeof updateConsolidatedDashboard !== 'undefined') updateConsolidatedDashboard(); }
+            if (sectionId === 'analytics') { if (typeof updateAnalytics !== 'undefined') updateAnalytics(); }
+            if (sectionId === 'templates') { if (typeof renderTemplates !== 'undefined') renderTemplates(); }
+            if (sectionId === 'audit-log') { if (typeof renderAuditLog !== 'undefined') renderAuditLog(); }
         }
 
-        // GESTIONE AZIENDE
-        function selectCompany(companyId) {
-            currentCompany = companyId;
-
-            document.querySelectorAll('.company-btn').forEach(btn => {
-                btn.classList.remove('active');
-            });
-            event.target.classList.add('active');
-
-            const companyName = data.companies[companyId].name;
-            document.querySelectorAll('[id$="-company-name"]').forEach(el => {
-                el.textContent = companyName;
-            });
-
+        function legacyUpdateCompany(companyId) {
             // Chiudi tutte le SOP aperte quando si cambia azienda
             document.querySelectorAll('.sop-item').forEach(item => {
                 item.classList.remove('expanded');
             });
 
-            updateDashboard();
-            updateAllTasks();
-            updateAppointments();
-            updateDeadlinesTable();
-            updateExpenses();
-            renderCalendar();
-            updateArchivesCounts();
-            renderContacts();
+            if (typeof updateArchivesCounts !== 'undefined') updateArchivesCounts();
             updateEmailStats();
             renderEmailList();
         }
@@ -5312,9 +5892,43 @@
         }
 
         // RENDER SOP
+        // Variabile globale per categoria SOP attiva
+        let currentSOPCategory = 'business';
+
+        // Filtra SOP per categoria e aggiorna visualizzazione
+        function filterSOPs(category) {
+            currentSOPCategory = category;
+
+            // Aggiorna stile dei tab
+            document.querySelectorAll('.sop-tab').forEach(tab => {
+                tab.style.borderBottom = '3px solid transparent';
+                tab.style.color = '#7f8c8d';
+            });
+
+            const activeTab = document.getElementById(`sop-tab-${category}`);
+            if (activeTab) {
+                activeTab.style.borderBottom = '3px solid var(--secondary-color)';
+                activeTab.style.color = 'var(--secondary-color)';
+            }
+
+            // Rendi le SOP filtrate
+            renderSOP();
+        }
+
         function renderSOP() {
             const sopList = document.getElementById('sop-list');
-            sopList.innerHTML = sopTemplates.map((sop, index) => {
+
+            // Filtra SOP in base alla categoria attiva
+            const filteredSOPs = sopTemplates
+                .map((sop, index) => ({ sop, index }))
+                .filter(({ sop }) => (sop.category || 'business') === currentSOPCategory);
+
+            if (filteredSOPs.length === 0) {
+                sopList.innerHTML = '<div style="text-align: center; padding: 40px; color: #7f8c8d;">Nessuna procedura in questa categoria</div>';
+                return;
+            }
+
+            sopList.innerHTML = filteredSOPs.map(({ sop, index }) => {
                 const stats = getSOPStats(index);
                 return `
                     <li class="sop-item" id="sop-item-${index}">
@@ -5881,99 +6495,7 @@
             }
         }
 
-        function performGlobalSearch(event) {
-            if (event.key === 'Escape') {
-                toggleGlobalSearch();
-                return;
-            }
-
-            const query = event.target.value.toLowerCase().trim();
-            const resultsContainer = document.getElementById('global-search-results');
-
-            if (query.length < 2) {
-                resultsContainer.innerHTML = '<p style="text-align: center; padding: 40px; color: #7f8c8d;">Digita almeno 2 caratteri...</p>';
-                return;
-            }
-
-            const results = [];
-
-            // Cerca in tutte le aziende
-            for (let companyId = 1; companyId <= 4; companyId++) {
-                const company = data.companies[companyId];
-                const companyName = company.name;
-
-                // Cerca nei task
-                company.tasks.forEach(task => {
-                    if (task.title.toLowerCase().includes(query) || task.description?.toLowerCase().includes(query)) {
-                        results.push({
-                            type: 'task',
-                            title: task.title,
-                            company: companyName,
-                            section: 'Attività',
-                            meta: `Priorità: ${task.priority.toUpperCase()} | ${task.category}`
-                        });
-                    }
-                });
-
-                // Cerca nelle scadenze
-                company.deadlines.forEach(deadline => {
-                    if (deadline.type.toLowerCase().includes(query) || deadline.description?.toLowerCase().includes(query)) {
-                        results.push({
-                            type: 'deadline',
-                            title: deadline.type,
-                            company: companyName,
-                            section: 'Scadenze',
-                            meta: `Categoria: ${deadline.category} | Data: ${formatDate(deadline.date)}`
-                        });
-                    }
-                });
-
-                // Cerca nei contatti
-                company.contacts.forEach(contact => {
-                    if (contact.name.toLowerCase().includes(query) || contact.company?.toLowerCase().includes(query) || contact.email?.toLowerCase().includes(query)) {
-                        results.push({
-                            type: 'contact',
-                            title: contact.name,
-                            company: companyName,
-                            section: 'Contatti',
-                            meta: `${contact.company || ''} | ${contact.category}`
-                        });
-                    }
-                });
-
-                // Cerca negli appuntamenti
-                company.appointments.forEach(apt => {
-                    if (apt.title.toLowerCase().includes(query) || apt.location?.toLowerCase().includes(query)) {
-                        results.push({
-                            type: 'appointment',
-                            title: apt.title,
-                            company: companyName,
-                            section: 'Appuntamenti',
-                            meta: `${apt.date} ${apt.time} | ${apt.location || ''}`
-                        });
-                    }
-                });
-            }
-
-            // Mostra risultati
-            if (results.length === 0) {
-                resultsContainer.innerHTML = '<p style="text-align: center; padding: 40px; color: #7f8c8d;">Nessun risultato trovato</p>';
-            } else {
-                resultsContainer.innerHTML = results.map(result => `
-                    <div class="search-result-item">
-                        <div class="search-result-title">${highlightText(result.title, query)}</div>
-                        <div class="search-result-meta">
-                            ${result.company} • ${result.section} • ${result.meta}
-                        </div>
-                    </div>
-                `).join('');
-            }
-        }
-
-        function highlightText(text, query) {
-            const regex = new RegExp(`(${query})`, 'gi');
-            return text.replace(regex, '<span class="search-highlight">$1</span>');
-        }
+        // Funzione rimossa - vedere la versione unificata più avanti nel codice
 
         // Shortcut Ctrl+K per ricerca
         document.addEventListener('keydown', (e) => {
@@ -8663,8 +9185,347 @@ ${data.companies[currentCompany].name}`
             modal.classList.add('active');
         }
 
+        // ==========================================
+        // FUNZIONI NAVIGAZIONE SIDEBAR
+        // ==========================================
+
+        // Toggle sidebar aperta/chiusa
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const mainContent = document.querySelector('.main-content');
+            sidebar.classList.toggle('collapsed');
+
+            if (sidebar.classList.contains('collapsed')) {
+                mainContent.style.marginLeft = '80px';
+            } else {
+                mainContent.style.marginLeft = '280px';
+            }
+        }
+
+        // Mappa sezioni -> titoli breadcrumb
+        const sectionTitles = {
+            'dashboard': 'Dashboard',
+            'daily-briefing': 'Daily Briefing',
+            'tasks': 'Attività',
+            'deadlines': 'Scadenze',
+            'expenses': 'Spese',
+            'emails': 'Email',
+            'appointments': 'Appuntamenti',
+            'sop': 'Procedure SOP',
+            'archives': 'Archivi Documenti',
+            'contacts': 'Contatti',
+            'calendar': 'Calendario',
+            'reports': 'Report',
+            'settings': 'Impostazioni'
+        };
+
+        // Ottieni titolo sezione
+        function getSectionTitle(sectionId) {
+            return sectionTitles[sectionId] || sectionId;
+        }
+
+        // Aggiorna breadcrumb
+        function updateBreadcrumb(sectionId) {
+            const breadcrumbCurrent = document.getElementById('breadcrumb-current');
+            if (breadcrumbCurrent) {
+                breadcrumbCurrent.textContent = getSectionTitle(sectionId);
+            }
+        }
+
+        // Aggiorna badge contatori nella sidebar
+        function updateBadgeCounts() {
+            const company = data.companies[currentCompany];
+
+            // Conta task urgenti
+            const urgentTasks = company.tasks.filter(t => !t.completed && (t.priority === 'A+' || t.priority === 'A')).length;
+            const urgentBadge = document.getElementById('badge-tasks');
+            if (urgentBadge && urgentTasks > 0) {
+                urgentBadge.textContent = urgentTasks;
+                urgentBadge.style.display = 'inline-block';
+            } else if (urgentBadge) {
+                urgentBadge.style.display = 'none';
+            }
+
+            // Conta scadenze imminenti (prossimi 7 giorni)
+            const nextWeek = new Date();
+            nextWeek.setDate(nextWeek.getDate() + 7);
+            const deadlineCount = company.deadlines.filter(d => {
+                const dDate = new Date(d.deadline);
+                return dDate <= nextWeek && dDate >= new Date();
+            }).length;
+            const deadlineBadge = document.getElementById('badge-deadlines');
+            if (deadlineBadge && deadlineCount > 0) {
+                deadlineBadge.textContent = deadlineCount;
+                deadlineBadge.style.display = 'inline-block';
+            } else if (deadlineBadge) {
+                deadlineBadge.style.display = 'none';
+            }
+
+            // Conta email non lette
+            const unreadEmails = company.emails.filter(e => !e.read).length;
+            const emailBadge = document.getElementById('badge-emails');
+            if (emailBadge && unreadEmails > 0) {
+                emailBadge.textContent = unreadEmails;
+                emailBadge.style.display = 'inline-block';
+            } else if (emailBadge) {
+                emailBadge.style.display = 'none';
+            }
+        }
+
+        // showSection - Gestione navigazione e visualizzazione sezioni
+        function showSection(sectionId) {
+            // Nascondi tutte le sezioni
+            document.querySelectorAll('.section').forEach(sec => {
+                sec.classList.remove('active');
+                sec.style.display = 'none';
+            });
+
+            // Mostra la sezione richiesta
+            const section = document.getElementById(sectionId);
+            if (section) {
+                section.classList.add('active', 'fade-in');
+                section.style.display = 'block';
+            }
+
+            // Aggiorna stato attivo nella navigazione
+            document.querySelectorAll('nav button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            const navBtn = document.getElementById('nav-' + sectionId);
+            if (navBtn) {
+                navBtn.classList.add('active');
+            }
+
+            // Aggiorna breadcrumb
+            updateBreadcrumb(sectionId);
+
+            // Chiama aggiornamenti legacy specifici per sezione
+            if (typeof legacyUpdateSection !== 'undefined') {
+                legacyUpdateSection(sectionId);
+            }
+
+            // Chiudi sidebar su mobile (opzionale)
+            if (window.innerWidth < 768) {
+                const sidebar = document.getElementById('sidebar');
+                if (sidebar) sidebar.classList.add('collapsed');
+            }
+        }
+
+        // selectCompany - Gestione cambio azienda
+        function selectCompany(companyId) {
+            currentCompany = companyId;
+
+            // Aggiorna dropdown sidebar
+            const dropdown = document.getElementById('company-selector-dropdown');
+            if (dropdown) {
+                dropdown.value = companyId;
+            }
+
+            // Aggiorna nome azienda nella topbar
+            const topbarName = document.getElementById('topbar-company-name');
+            if (topbarName) {
+                topbarName.textContent = data.companies[companyId].name;
+            }
+
+            // Aggiorna tutti i display dei nomi azienda
+            const companyName = data.companies[companyId].name;
+            document.querySelectorAll('[id$="-company-name"]').forEach(el => {
+                el.textContent = companyName;
+            });
+
+            // Chiama aggiornamenti legacy
+            if (typeof legacyUpdateCompany !== 'undefined') {
+                legacyUpdateCompany(companyId);
+            }
+
+            // Aggiorna badge
+            updateBadgeCounts();
+
+            // Aggiorna tutte le viste principali
+            updateDashboard();
+            if (typeof updateAllTasks !== 'undefined') updateAllTasks();
+            if (typeof displayTasks !== 'undefined') displayTasks();
+            if (typeof updateDeadlinesTable !== 'undefined') updateDeadlinesTable();
+            if (typeof displayDeadlines !== 'undefined') displayDeadlines();
+            if (typeof updateExpenses !== 'undefined') updateExpenses();
+            if (typeof displayExpenses !== 'undefined') displayExpenses();
+            if (typeof updateAppointments !== 'undefined') updateAppointments();
+            if (typeof displayAppointments !== 'undefined') displayAppointments();
+            if (typeof displaySOPs !== 'undefined') displaySOPs();
+            if (typeof displayArchives !== 'undefined') displayArchives();
+            if (typeof renderContacts !== 'undefined') renderContacts();
+            if (typeof displayContacts !== 'undefined') displayContacts();
+            if (typeof displayEmails !== 'undefined') displayEmails();
+            renderCalendar();
+        }
+
+        // ==========================================
+        // FUNZIONI MODAL AZIONI RAPIDE
+        // ==========================================
+
+        function showQuickActions() {
+            const modal = document.getElementById('quick-actions-modal');
+            if (modal) {
+                modal.classList.add('active');
+            }
+        }
+
+        function closeQuickActions() {
+            const modal = document.getElementById('quick-actions-modal');
+            if (modal) {
+                modal.classList.remove('active');
+            }
+        }
+
+        // ==========================================
+        // FUNZIONI RICERCA GLOBALE
+        // ==========================================
+
+        function toggleGlobalSearch() {
+            const modal = document.getElementById('global-search-modal');
+            if (modal) {
+                modal.classList.toggle('active');
+                if (modal.classList.contains('active')) {
+                    document.getElementById('global-search-input').focus();
+                }
+            }
+        }
+
+        function closeGlobalSearch() {
+            const modal = document.getElementById('global-search-modal');
+            if (modal) {
+                modal.classList.remove('active');
+                document.getElementById('global-search-input').value = '';
+                document.getElementById('global-search-results').innerHTML = '<p style="text-align: center; color: #7f8c8d;">Inizia a digitare per cercare...</p>';
+            }
+        }
+
+        function performGlobalSearch(input) {
+            // Gestisci sia eventi che stringhe
+            let query;
+            if (typeof input === 'object' && input.target) {
+                // E' un evento
+                if (input.key === 'Escape') {
+                    toggleGlobalSearch();
+                    return;
+                }
+                query = input.target.value;
+            } else {
+                // E' una stringa
+                query = input;
+            }
+
+            const resultsDiv = document.getElementById('global-search-results');
+
+            if (!query || query.length < 2) {
+                resultsDiv.innerHTML = '<p style="text-align: center; color: #7f8c8d;">Inizia a digitare per cercare...</p>';
+                return;
+            }
+
+            const results = [];
+            const company = data.companies[currentCompany];
+            query = query.toLowerCase();
+
+            // Cerca nelle attività
+            company.tasks.forEach((task, idx) => {
+                if (task.title.toLowerCase().includes(query) || task.description.toLowerCase().includes(query)) {
+                    results.push({
+                        type: 'Attività',
+                        icon: '✅',
+                        title: task.title,
+                        description: task.description.substring(0, 100),
+                        action: () => { showSection('tasks'); closeGlobalSearch(); }
+                    });
+                }
+            });
+
+            // Cerca nelle scadenze
+            company.deadlines.forEach(deadline => {
+                if (deadline.title.toLowerCase().includes(query) || deadline.description.toLowerCase().includes(query)) {
+                    results.push({
+                        type: 'Scadenza',
+                        icon: '📅',
+                        title: deadline.title,
+                        description: deadline.description.substring(0, 100),
+                        action: () => { showSection('deadlines'); closeGlobalSearch(); }
+                    });
+                }
+            });
+
+            // Cerca nelle email
+            company.emails.forEach(email => {
+                if (email.subject.toLowerCase().includes(query) || email.body.toLowerCase().includes(query) || email.from.toLowerCase().includes(query)) {
+                    results.push({
+                        type: 'Email',
+                        icon: '📧',
+                        title: email.subject,
+                        description: `Da: ${email.from}`,
+                        action: () => { showSection('emails'); closeGlobalSearch(); }
+                    });
+                }
+            });
+
+            // Cerca nei contatti
+            company.contacts.forEach(contact => {
+                if (contact.name.toLowerCase().includes(query) || contact.company.toLowerCase().includes(query) || contact.email.toLowerCase().includes(query)) {
+                    results.push({
+                        type: 'Contatto',
+                        icon: '👤',
+                        title: contact.name,
+                        description: `${contact.company} - ${contact.email}`,
+                        action: () => { showSection('contacts'); closeGlobalSearch(); }
+                    });
+                }
+            });
+
+            // Cerca negli appuntamenti
+            company.appointments.forEach(apt => {
+                if (apt.title.toLowerCase().includes(query) || apt.description.toLowerCase().includes(query)) {
+                    results.push({
+                        type: 'Appuntamento',
+                        icon: '📅',
+                        title: apt.title,
+                        description: `${apt.date} ${apt.time} - ${apt.location}`,
+                        action: () => { showSection('appointments'); closeGlobalSearch(); }
+                    });
+                }
+            });
+
+            // Mostra risultati
+            if (results.length === 0) {
+                resultsDiv.innerHTML = '<p style="text-align: center; color: #7f8c8d;">Nessun risultato trovato</p>';
+            } else {
+                resultsDiv.innerHTML = results.map(r => `
+                    <div style="padding: 15px; border-bottom: 1px solid #ecf0f1; cursor: pointer; transition: background 0.2s;"
+                         onmouseover="this.style.background='#f8f9fa'"
+                         onmouseout="this.style.background='white'"
+                         onclick='${r.action.toString().replace(/'/g, "\\'")}'>
+                        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 5px;">
+                            <span style="font-size: 20px;">${r.icon}</span>
+                            <span style="font-size: 0.85em; color: #7f8c8d; font-weight: 600;">${r.type}</span>
+                        </div>
+                        <div style="font-weight: bold; margin-bottom: 5px;">${r.title}</div>
+                        <div style="font-size: 0.9em; color: #7f8c8d;">${r.description}</div>
+                    </div>
+                `).join('');
+            }
+        }
+
+        // Aggiungi keyboard shortcut per ricerca globale (Ctrl+K)
+        document.addEventListener('keydown', function(e) {
+            if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+                e.preventDefault();
+                toggleGlobalSearch();
+            }
+        });
+
         // AVVIO
         init();
+
+        // Aggiorna badge iniziali
+        setTimeout(() => {
+            updateBadgeCounts();
+        }, 500);
     </script>
 </body>
 </html>

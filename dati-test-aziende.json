@@ -1,813 +1,620 @@
 {
   "companies": {
     "1": {
-      "name": "Carletti Componenti S.r.l.",
+      "name": "TechnoSolutions SRL",
       "tasks": [
         {
-          "id": 1735286400000,
-          "title": "Preparare documentazione per gara d'appalto Comune di Milano",
-          "description": "Raccogliere certificazioni ISO 9001, visura camerale aggiornata, DURC e referenze clienti per partecipazione gara",
-          "category": "important",
+          "id": 1,
+          "title": "Revisione contratto fornitore principale",
+          "description": "Analizzare e rinegoziare i termini del contratto con il fornitore di servizi cloud",
+          "category": "urgent",
           "priority": "aplus",
           "deadline": "2025-01-05",
           "completed": false,
-          "createdAt": "2024-12-20T09:00:00.000Z"
+          "createdAt": "2024-12-28T10:00:00Z"
         },
         {
-          "id": 1735286410000,
-          "title": "Revisione contratti fornitori acciaio per il 2025",
-          "description": "Negoziare nuove condizioni con Acciaierie Venete e valutare offerta alternativa da Lucchini",
-          "category": "important",
+          "id": 2,
+          "title": "Preparazione budget Q1 2025",
+          "description": "Compilare il budget previsionale per il primo trimestre includendo tutti i costi operativi",
+          "category": "decisions",
           "priority": "a",
           "deadline": "2025-01-10",
           "completed": false,
-          "createdAt": "2024-12-18T14:30:00.000Z"
+          "createdAt": "2024-12-25T09:30:00Z"
         },
         {
-          "id": 1735286420000,
-          "title": "Approvazione budget 2025 reparto produzione",
-          "description": "Verificare richieste investimenti macchinari CNC e assumere 2 operai specializzati",
-          "category": "decisions",
+          "id": 3,
+          "title": "Aggiornamento software aziendale",
+          "description": "Pianificare e eseguire l'aggiornamento del gestionale aziendale alla versione 3.5",
+          "category": "important",
           "priority": "a",
-          "deadline": "2024-12-30",
-          "completed": false,
-          "createdAt": "2024-12-15T11:00:00.000Z"
-        },
-        {
-          "id": 1735286430000,
-          "title": "Organizzare visita ispettiva UNI EN ISO 9001",
-          "description": "Coordinare con ente certificatore TÜV per audit annuale, preparare documentazione qualità",
-          "category": "critical",
-          "priority": "aplus",
           "deadline": "2025-01-15",
           "completed": false,
-          "createdAt": "2024-12-12T16:45:00.000Z"
+          "createdAt": "2024-12-20T14:00:00Z"
         },
         {
-          "id": 1735286440000,
-          "title": "Rispondere a richiesta preventivo FIAT per componenti motore",
-          "description": "Calcolare costi produzione lotto 50.000 pezzi, tempi consegna e margini. Cliente strategico",
-          "category": "important",
-          "priority": "aplus",
-          "deadline": "2024-12-29",
-          "completed": false,
-          "createdAt": "2024-12-22T10:15:00.000Z"
-        },
-        {
-          "id": 1735286450000,
-          "title": "Aggiornare manuale qualità aziendale",
-          "description": "Inserire nuove procedure controllo qualità e aggiornare organigramma",
-          "category": "operational",
-          "priority": "b",
-          "deadline": "2025-01-20",
-          "completed": false,
-          "createdAt": "2024-12-10T08:30:00.000Z"
-        },
-        {
-          "id": 1735286460000,
-          "title": "Verificare stato ordini clienti Q4 2024",
-          "description": "Controllare ritardi produzione e comunicare nuove date consegna a clienti",
-          "category": "operational",
-          "priority": "a",
-          "deadline": "2024-12-28",
-          "completed": true,
-          "createdAt": "2024-12-20T15:00:00.000Z",
-          "completedAt": "2024-12-26"
-        },
-        {
-          "id": 1735286470000,
-          "title": "Pianificare formazione sicurezza dipendenti 2025",
-          "description": "Organizzare corso antincendio e primo soccorso per 15 operai, contattare ente formatore",
+          "id": 4,
+          "title": "Colloquio nuovo sviluppatore senior",
+          "description": "Intervista candidato per posizione Full Stack Developer",
           "category": "hr",
           "priority": "a",
-          "deadline": "2025-02-15",
+          "deadline": "2025-01-03",
           "completed": false,
-          "createdAt": "2024-12-08T09:45:00.000Z"
-        }
-      ],
-      "deadlines": [
-        {
-          "id": 1735290000000,
-          "type": "F24 Versamento IVA Dicembre",
-          "description": "Pagamento IVA mensile",
-          "category": "fiscale",
-          "date": "2025-01-16",
-          "amount": "€ 12.500",
-          "completed": false,
-          "createdAt": "2024-12-01T00:00:00.000Z"
+          "createdAt": "2024-12-27T11:00:00Z"
         },
         {
-          "id": 1735290010000,
-          "type": "Versamento ritenute IRPEF dipendenti",
-          "description": "Ritenute stipendi dicembre 2024",
-          "category": "fiscale",
-          "date": "2025-01-16",
-          "amount": "€ 8.300",
-          "completed": false,
-          "createdAt": "2024-12-01T00:00:00.000Z"
-        },
-        {
-          "id": 1735290020000,
-          "type": "Invio modello INTRASTAT",
-          "description": "Dichiarazione acquisti/cessioni intracomunitarie dicembre",
-          "category": "fiscale",
-          "date": "2025-01-20",
-          "amount": "",
-          "completed": false,
-          "createdAt": "2024-12-01T00:00:00.000Z"
-        },
-        {
-          "id": 1735290030000,
-          "type": "Versamento contributi INPS",
-          "description": "Contributi previdenziali dipendenti dicembre 2024",
-          "category": "hr",
-          "date": "2025-01-16",
-          "amount": "€ 15.400",
-          "completed": false,
-          "createdAt": "2024-12-01T00:00:00.000Z"
-        },
-        {
-          "id": 1735290040000,
-          "type": "Scadenza polizza assicurativa macchinari",
-          "description": "Rinnovo polizza all risks impianti produzione con Generali",
-          "category": "amministrativa",
-          "date": "2025-01-31",
-          "amount": "€ 5.800",
-          "completed": false,
-          "createdAt": "2024-11-15T00:00:00.000Z"
-        },
-        {
-          "id": 1735290050000,
-          "type": "Pagamento canone leasing auto aziendali",
-          "description": "3 auto aziendali - Arval",
-          "category": "amministrativa",
-          "date": "2025-01-05",
-          "amount": "€ 1.450",
-          "completed": false,
-          "createdAt": "2024-11-20T00:00:00.000Z"
-        }
-      ],
-      "expenses": [
-        {
-          "id": 1735280000000,
-          "description": "Acquisto materie prime - Acciaierie Venete",
-          "amount": 18500.00,
-          "category": "materiali",
-          "date": "2024-12-15",
-          "paymentMethod": "Bonifico 60gg",
-          "createdAt": "2024-12-15T10:30:00.000Z"
-        },
-        {
-          "id": 1735280010000,
-          "description": "Manutenzione straordinaria tornio CNC Mazak",
-          "amount": 3200.00,
-          "category": "manutenzione",
-          "date": "2024-12-10",
-          "paymentMethod": "Bonifico",
-          "createdAt": "2024-12-10T14:20:00.000Z"
-        },
-        {
-          "id": 1735280020000,
-          "description": "Energia elettrica stabilimento - Enel Novembre",
-          "amount": 4750.00,
-          "category": "utenze",
-          "date": "2024-12-20",
-          "paymentMethod": "Addebito SDD",
-          "createdAt": "2024-12-20T08:00:00.000Z"
-        },
-        {
-          "id": 1735280030000,
-          "description": "Consulenza commercialista - Studio Rossi",
-          "amount": 1800.00,
-          "category": "consulenze",
-          "date": "2024-12-22",
-          "paymentMethod": "Bonifico",
-          "createdAt": "2024-12-22T16:15:00.000Z"
-        },
-        {
-          "id": 1735280040000,
-          "description": "Carburante automezzi aziendali - Dicembre",
-          "amount": 890.00,
-          "category": "trasporti",
-          "date": "2024-12-18",
-          "paymentMethod": "Carta aziendale",
-          "createdAt": "2024-12-18T11:40:00.000Z"
-        },
-        {
-          "id": 1735280050000,
-          "description": "Abbonamento software gestionale SAP",
-          "amount": 650.00,
-          "category": "software",
-          "date": "2024-12-01",
-          "paymentMethod": "Carta di credito",
-          "createdAt": "2024-12-01T09:00:00.000Z"
-        }
-      ],
-      "appointments": [
-        {
-          "id": 1735275000000,
-          "title": "Riunione CDA approvazione bilancio",
-          "date": "2025-01-08",
-          "time": "15:00",
-          "location": "Sala conferenze sede",
-          "participants": "Presidente, Amministratore Delegato, Consiglieri",
-          "notes": "Portare bozza bilancio e relazioni sindaci",
-          "createdAt": "2024-12-15T10:00:00.000Z"
-        },
-        {
-          "id": 1735275010000,
-          "title": "Incontro con FIAT Purchasing - Negoziazione contratto",
-          "date": "2025-01-12",
-          "time": "10:30",
-          "location": "FIAT - Torino, Corso Agnelli 200",
-          "participants": "Dott. Bianchi (Resp. Acquisti FIAT), Ing. Carletti",
-          "notes": "Preparare campioni e listino prezzi 2025",
-          "createdAt": "2024-12-18T14:30:00.000Z"
-        },
-        {
-          "id": 1735275020000,
-          "title": "Audit certificazione ISO 9001 - TÜV Italia",
-          "date": "2025-01-15",
-          "time": "09:00",
-          "location": "Stabilimento produzione",
-          "participants": "Auditor TÜV, Responsabile Qualità, Direttore Produzione",
-          "notes": "Verificare tutti i documenti qualità siano aggiornati",
-          "createdAt": "2024-12-20T09:15:00.000Z"
-        },
-        {
-          "id": 1735275030000,
-          "title": "Colloqui candidati operai specializzati",
-          "date": "2025-01-09",
-          "time": "14:00",
-          "location": "Ufficio Risorse Umane",
-          "participants": "HR Manager, Capo reparto produzione",
-          "notes": "3 candidati da intervistare per posizione tornitore CNC",
-          "createdAt": "2024-12-12T11:20:00.000Z"
-        }
-      ],
-      "contacts": [
-        {
-          "id": 1735270000000,
-          "name": "Marco Bianchi",
-          "company": "FIAT Chrysler Automobiles",
-          "role": "Responsabile Acquisti Componentistica",
-          "category": "cliente",
-          "email": "m.bianchi@fiat.com",
-          "phone": "+39 011 6543210",
-          "mobile": "+39 335 1234567",
-          "address": "Corso G. Agnelli 200, 10135 Torino",
-          "notes": "Cliente strategico - ordini annuali €500k. Contattare ogni trimestre",
-          "createdAt": "2024-01-15T00:00:00.000Z"
-        },
-        {
-          "id": 1735270010000,
-          "name": "Laura Ferri",
-          "company": "Acciaierie Venete S.p.A.",
-          "role": "Sales Manager",
-          "category": "fornitore",
-          "email": "l.ferri@acciaierievenete.it",
-          "phone": "+39 045 9876543",
-          "mobile": "+39 347 8765432",
-          "address": "Via dell'Industria 45, 37100 Verona",
-          "notes": "Fornitore principale acciaio - sconti 12% su ordini >10 ton",
-          "createdAt": "2023-05-20T00:00:00.000Z"
-        },
-        {
-          "id": 1735270020000,
-          "name": "Dott. Giuseppe Rossi",
-          "company": "Studio Commercialisti Associati Rossi",
-          "role": "Commercialista",
-          "category": "consulente",
-          "email": "g.rossi@studiorossi.it",
-          "phone": "+39 02 3456789",
-          "mobile": "+39 338 9876543",
-          "address": "Via Montenapoleone 12, 20121 Milano",
-          "notes": "Nostro commercialista da 10 anni - parcella €1800/mese",
-          "createdAt": "2014-03-10T00:00:00.000Z"
-        },
-        {
-          "id": 1735270030000,
-          "name": "Ing. Andrea Conti",
-          "company": "TÜV Italia S.r.l.",
-          "role": "Lead Auditor ISO 9001",
-          "category": "consulente",
-          "email": "a.conti@tuv.it",
-          "phone": "+39 02 7654321",
-          "mobile": "+39 340 1122334",
-          "address": "Viale Sarca 336, 20126 Milano",
-          "notes": "Auditor certificazione qualità - prossimo audit 15/01/2025",
-          "createdAt": "2022-11-05T00:00:00.000Z"
-        },
-        {
-          "id": 1735270040000,
-          "name": "Elena Martini",
-          "company": "Carletti Componenti S.r.l.",
-          "role": "Responsabile Ufficio Acquisti",
-          "category": "dipendente",
-          "email": "e.martini@carletticomponenti.it",
-          "phone": "+39 02 55667788",
-          "mobile": "+39 335 9988776",
-          "address": "",
-          "notes": "Dipendente dal 2018 - gestisce tutti i fornitori",
-          "createdAt": "2018-09-01T00:00:00.000Z"
-        }
-      ],
-      "archives": {
-        "contratti": [
-          {
-            "id": 1735265000000,
-            "name": "Contratto_Fornitura_FIAT_2024-2026",
-            "date": "2024-01-15",
-            "type": "Contratto commerciale",
-            "reference": "CTR/2024/001",
-            "notes": "Contratto quadro triennale - rinnovo automatico. Valore €1.5M/anno",
-            "link": "C:\\Documenti\\Carletti\\Contratti\\FIAT_2024.pdf",
-            "createdAt": "2024-01-15T10:00:00.000Z"
-          },
-          {
-            "id": 1735265010000,
-            "name": "Contratto_Leasing_Auto_Aziendali_Arval",
-            "date": "2023-06-01",
-            "type": "Contratto leasing",
-            "reference": "LES/2023/045",
-            "notes": "3 auto aziendali - scadenza 31/05/2027",
-            "link": "C:\\Documenti\\Carletti\\Contratti\\Leasing_Arval.pdf",
-            "createdAt": "2023-06-01T14:30:00.000Z"
-          }
-        ],
-        "fatture": [
-          {
-            "id": 1735265100000,
-            "name": "Fattura_18_2024_Acciaierie_Venete",
-            "date": "2024-12-15",
-            "type": "Fattura acquisto",
-            "reference": "FT/AV/2024/1856",
-            "notes": "Acquisto acciaio €18.500 - Scadenza pagamento 14/02/2025",
-            "link": "C:\\Documenti\\Carletti\\Fatture\\2024\\Dic\\FT_AV_1856.pdf",
-            "createdAt": "2024-12-15T11:00:00.000Z"
-          }
-        ],
-        "certificazioni": [
-          {
-            "id": 1735265200000,
-            "name": "Certificato_ISO_9001_2024",
-            "date": "2024-02-10",
-            "type": "Certificazione qualità",
-            "reference": "CERT/TUV/2024/QM-45678",
-            "notes": "Certificazione valida fino al 09/02/2027 - prossimo audit 15/01/2025",
-            "link": "C:\\Documenti\\Carletti\\Certificazioni\\ISO9001_2024.pdf",
-            "createdAt": "2024-02-10T16:20:00.000Z"
-          }
-        ],
-        "documenti_fiscali": [
-          {
-            "id": 1735265300000,
-            "name": "DURC_Dicembre_2024",
-            "date": "2024-12-01",
-            "type": "DURC",
-            "reference": "DURC/INPS/2024/CC123456",
-            "notes": "Documento Unico Regolarità Contributiva - valido fino al 28/02/2025",
-            "link": "C:\\Documenti\\Carletti\\Fiscale\\DURC_Dic2024.pdf",
-            "createdAt": "2024-12-01T09:15:00.000Z"
-          }
-        ]
-      },
-      "sopExecutions": [
-        {
-          "id": 1735260000000,
-          "sopId": 0,
-          "completedAt": "2024-12-26T16:30:00.000Z",
-          "completionTime": 18,
-          "notes": "Processate 45 email - 3 urgenti inoltrate alla direzione"
-        },
-        {
-          "id": 1735260010000,
-          "sopId": 1,
-          "completedAt": "2024-12-22T11:45:00.000Z",
-          "completionTime": 25,
-          "notes": "Archiviati 12 documenti - contratto FIAT protocollato"
-        }
-      ]
-    },
-    "2": {
-      "name": "Rossi Consulenze Aziendali",
-      "tasks": [
-        {
-          "id": 1735300000000,
-          "title": "Preparare dichiarazione redditi 2024 cliente Studio Legale Bianchi",
-          "description": "Raccogliere F24, CU, fatture e calcolare imposte. Cliente richiede consegna entro fine mese",
-          "category": "fiscal",
+          "id": 5,
+          "title": "Verifica conformità GDPR sistemi IT",
+          "description": "Audit interno sui sistemi per conformità normativa privacy",
+          "category": "critical",
           "priority": "aplus",
-          "deadline": "2024-12-31",
-          "completed": false,
-          "createdAt": "2024-12-20T09:30:00.000Z"
-        },
-        {
-          "id": 1735300010000,
-          "title": "Revisione contabile trimestrale S.r.l. TechnoSoft",
-          "description": "Verificare bilancio Q4 2024, riconciliazioni bancarie e registrazioni IVA",
-          "category": "important",
-          "priority": "a",
-          "deadline": "2025-01-10",
-          "completed": false,
-          "createdAt": "2024-12-18T10:15:00.000Z"
-        },
-        {
-          "id": 1735300020000,
-          "title": "Consulenza apertura nuova sede cliente Pasticceria Dolce Vita",
-          "description": "Analisi fiscale apertura secondo punto vendita - regime fiscale ottimale e pratiche CCIAA",
-          "category": "decisions",
-          "priority": "a",
           "deadline": "2025-01-08",
           "completed": false,
-          "createdAt": "2024-12-15T14:20:00.000Z"
+          "createdAt": "2024-12-28T14:00:00Z"
         },
         {
-          "id": 1735300030000,
-          "title": "Aggiornamento corso formazione crediti ECM commercialisti",
-          "description": "Completare 20 crediti formativi obbligatori entro fine anno",
-          "category": "hr",
-          "priority": "aplus",
-          "deadline": "2024-12-30",
-          "completed": false,
-          "createdAt": "2024-12-10T16:45:00.000Z"
-        },
-        {
-          "id": 1735300040000,
-          "title": "Rispondere a questionario Agenzia Entrate per cliente Farmacia Centrale",
-          "description": "Compilare risposta a richiesta documenti per controllo formale dichiarazione 2023",
-          "category": "critical",
-          "priority": "aplus",
-          "deadline": "2025-01-05",
-          "completed": false,
-          "createdAt": "2024-12-22T11:00:00.000Z"
-        },
-        {
-          "id": 1735300050000,
-          "title": "Redigere business plan per startup innovativa cliente DevApp",
-          "description": "Piano finanziario 3 anni per richiesta finanziamento agevolato MISE",
-          "category": "important",
+          "id": 6,
+          "title": "Preparazione documentazione Modello 770",
+          "description": "Raccolta dati per dichiarazione annuale sostituti d'imposta",
+          "category": "fiscal",
           "priority": "a",
-          "deadline": "2025-01-15",
+          "deadline": "2025-02-28",
           "completed": false,
-          "createdAt": "2024-12-12T09:00:00.000Z"
-        },
-        {
-          "id": 1735300060000,
-          "title": "Invio lettere di incarico 2025 a tutti i clienti",
-          "description": "Preparare e inviare 28 lettere di incarico con nuovi compensi",
-          "category": "operational",
-          "priority": "b",
-          "deadline": "2025-01-20",
-          "completed": false,
-          "createdAt": "2024-12-08T15:30:00.000Z"
-        },
-        {
-          "id": 1735300070000,
-          "title": "Verificare scadenze fiscali gennaio per tutti i clienti",
-          "description": "Controllare calendario e inviare promemoria a 28 clienti",
-          "category": "operational",
-          "priority": "a",
-          "deadline": "2024-12-28",
-          "completed": true,
-          "createdAt": "2024-12-23T10:00:00.000Z",
-          "completedAt": "2024-12-26"
+          "createdAt": "2024-12-15T09:00:00Z"
         }
       ],
       "deadlines": [
         {
-          "id": 1735310000000,
-          "type": "Versamento IVA trimestrale IV trimestre 2024",
-          "description": "Liquidazione IVA ottobre-novembre-dicembre 2024",
+          "id": 1,
+          "title": "Dichiarazione IVA trimestrale",
+          "description": "Presentazione dichiarazione IVA Q4 2024",
+          "type": "fiscale",
           "category": "fiscale",
-          "date": "2025-02-17",
-          "amount": "€ 3.200",
+          "deadline": "2025-02-16",
           "completed": false,
-          "createdAt": "2024-12-01T00:00:00.000Z"
+          "amount": null,
+          "createdAt": "2024-12-15T08:00:00Z"
         },
         {
-          "id": 1735310010000,
-          "type": "Iscrizione Albo Commercialisti - Rinnovo annuale",
-          "description": "Pagamento quota iscrizione 2025 Ordine Dottori Commercialisti Milano",
-          "category": "amministrativa",
-          "date": "2025-01-31",
-          "amount": "€ 480",
-          "completed": false,
-          "createdAt": "2024-11-15T00:00:00.000Z"
-        },
-        {
-          "id": 1735310020000,
-          "type": "Polizza RC Professionale - Scadenza",
-          "description": "Rinnovo polizza responsabilità civile professionale con Allianz",
-          "category": "amministrativa",
-          "date": "2025-01-15",
-          "amount": "€ 1.850",
-          "completed": false,
-          "createdAt": "2024-10-20T00:00:00.000Z"
-        },
-        {
-          "id": 1735310030000,
-          "type": "Versamento contributi Cassa Ragionieri",
-          "description": "Contributo previdenziale annuale 2024",
+          "id": 2,
+          "title": "Versamento contributi INPS",
+          "description": "Pagamento contributi previdenziali dipendenti dicembre 2024",
+          "type": "fiscale",
           "category": "hr",
-          "date": "2025-02-28",
-          "amount": "€ 5.600",
+          "deadline": "2025-01-16",
           "completed": false,
-          "createdAt": "2024-12-01T00:00:00.000Z"
+          "amount": 12500,
+          "createdAt": "2024-12-01T08:00:00Z"
+        },
+        {
+          "id": 3,
+          "title": "Scadenza contratto affitto ufficio",
+          "description": "Rinnovo contratto locazione sede principale - Via Roma 123",
+          "type": "contratto",
+          "category": "legale",
+          "deadline": "2025-03-31",
+          "completed": false,
+          "amount": null,
+          "createdAt": "2024-10-01T10:00:00Z"
         }
       ],
       "expenses": [
         {
-          "id": 1735320000000,
-          "description": "Abbonamento software Teamsystem - Licenza annuale",
-          "amount": 1450.00,
-          "category": "software",
+          "id": 1,
+          "title": "Licenze software annuali",
+          "category": "operative",
+          "amount": 8500,
           "date": "2024-12-15",
-          "paymentMethod": "Bonifico",
-          "createdAt": "2024-12-15T09:00:00.000Z"
+          "description": "Rinnovo licenze Microsoft 365, Adobe Creative Cloud, Slack Business",
+          "createdAt": "2024-12-15T15:30:00Z"
         },
         {
-          "id": 1735320010000,
-          "description": "Canone affitto ufficio - Dicembre 2024",
-          "amount": 1200.00,
-          "category": "utenze",
-          "date": "2024-12-01",
-          "paymentMethod": "Bonifico",
-          "createdAt": "2024-12-01T10:30:00.000Z"
-        },
-        {
-          "id": 1735320020000,
-          "description": "Corso aggiornamento professionale ECM",
-          "amount": 380.00,
-          "category": "formazione",
-          "date": "2024-12-18",
-          "paymentMethod": "Carta di credito",
-          "createdAt": "2024-12-18T14:15:00.000Z"
-        },
-        {
-          "id": 1735320030000,
-          "description": "Materiale cancelleria e toner stampante",
-          "amount": 145.00,
-          "category": "altro",
-          "date": "2024-12-12",
-          "paymentMethod": "Contanti",
-          "createdAt": "2024-12-12T16:20:00.000Z"
-        },
-        {
-          "id": 1735320040000,
-          "description": "Visura camerale e certificati digitali clienti",
-          "amount": 85.00,
-          "category": "consulenze",
+          "id": 2,
+          "title": "Consulenza fiscale Q4",
+          "category": "servizi",
+          "amount": 2200,
           "date": "2024-12-20",
-          "paymentMethod": "Carta di credito",
-          "createdAt": "2024-12-20T11:45:00.000Z"
+          "description": "Parcella commercialista per chiusura bilancio trimestre",
+          "createdAt": "2024-12-20T10:00:00Z"
+        },
+        {
+          "id": 3,
+          "title": "Materiale ufficio",
+          "category": "operative",
+          "amount": 450,
+          "date": "2024-12-10",
+          "description": "Cartucce stampante, carta A4, cancelleria varia",
+          "createdAt": "2024-12-10T16:00:00Z"
+        },
+        {
+          "id": 4,
+          "title": "Cena aziendale Natale",
+          "category": "hr",
+          "amount": 1800,
+          "date": "2024-12-22",
+          "description": "Cena di Natale con tutto il team (25 persone)",
+          "createdAt": "2024-12-22T21:00:00Z"
         }
       ],
       "appointments": [
         {
-          "id": 1735330000000,
-          "title": "Consulenza fiscale cliente S.r.l. TechnoSoft",
-          "date": "2025-01-07",
+          "id": 1,
+          "title": "Meeting con cliente Alfa SpA",
+          "date": "2025-01-08",
           "time": "10:00",
-          "location": "Studio - Via Dante 45, Milano",
-          "participants": "Dott. Rossi, Amministratore TechnoSoft",
-          "notes": "Discutere ottimizzazione fiscale e dividendi 2024",
-          "createdAt": "2024-12-18T14:30:00.000Z"
+          "location": "Sede cliente - Milano, Via Dante 45",
+          "description": "Presentazione nuovo progetto di digitalizzazione processi",
+          "participants": "CEO, CTO, Project Manager",
+          "createdAt": "2024-12-28T09:00:00Z"
         },
         {
-          "id": 1735330010000,
-          "title": "Incontro nuovi clienti - Coppia apertura B&B",
-          "date": "2025-01-09",
-          "time": "15:30",
-          "location": "Studio",
-          "participants": "Dott. Rossi, Sig. e Sig.ra Verdi",
-          "notes": "Consulenza apertura partita IVA e regime forfettario",
-          "createdAt": "2024-12-20T09:15:00.000Z"
+          "id": 2,
+          "title": "Riunione CDA trimestrale",
+          "date": "2025-01-15",
+          "time": "14:30",
+          "location": "Sala Conferenze Sede",
+          "description": "Consiglio di Amministrazione - revisione obiettivi Q4 e pianificazione Q1",
+          "participants": "Amministratori, Direttore Generale",
+          "createdAt": "2024-12-10T11:00:00Z"
         },
         {
-          "id": 1735330020000,
-          "title": "Assemblea Ordinaria Soci cliente Immobiliare Nord",
-          "date": "2025-01-14",
-          "time": "18:00",
-          "location": "Sede cliente - Via Manzoni 88, Milano",
-          "participants": "3 soci, Dott. Rossi",
-          "notes": "Approvazione bilancio 2024 e nomina amministratore",
-          "createdAt": "2024-12-15T16:00:00.000Z"
-        },
-        {
-          "id": 1735330030000,
-          "title": "Videochiamata con Agenzia Entrate - Istanza cliente",
-          "date": "2025-01-06",
-          "time": "11:00",
-          "location": "Online - Teams",
-          "participants": "Funzionario AdE, Dott. Rossi",
-          "notes": "Chiarimenti su controllo formale Farmacia Centrale",
-          "createdAt": "2024-12-22T13:20:00.000Z"
+          "id": 3,
+          "title": "Video call con fornitore hosting",
+          "date": "2025-01-04",
+          "time": "15:00",
+          "location": "Online - Google Meet",
+          "description": "Discussione upgrade infrastruttura server e pricing 2025",
+          "participants": "IT Manager, Account Manager fornitore",
+          "createdAt": "2024-12-27T13:00:00Z"
         }
       ],
       "contacts": [
         {
-          "id": 1735340000000,
-          "name": "Marco Esposito",
-          "company": "TechnoSoft S.r.l.",
-          "role": "Amministratore Unico",
+          "id": 1,
+          "name": "Marco Rossi",
+          "company": "Alfa SpA",
+          "role": "CEO",
+          "email": "m.rossi@alfaspa.it",
+          "phone": "+39 02 1234567",
+          "notes": "Cliente principale - budget annuo €250K",
           "category": "cliente",
-          "email": "m.esposito@technosoft.it",
-          "phone": "+39 02 87654321",
-          "mobile": "+39 340 1234567",
-          "address": "Via Paolo Sarpi 125, 20154 Milano",
-          "notes": "Cliente dal 2020 - società software 8 dipendenti - fatturato €450k",
-          "createdAt": "2020-03-15T00:00:00.000Z"
+          "createdAt": "2024-06-15T10:00:00Z"
         },
         {
-          "id": 1735340010000,
-          "name": "Dott.ssa Anna Ferri",
-          "company": "Farmacia Centrale",
-          "role": "Titolare",
-          "category": "cliente",
-          "email": "farmaciacentrale@pec.it",
-          "phone": "+39 02 9876543",
-          "mobile": "+39 335 7654321",
-          "address": "Corso Buenos Aires 45, 20124 Milano",
-          "notes": "Cliente storico dal 2015 - in corso controllo AdE",
-          "createdAt": "2015-06-01T00:00:00.000Z"
+          "id": 2,
+          "name": "Laura Bianchi",
+          "company": "Studio Commerciale Bianchi",
+          "role": "Commercialista",
+          "email": "l.bianchi@studiobianchi.it",
+          "phone": "+39 02 7654321",
+          "notes": "Commercialista aziendale dal 2018",
+          "category": "fornitore",
+          "createdAt": "2024-01-10T09:00:00Z"
         },
         {
-          "id": 1735340020000,
-          "name": "Avv. Giulia Bianchi",
-          "company": "Studio Legale Bianchi & Associati",
-          "role": "Partner",
-          "category": "cliente",
-          "email": "g.bianchi@studiolegalebianchi.it",
-          "phone": "+39 02 12345678",
-          "mobile": "+39 338 8765432",
-          "address": "Via Montenapoleone 8, 20121 Milano",
-          "notes": "Cliente VIP - studio 12 avvocati - parcella annuale €25k",
-          "createdAt": "2018-01-10T00:00:00.000Z"
+          "id": 3,
+          "name": "Giuseppe Verdi",
+          "company": "CloudServers Italia",
+          "role": "Account Manager",
+          "email": "g.verdi@cloudservers.it",
+          "phone": "+39 02 9998877",
+          "notes": "Fornitore hosting e servizi cloud - contratto annuo",
+          "category": "fornitore",
+          "createdAt": "2024-03-20T11:00:00Z"
         },
         {
-          "id": 1735340030000,
-          "name": "Dott. Francesco Romano",
-          "company": "Agenzia delle Entrate - Direzione Regionale Lombardia",
-          "role": "Funzionario Ufficio Controlli",
-          "category": "istituzione",
-          "email": "f.romano@agenziaentrate.it",
-          "phone": "+39 02 77771234",
-          "mobile": "",
-          "address": "Via della Moscova 2, 20121 Milano",
-          "notes": "Referente per pratiche e chiarimenti fiscali",
-          "createdAt": "2019-05-20T00:00:00.000Z"
-        },
-        {
-          "id": 1735340040000,
-          "name": "Laura Colombo",
-          "company": "Rossi Consulenze Aziendali",
-          "role": "Praticante Commercialista",
-          "category": "dipendente",
-          "email": "l.colombo@rossiconsulenze.it",
-          "phone": "+39 02 55443322",
-          "mobile": "+39 347 1122334",
-          "address": "",
-          "notes": "In studio dal 2023 - si occupa di tenuta contabilità clienti minori",
-          "createdAt": "2023-09-01T00:00:00.000Z"
+          "id": 4,
+          "name": "Anna Neri",
+          "company": "Beta Solutions",
+          "role": "Project Manager",
+          "email": "a.neri@betasolutions.com",
+          "phone": "+39 02 5556666",
+          "notes": "Partner progetto sviluppo app mobile",
+          "category": "partner",
+          "createdAt": "2024-09-01T14:00:00Z"
         }
       ],
-      "archives": {
-        "pratiche_clienti": [
-          {
-            "id": 1735350000000,
-            "name": "Dichiarazione_Redditi_2023_TechnoSoft",
-            "date": "2024-09-30",
-            "type": "Dichiarazione fiscale",
-            "reference": "REDD/2023/TS001",
-            "notes": "Modello Redditi SP 2024 - UNICO società persone",
-            "link": "C:\\Documenti\\RossiConsulenze\\Clienti\\TechnoSoft\\REDD2023.pdf",
-            "createdAt": "2024-09-30T17:30:00.000Z"
-          },
-          {
-            "id": 1735350010000,
-            "name": "Bilancio_2023_Farmacia_Centrale",
-            "date": "2024-05-15",
-            "type": "Bilancio",
-            "reference": "BIL/2023/FC001",
-            "notes": "Bilancio depositato con nota integrativa",
-            "link": "C:\\Documenti\\RossiConsulenze\\Clienti\\FarmaciaCentrale\\BIL2023.pdf",
-            "createdAt": "2024-05-15T11:20:00.000Z"
-          }
-        ],
-        "corrispondenza": [
-          {
-            "id": 1735350100000,
-            "name": "PEC_Agenzia_Entrate_Controllo_Farmacia",
-            "date": "2024-12-10",
-            "type": "PEC",
-            "reference": "PEC/2024/AdE/12345",
-            "notes": "Richiesta chiarimenti dichiarazione 2023 - risposta entro 05/01/2025",
-            "link": "C:\\Documenti\\RossiConsulenze\\PEC\\AdE_10dic2024.eml",
-            "createdAt": "2024-12-10T09:30:00.000Z"
-          }
-        ],
-        "polizze": [
-          {
-            "id": 1735350200000,
-            "name": "Polizza_RC_Professionale_2024_Allianz",
-            "date": "2024-01-15",
-            "type": "Polizza assicurativa",
-            "reference": "POL/ALL/2024/RC-45678",
-            "notes": "Massimale €2.000.000 - scadenza 15/01/2025",
-            "link": "C:\\Documenti\\RossiConsulenze\\Assicurazioni\\RC_2024.pdf",
-            "createdAt": "2024-01-15T14:00:00.000Z"
-          }
-        ]
-      },
-      "sopExecutions": [
+      "emails": [
         {
-          "id": 1735360000000,
-          "sopId": 0,
-          "completedAt": "2024-12-26T18:00:00.000Z",
-          "completionTime": 22,
-          "notes": "38 email processate - 2 urgenti da clienti per scadenze fiscali"
+          "id": 1,
+          "from": "m.rossi@alfaspa.it",
+          "subject": "URGENTE: Approvazione preventivo entro oggi",
+          "body": "Buongiorno, ho bisogno della vostra approvazione formale sul preventivo inviato ieri entro le 18:00 di oggi per poter procedere. Si tratta del progetto di digitalizzazione che abbiamo discusso. Potete confermare?",
+          "date": "2024-12-30T09:15:00Z",
+          "read": false,
+          "category": "cliente",
+          "priority": "urgent",
+          "requiresReply": true,
+          "requiresAction": true,
+          "aiClassification": {
+            "isSpam": false,
+            "urgencyScore": 95,
+            "category": "cliente",
+            "requiresReply": true,
+            "estimatedImportance": "high",
+            "detectedDeadline": "2024-12-30T18:00:00Z",
+            "actionRequired": "Approvare preventivo"
+          }
+        },
+        {
+          "id": 2,
+          "from": "newsletter@techmagazine.com",
+          "subject": "Le 10 migliori tecnologie del 2024",
+          "body": "Scopri le innovazioni tecnologiche che hanno rivoluzionato il mercato quest'anno...",
+          "date": "2024-12-29T08:00:00Z",
+          "read": true,
+          "category": "newsletter",
+          "priority": "low",
+          "requiresReply": false,
+          "requiresAction": false,
+          "aiClassification": {
+            "isSpam": false,
+            "urgencyScore": 10,
+            "category": "informativa",
+            "requiresReply": false,
+            "estimatedImportance": "low"
+          }
+        },
+        {
+          "id": 3,
+          "from": "l.bianchi@studiobianchi.it",
+          "subject": "Documenti per dichiarazione IVA Q4",
+          "body": "Gentile cliente, per completare la dichiarazione IVA del quarto trimestre necessito dei seguenti documenti: 1) Registro vendite dicembre 2) Fatture acquisti dicembre 3) F24 versamenti. Grazie per inviarmeli entro venerdì 3 gennaio.",
+          "date": "2024-12-28T14:30:00Z",
+          "read": false,
+          "category": "fiscale",
+          "priority": "important",
+          "requiresReply": true,
+          "requiresAction": true,
+          "aiClassification": {
+            "isSpam": false,
+            "urgencyScore": 75,
+            "category": "fiscale",
+            "requiresReply": true,
+            "estimatedImportance": "high",
+            "detectedDeadline": "2025-01-03",
+            "actionRequired": "Inviare documenti fiscali"
+          }
+        },
+        {
+          "id": 4,
+          "from": "hr@technosolutions.it",
+          "subject": "Reminder: Appuntamento colloquio 3 gennaio ore 10",
+          "body": "Ti ricordo che domani 3 gennaio alle ore 10:00 c'è il colloquio con il candidato sviluppatore senior Mario Bianchi. Il meeting è in sala riunioni principale. Ho preparato il CV e i test tecnici.",
+          "date": "2024-12-30T16:00:00Z",
+          "read": false,
+          "category": "hr",
+          "priority": "normal",
+          "requiresReply": false,
+          "requiresAction": false,
+          "aiClassification": {
+            "isSpam": false,
+            "urgencyScore": 60,
+            "category": "hr",
+            "requiresReply": false,
+            "estimatedImportance": "medium",
+            "detectedAppointment": {
+              "date": "2025-01-03",
+              "time": "10:00",
+              "title": "Colloquio sviluppatore senior Mario Bianchi",
+              "location": "Sala riunioni principale"
+            }
+          }
         }
-      ]
+      ],
+      "sopExecutions": [],
+      "archives": {
+        "contratti": {
+          "name": "Contratti",
+          "documents": [
+            {
+              "id": 1,
+              "title": "Contratto Locazione Sede 2024-2027",
+              "uploadDate": "2024-01-15",
+              "category": "Contratti",
+              "tags": ["immobili", "legale"],
+              "notes": "Contratto affitto sede principale Via Roma 123"
+            }
+          ]
+        },
+        "fatture": {
+          "name": "Fatture",
+          "documents": [
+            {
+              "id": 2,
+              "title": "Fattura CloudServers Dicembre 2024",
+              "uploadDate": "2024-12-01",
+              "category": "Fatture",
+              "tags": ["hosting", "ricorrente"],
+              "notes": "Fattura mensile servizi cloud €850"
+            }
+          ]
+        }
+      }
+    },
+    "2": {
+      "name": "GreenEnergy SRL",
+      "tasks": [
+        {
+          "id": 1,
+          "title": "Presentazione progetto fotovoltaico al Comune",
+          "description": "Consegnare documentazione tecnica per autorizzazione impianto 500kW",
+          "category": "urgent",
+          "priority": "aplus",
+          "deadline": "2025-01-12",
+          "completed": false,
+          "createdAt": "2024-12-20T10:00:00Z"
+        },
+        {
+          "id": 2,
+          "title": "Formazione tecnici su nuovi inverter",
+          "description": "Organizzare corso di aggiornamento per installatori certificati",
+          "category": "hr",
+          "priority": "b",
+          "deadline": "2025-01-20",
+          "completed": false,
+          "createdAt": "2024-12-15T09:00:00Z"
+        }
+      ],
+      "deadlines": [
+        {
+          "id": 1,
+          "title": "Certificazione GSE impianti Q4",
+          "description": "Invio documentazione produzione energia trimestre al Gestore Servizi Energetici",
+          "type": "fiscale",
+          "category": "operative",
+          "deadline": "2025-01-31",
+          "completed": false,
+          "amount": null,
+          "createdAt": "2024-12-01T08:00:00Z"
+        }
+      ],
+      "expenses": [
+        {
+          "id": 1,
+          "title": "Acquisto componenti fotovoltaici",
+          "category": "operative",
+          "amount": 45000,
+          "date": "2024-12-18",
+          "description": "200 pannelli fotovoltaici 450W + 20 inverter da fornitore cinese",
+          "createdAt": "2024-12-18T11:00:00Z"
+        },
+        {
+          "id": 2,
+          "title": "Assicurazione mezzi aziendali",
+          "category": "assicurazioni",
+          "amount": 3200,
+          "date": "2024-12-05",
+          "description": "Premio annuale 5 furgoni installazione",
+          "createdAt": "2024-12-05T14:00:00Z"
+        }
+      ],
+      "appointments": [
+        {
+          "id": 1,
+          "title": "Sopralluogo impianto industriale",
+          "date": "2025-01-09",
+          "time": "09:30",
+          "location": "Stabilimento Rossi Metallurgica - Bologna",
+          "description": "Verifica fattibilità impianto fotovoltaico 1MW su capannone",
+          "participants": "Tecnico, Ingegnere, Cliente",
+          "createdAt": "2024-12-22T10:00:00Z"
+        }
+      ],
+      "contacts": [
+        {
+          "id": 1,
+          "name": "Stefano Ferrari",
+          "company": "Rossi Metallurgica SpA",
+          "role": "Responsabile Acquisti",
+          "email": "s.ferrari@rossimetal.it",
+          "phone": "+39 051 123456",
+          "notes": "Interessato a impianto fotovoltaico 1MW - budget €800K",
+          "category": "cliente",
+          "createdAt": "2024-11-10T11:00:00Z"
+        }
+      ],
+      "emails": [],
+      "sopExecutions": [],
+      "archives": {}
     },
     "3": {
-      "name": "Azienda 3",
-      "tasks": [],
-      "deadlines": [],
-      "expenses": [],
-      "appointments": [],
-      "contacts": [],
-      "archives": {},
-      "sopExecutions": []
+      "name": "Fashion Boutique SRL",
+      "tasks": [
+        {
+          "id": 1,
+          "title": "Pianificazione collezione Primavera/Estate 2025",
+          "description": "Definire linee guida, colori e materiali per nuova collezione",
+          "category": "decisions",
+          "priority": "a",
+          "deadline": "2025-01-18",
+          "completed": false,
+          "createdAt": "2024-12-10T09:00:00Z"
+        },
+        {
+          "id": 2,
+          "title": "Saldi invernali - allestimento vetrine",
+          "description": "Preparare vetrine e cartellonistica per inizio saldi 5 gennaio",
+          "category": "operative",
+          "priority": "aplus",
+          "deadline": "2025-01-04",
+          "completed": false,
+          "createdAt": "2024-12-28T15:00:00Z"
+        }
+      ],
+      "deadlines": [
+        {
+          "id": 1,
+          "title": "Inizio saldi invernali",
+          "description": "Data ufficiale inizio saldi - preparare sconti e promozioni",
+          "type": "commerciale",
+          "category": "operative",
+          "deadline": "2025-01-05",
+          "completed": false,
+          "amount": null,
+          "createdAt": "2024-11-15T10:00:00Z"
+        }
+      ],
+      "expenses": [
+        {
+          "id": 1,
+          "title": "Acquisto collezione autunno/inverno",
+          "category": "operative",
+          "amount": 28000,
+          "date": "2024-12-01",
+          "description": "Stock abbigliamento da fornitori italiani e francesi",
+          "createdAt": "2024-12-01T10:00:00Z"
+        },
+        {
+          "id": 2,
+          "title": "Affitto negozio centro storico",
+          "category": "affitti",
+          "amount": 4500,
+          "date": "2024-12-01",
+          "description": "Canone mensile dicembre boutique Via Montenapoleone",
+          "createdAt": "2024-12-01T08:00:00Z"
+        }
+      ],
+      "appointments": [
+        {
+          "id": 1,
+          "title": "Fiera Moda Milano",
+          "date": "2025-02-15",
+          "time": "09:00",
+          "location": "Fiera Milano - Rho",
+          "description": "Partecipazione come visitatori per scouting nuove collezioni",
+          "participants": "Buyer, Stilista",
+          "createdAt": "2024-12-05T11:00:00Z"
+        }
+      ],
+      "contacts": [
+        {
+          "id": 1,
+          "name": "Marie Dubois",
+          "company": "Atelier Parisien",
+          "role": "Sales Manager",
+          "email": "m.dubois@atelierparis.fr",
+          "phone": "+33 1 4567890",
+          "notes": "Fornitore abbigliamento haute couture Francia",
+          "category": "fornitore",
+          "createdAt": "2024-03-15T10:00:00Z"
+        }
+      ],
+      "emails": [],
+      "sopExecutions": [],
+      "archives": {}
     },
     "4": {
-      "name": "Azienda 4",
-      "tasks": [],
-      "deadlines": [],
-      "expenses": [],
-      "appointments": [],
-      "contacts": [],
-      "archives": {},
-      "sopExecutions": []
+      "name": "Consulting Partners SRL",
+      "tasks": [
+        {
+          "id": 1,
+          "title": "Preparazione proposta per gara pubblica",
+          "description": "Compilare offerta per gara consulenza organizzativa Regione Lombardia",
+          "category": "decisions",
+          "priority": "aplus",
+          "deadline": "2025-01-07",
+          "completed": false,
+          "createdAt": "2024-12-22T11:00:00Z"
+        },
+        {
+          "id": 2,
+          "title": "Aggiornamento portfolio servizi 2025",
+          "description": "Revisionare brochure aziendale e listino consulenze",
+          "category": "marketing",
+          "priority": "b",
+          "deadline": "2025-01-25",
+          "completed": false,
+          "createdAt": "2024-12-15T10:00:00Z"
+        }
+      ],
+      "deadlines": [
+        {
+          "id": 1,
+          "title": "Scadenza gara Regione Lombardia",
+          "description": "Termine ultimo presentazione offerta consulenza organizzativa",
+          "type": "commerciale",
+          "category": "decisions",
+          "deadline": "2025-01-07",
+          "completed": false,
+          "amount": null,
+          "createdAt": "2024-12-20T09:00:00Z"
+        }
+      ],
+      "expenses": [
+        {
+          "id": 1,
+          "title": "Partecipazione conferenza HR Management",
+          "category": "formazione",
+          "amount": 1200,
+          "date": "2024-12-12",
+          "description": "Biglietti e hotel per 2 consulenti - Milano 3 giorni",
+          "createdAt": "2024-12-12T16:00:00Z"
+        }
+      ],
+      "appointments": [
+        {
+          "id": 1,
+          "title": "Kick-off progetto riorganizzazione XYZ",
+          "date": "2025-01-10",
+          "time": "10:00",
+          "location": "Sede cliente - Torino",
+          "description": "Primo incontro progetto consulenza 6 mesi",
+          "participants": "Team consulenza (3 persone), Board cliente",
+          "createdAt": "2024-12-18T14:00:00Z"
+        }
+      ],
+      "contacts": [
+        {
+          "id": 1,
+          "name": "Andrea Colombo",
+          "company": "XYZ Manufacturing SpA",
+          "role": "HR Director",
+          "email": "a.colombo@xyzmfg.it",
+          "phone": "+39 011 987654",
+          "notes": "Cliente progetto riorganizzazione - budget €120K",
+          "category": "cliente",
+          "createdAt": "2024-10-05T09:00:00Z"
+        }
+      ],
+      "emails": [],
+      "sopExecutions": [],
+      "archives": {}
     }
   },
   "templates": [
     {
-      "id": 1735365000000,
-      "title": "Controllo Email Quotidiano",
-      "description": "Verifica e risposta email ogni mattina ore 9:00",
-      "category": "operational",
-      "priority": "a",
-      "frequency": "daily",
-      "createdAt": "2024-12-01T09:00:00.000Z"
-    },
-    {
-      "id": 1735365010000,
-      "title": "Report Settimanale Direzione",
-      "description": "Preparare report attività, criticità e KPI per la direzione",
-      "category": "important",
-      "priority": "a",
+      "id": 1,
+      "name": "Riunione Settimanale Team",
+      "taskTemplate": {
+        "title": "Riunione Team [SETTIMANA]",
+        "description": "Allineamento settimanale su progetti in corso e priorità",
+        "category": "riunioni",
+        "priority": "B"
+      },
       "frequency": "weekly",
-      "createdAt": "2024-12-01T09:00:00.000Z"
+      "enabled": true
     },
     {
-      "id": 1735365020000,
-      "title": "Verifica Scadenze Fiscali Mensili",
-      "description": "Controllo calendario fiscale e promemoria pagamenti",
-      "category": "fiscal",
-      "priority": "aplus",
+      "id": 2,
+      "name": "Report Mensile Direzione",
+      "taskTemplate": {
+        "title": "Report Mensile [MESE]",
+        "description": "Preparazione report KPI e risultati per la direzione",
+        "category": "decisioni",
+        "priority": "A"
+      },
       "frequency": "monthly",
-      "createdAt": "2024-12-01T09:00:00.000Z"
+      "enabled": true
     }
   ],
   "auditLog": [
     {
-      "id": 1735370000000,
-      "action": "create",
-      "description": "Attività aggiunta: Preparare documentazione per gara d'appalto Comune di Milano",
-      "company": 1,
-      "timestamp": "2024-12-20T09:00:00.000Z"
-    },
-    {
-      "id": 1735370010000,
-      "action": "create",
-      "description": "Contatto aggiunto: Marco Bianchi - FIAT",
-      "company": 1,
-      "timestamp": "2024-12-15T14:30:00.000Z"
-    },
-    {
-      "id": 1735370020000,
-      "action": "update",
-      "description": "Attività completata: Verificare stato ordini clienti Q4 2024",
-      "company": 1,
-      "timestamp": "2024-12-26T16:45:00.000Z"
-    },
-    {
-      "id": 1735370030000,
-      "action": "create",
-      "description": "Template creato: Controllo Email Quotidiano",
-      "company": "all",
-      "timestamp": "2024-12-01T09:00:00.000Z"
+      "timestamp": "2024-12-30T10:00:00Z",
+      "type": "create",
+      "description": "Dati di test importati nel sistema",
+      "affectedCompany": "all"
     }
   ],
   "backups": [],
