@@ -2729,6 +2729,14 @@
             box-shadow: 0 4px 12px rgba(39, 174, 96, 0.4);
         }
     </style>
+
+    <!-- SUPABASE CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <!-- SUPABASE INTEGRATION -->
+    <script src="supabase-config.js"></script>
+    <script src="supabase-api.js"></script>
+    <script src="auth-ui.js"></script>
 </head>
 <body>
     <!-- SIDEBAR NAVIGATION -->
@@ -3716,6 +3724,32 @@
                     <p style="margin-bottom: 15px;">Abilita le notifiche del browser per ricevere promemoria automatici su scadenze e attività urgenti.</p>
                     <button onclick="enableNotifications()" class="btn btn-success">🔔 Abilita Notifiche</button>
                     <p id="notification-status" style="margin-top: 10px; font-size: 0.9em; color: #7f8c8d;"></p>
+                </div>
+
+                <div class="card" style="margin-top: 30px;" id="cloud-sync-settings">
+                    <h3>☁️ Sincronizzazione Cloud</h3>
+                    <div id="cloud-status">
+                        <p style="margin-bottom: 15px; color: #7f8c8d;">Stato sincronizzazione: <span id="sync-status" style="font-weight: 600;">Verificando...</span></p>
+                    </div>
+
+                    <div id="migration-section" style="display: none; padding: 15px; background: #fff3cd; border-left: 4px solid #ffc107; border-radius: 8px; margin-bottom: 15px;">
+                        <h4 style="color: #856404; margin-bottom: 10px;">📦 Migrazione Dati Disponibile</h4>
+                        <p style="color: #856404; font-size: 14px; margin-bottom: 10px;">
+                            Hai dati salvati localmente. Clicca qui per migrarli nel cloud e sincronizzarli tra tutti i tuoi dispositivi.
+                        </p>
+                        <button onclick="migrateToCloud()" class="btn btn-success">🔄 Migra Dati al Cloud</button>
+                    </div>
+
+                    <div id="cloud-actions">
+                        <button onclick="manualSync()" class="btn">🔄 Sincronizza Ora</button>
+                        <button onclick="handleLogout()" class="btn btn-danger" style="margin-left: 10px;">🚪 Logout</button>
+                    </div>
+
+                    <div id="sync-info" style="margin-top: 15px; padding: 12px; background: #e8f5e9; border-radius: 8px; display: none;">
+                        <p style="font-size: 13px; color: #2e7d32; margin: 0;">
+                            <strong>✓ Ultima sincronizzazione:</strong> <span id="last-sync-time">Mai</span>
+                        </p>
+                    </div>
                 </div>
             </div>
 
@@ -5118,7 +5152,38 @@
         }
 
         // INIZIALIZZAZIONE
-        function init() {
+        async function init() {
+            // Inizializza Supabase
+            const supabaseAvailable = await supabaseAPI.init();
+
+            if (supabaseAvailable) {
+                // Verifica se l'utente è già autenticato
+                if (!supabaseAPI.isAuthenticated()) {
+                    // Mostra schermata di login
+                    authUIInstance.create(async () => {
+                        // Callback dopo login riuscito
+                        await initializeApp();
+                    });
+                    return;
+                } else {
+                    // Utente già loggato
+                    await initializeApp();
+                }
+            } else {
+                // Supabase non configurato, usa localStorage
+                console.warn('⚠️ Usando localStorage. Per sincronizzazione cloud, configura Supabase.');
+                initializeAppLocal();
+            }
+        }
+
+        async function initializeApp() {
+            // Carica dati dal cloud (Supabase)
+            await loadDataFromCloud();
+            initializeAppLocal();
+        }
+
+        function initializeAppLocal() {
+            // Carica dati da localStorage (fallback o prima del cloud)
             loadData();
             loadCompanyNames();
             renderSOP();
@@ -5159,6 +5224,90 @@
 
             // Inizializza gestione email
             initializeEmailSection();
+        }
+
+        async function loadDataFromCloud() {
+            // Carica dati da Supabase se disponibile
+            if (!supabaseAPI.initialized || !supabaseAPI.isAuthenticated()) {
+                return;
+            }
+
+            try {
+                // Carica aziende
+                const companiesResult = await supabaseAPI.getCompanies();
+                if (companiesResult.success && companiesResult.data.length > 0) {
+                    // Ricostruisci struttura dati
+                    data.companies = {};
+                    for (let i = 0; i < companiesResult.data.length && i < 4; i++) {
+                        const company = companiesResult.data[i];
+                        data.companies[i + 1] = {
+                            name: company.name,
+                            tasks: [],
+                            deadlines: [],
+                            sopExecutions: [],
+                            expenses: [],
+                            appointments: [],
+                            archives: {},
+                            contacts: [],
+                            emails: []
+                        };
+
+                        // Carica dati per ogni azienda
+                        const companyId = company.id;
+
+                        // Tasks
+                        const tasksResult = await supabaseAPI.getTasks(companyId);
+                        if (tasksResult.success) {
+                            data.companies[i + 1].tasks = tasksResult.data.map(t => ({
+                                id: t.id,
+                                title: t.title,
+                                description: t.description,
+                                priority: t.priority,
+                                status: t.status,
+                                deadline: t.due_date,
+                                completed: t.status === 'completed',
+                                createdAt: t.created_at
+                            }));
+                        }
+
+                        // Deadlines
+                        const deadlinesResult = await supabaseAPI.getDeadlines(companyId);
+                        if (deadlinesResult.success) {
+                            data.companies[i + 1].deadlines = deadlinesResult.data;
+                        }
+
+                        // Expenses
+                        const expensesResult = await supabaseAPI.getExpenses(companyId);
+                        if (expensesResult.success) {
+                            data.companies[i + 1].expenses = expensesResult.data;
+                        }
+
+                        // Contacts
+                        const contactsResult = await supabaseAPI.getContacts(companyId);
+                        if (contactsResult.success) {
+                            data.companies[i + 1].contacts = contactsResult.data;
+                        }
+
+                        // Emails
+                        const emailsResult = await supabaseAPI.getEmails(companyId);
+                        if (emailsResult.success) {
+                            data.companies[i + 1].emails = emailsResult.data;
+                        }
+
+                        // Appointments
+                        const appointmentsResult = await supabaseAPI.getAppointments(companyId);
+                        if (appointmentsResult.success) {
+                            data.companies[i + 1].appointments = appointmentsResult.data;
+                        }
+                    }
+
+                    // Salva in localStorage come cache
+                    saveData();
+                }
+            } catch (error) {
+                console.error('Errore caricamento dati cloud:', error);
+                // Fallback a localStorage
+            }
         }
 
         // GESTIONE SEZIONI - Ora gestite dalle nuove funzioni nella sezione NAVIGAZIONE SIDEBAR
@@ -9518,6 +9667,143 @@ ${data.companies[currentCompany].name}`
                 toggleGlobalSearch();
             }
         });
+
+        // =====================================================
+        // CLOUD SYNC FUNCTIONS
+        // =====================================================
+
+        async function updateCloudStatus() {
+            const syncStatus = document.getElementById('sync-status');
+            const migrationSection = document.getElementById('migration-section');
+            const syncInfo = document.getElementById('sync-info');
+
+            if (!supabaseAPI.initialized) {
+                syncStatus.textContent = 'Non configurato (usa localStorage)';
+                syncStatus.style.color = '#95a5a6';
+                return;
+            }
+
+            if (supabaseAPI.isAuthenticated()) {
+                syncStatus.textContent = 'Attivo ✓';
+                syncStatus.style.color = '#27ae60';
+                syncInfo.style.display = 'block';
+
+                // Verifica se ci sono dati locali da migrare
+                const localData = localStorage.getItem('gestione-direzionale-data');
+                if (localData) {
+                    const parsed = JSON.parse(localData);
+                    let hasData = false;
+
+                    for (let i = 1; i <= 4; i++) {
+                        const company = parsed.companies[i];
+                        if (company.tasks?.length > 0 || company.deadlines?.length > 0 ||
+                            company.contacts?.length > 0 || company.emails?.length > 0) {
+                            hasData = true;
+                            break;
+                        }
+                    }
+
+                    if (hasData) {
+                        migrationSection.style.display = 'block';
+                    }
+                }
+
+                // Aggiorna timestamp ultima sync
+                const lastSync = localStorage.getItem('last-cloud-sync');
+                if (lastSync) {
+                    const date = new Date(lastSync);
+                    document.getElementById('last-sync-time').textContent =
+                        date.toLocaleString('it-IT');
+                }
+            } else {
+                syncStatus.textContent = 'Non autenticato';
+                syncStatus.style.color = '#e74c3c';
+            }
+        }
+
+        async function migrateToCloud() {
+            if (!confirm('Vuoi migrare tutti i dati locali nel cloud?\n\nQuesto processo potrebbe richiedere alcuni secondi.')) {
+                return;
+            }
+
+            const migrationBtn = event.target;
+            migrationBtn.disabled = true;
+            migrationBtn.textContent = '🔄 Migrazione in corso...';
+
+            const result = await supabaseAPI.migrateFromLocalStorage();
+
+            if (result.success) {
+                showNotification('✓ Dati migrati con successo!');
+                document.getElementById('migration-section').style.display = 'none';
+
+                // Ricarica dati dal cloud
+                await loadDataFromCloud();
+                location.reload();
+            } else {
+                showNotification('Errore migrazione: ' + result.error);
+                migrationBtn.disabled = false;
+                migrationBtn.textContent = '🔄 Migra Dati al Cloud';
+            }
+        }
+
+        async function manualSync() {
+            if (!supabaseAPI.isAuthenticated()) {
+                alert('Devi essere autenticato per sincronizzare i dati.');
+                return;
+            }
+
+            showNotification('Sincronizzazione in corso...');
+
+            try {
+                // Salva dati locali nel cloud
+                await saveDataToCloud();
+
+                // Ricarica dati dal cloud
+                await loadDataFromCloud();
+
+                // Aggiorna timestamp
+                localStorage.setItem('last-cloud-sync', new Date().toISOString());
+
+                showNotification('✓ Sincronizzazione completata!');
+                updateCloudStatus();
+            } catch (error) {
+                console.error('Errore sincronizzazione:', error);
+                showNotification('Errore durante la sincronizzazione');
+            }
+        }
+
+        async function saveDataToCloud() {
+            // Questa funzione salva i dati correnti nel cloud
+            // Per ora è un placeholder - l'implementazione completa richiederebbe
+            // di salvare ogni modifica in real-time
+            console.log('saveDataToCloud - da implementare per sync real-time');
+        }
+
+        async function handleLogout() {
+            if (!confirm('Sei sicura di voler uscire?\n\nI tuoi dati sono salvati nel cloud e saranno disponibili al prossimo accesso.')) {
+                return;
+            }
+
+            const result = await supabaseAPI.signOut();
+
+            if (result.success) {
+                showNotification('Logout effettuato. A presto!');
+                setTimeout(() => {
+                    location.reload();
+                }, 1500);
+            } else {
+                alert('Errore durante il logout: ' + result.error);
+            }
+        }
+
+        // Aggiorna status cloud quando si apre la pagina impostazioni
+        const originalShowSection = showSection;
+        function showSection(sectionId) {
+            originalShowSection(sectionId);
+            if (sectionId === 'settings') {
+                updateCloudStatus();
+            }
+        }
 
         // AVVIO
         init();

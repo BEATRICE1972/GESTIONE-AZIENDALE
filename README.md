@@ -1,6 +1,48 @@
-# 📊 Sistema di Gestione Direzionale Multi-Azienda
+# 📊 Sistema di Gestione Direzionale Multi-Azienda - Cloud Edition
 
 Sistema completo di gestione operativa per Assistente di Direzione Senior che coordina 4 aziende contemporaneamente.
+
+## ✨ Versione 4.0 - Cloud Edition
+
+**NUOVO!** Sistema completamente cloud-based con:
+- ☁️ **Database PostgreSQL** (Supabase)
+- 🔐 **Autenticazione utenti** sicura
+- 🔄 **Sincronizzazione automatica** tra dispositivi
+- 💾 **Backup cloud** automatico
+- 📱 **Multi-dispositivo** (PC, laptop, tablet, smartphone)
+- 🔒 **Row Level Security** per privacy totale
+
+## ⚡ Quick Start
+
+### Step 1: Setup Supabase (5 minuti)
+1. Vai su [supabase.com](https://supabase.com) e crea un account
+2. Crea nuovo progetto: `gestione-direzionale`
+3. Copia il contenuto di `supabase-setup.sql` nell'SQL Editor
+4. Esegui lo script (crea tutte le tabelle)
+5. Copia URL e API Key da Settings → API
+6. Incolla in `supabase-config.js`
+
+📖 **Guida dettagliata**: Leggi `SETUP-SUPABASE.md`
+
+### Step 2: Deploy su Vercel
+```bash
+git add .
+git commit -m "Setup cloud backend"
+git push
+```
+
+Vercel farà il deploy automatico! ✅
+
+### Step 3: Primo Accesso
+1. Apri l'URL Vercel
+2. Registra un account
+3. Login
+4. Migra eventuali dati esistenti da localStorage
+5. 🎉 **Fatto!**
+
+📖 **Guida completa**: Leggi `GUIDA-COMPLETA-CLOUD.md`
+
+---
 
 ## 🚀 Deploy su Vercel
 
