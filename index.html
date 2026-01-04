@@ -2730,13 +2730,14 @@
         }
     </style>
 
-    <!-- SUPABASE CDN -->
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <!-- SUPABASE CDN - Caricamento opzionale -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
+            onerror="console.warn('⚠️ Supabase CDN non disponibile. Sistema userà localStorage.')"></script>
 
-    <!-- SUPABASE INTEGRATION -->
-    <script src="supabase-config.js"></script>
-    <script src="supabase-api.js"></script>
-    <script src="auth-ui.js"></script>
+    <!-- SUPABASE INTEGRATION - Caricamento opzionale -->
+    <script src="supabase-config.js" onerror="console.warn('⚠️ supabase-config.js non caricato')"></script>
+    <script src="supabase-api.js" onerror="console.warn('⚠️ supabase-api.js non caricato')"></script>
+    <script src="auth-ui.js" onerror="console.warn('⚠️ auth-ui.js non caricato')"></script>
 </head>
 <body>
     <!-- SIDEBAR NAVIGATION -->
@@ -5184,25 +5185,44 @@
 
         // INIZIALIZZAZIONE
         async function init() {
-            // Inizializza Supabase
-            const supabaseAvailable = await supabaseAPI.init();
+            // Verifica se Supabase è disponibile
+            if (typeof supabaseAPI === 'undefined') {
+                console.warn('⚠️ Supabase non disponibile. Usando localStorage.');
+                initializeAppLocal();
+                return;
+            }
 
-            if (supabaseAvailable) {
-                // Verifica se l'utente è già autenticato
-                if (!supabaseAPI.isAuthenticated()) {
-                    // Mostra schermata di login
-                    authUIInstance.create(async () => {
-                        // Callback dopo login riuscito
+            try {
+                // Inizializza Supabase
+                const supabaseAvailable = await supabaseAPI.init();
+
+                if (supabaseAvailable) {
+                    // Verifica se l'utente è già autenticato
+                    if (!supabaseAPI.isAuthenticated()) {
+                        // Mostra schermata di login
+                        if (typeof authUIInstance !== 'undefined') {
+                            authUIInstance.create(async () => {
+                                // Callback dopo login riuscito
+                                await initializeApp();
+                            });
+                        } else {
+                            // Fallback a localStorage se auth-ui non disponibile
+                            console.warn('⚠️ Auth UI non disponibile. Usando localStorage.');
+                            initializeAppLocal();
+                        }
+                        return;
+                    } else {
+                        // Utente già loggato
                         await initializeApp();
-                    });
-                    return;
+                    }
                 } else {
-                    // Utente già loggato
-                    await initializeApp();
+                    // Supabase non configurato, usa localStorage
+                    console.info('💾 Modalità localStorage attiva.');
+                    initializeAppLocal();
                 }
-            } else {
-                // Supabase non configurato, usa localStorage
-                console.warn('⚠️ Usando localStorage. Per sincronizzazione cloud, configura Supabase.');
+            } catch (error) {
+                console.error('❌ Errore inizializzazione:', error);
+                console.warn('🔄 Fallback a localStorage');
                 initializeAppLocal();
             }
         }

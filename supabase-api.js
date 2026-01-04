@@ -12,8 +12,15 @@ class SupabaseAPI {
 
     // Inizializza Supabase client
     async init() {
+        // Verifica se Supabase library è caricata
+        if (typeof supabase === 'undefined') {
+            console.warn('⚠️ Libreria Supabase non caricata. Usando localStorage.');
+            this.initialized = false;
+            return false;
+        }
+
         if (!checkSupabaseConfig()) {
-            console.warn('Supabase non configurato. Usando localStorage come fallback.');
+            console.info('💾 Modalità localStorage attiva.');
             this.initialized = false;
             return false;
         }
@@ -35,7 +42,8 @@ class SupabaseAPI {
             this.initialized = true;
             return false; // Nessun utente loggato
         } catch (error) {
-            console.error('Errore inizializzazione Supabase:', error);
+            console.error('❌ Errore inizializzazione Supabase:', error);
+            console.warn('🔄 Fallback a localStorage');
             this.initialized = false;
             return false;
         }
