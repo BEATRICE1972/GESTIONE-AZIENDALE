@@ -2761,6 +2761,37 @@
             </select>
         </div>
 
+        <!-- Storage Mode Banner -->
+        <div id="storage-mode-banner" style="
+            margin: 15px 10px;
+            padding: 12px;
+            background: linear-gradient(135deg, #667eea15, #764ba215);
+            border-left: 3px solid #667eea;
+            border-radius: 8px;
+            font-size: 12px;
+            display: none;
+        ">
+            <div style="font-weight: 600; color: #667eea; margin-bottom: 5px;">
+                💾 Modalità LocalStorage
+            </div>
+            <div style="color: #666; font-size: 11px; margin-bottom: 8px;">
+                I dati sono salvati solo su questo browser
+            </div>
+            <button onclick="showCloudUpgradeInfo()" style="
+                width: 100%;
+                padding: 6px;
+                background: #667eea;
+                color: white;
+                border: none;
+                border-radius: 5px;
+                font-size: 11px;
+                cursor: pointer;
+                font-weight: 600;
+            ">
+                ☁️ Attiva Sync Cloud
+            </button>
+        </div>
+
         <nav>
             <!-- Sezione PANORAMICA -->
             <div class="nav-section">
@@ -5224,6 +5255,37 @@
 
             // Inizializza gestione email
             initializeEmailSection();
+
+            // Mostra banner localStorage se Supabase non è configurato
+            if (!supabaseAPI.initialized || SUPABASE_CONFIG.mode === 'localStorage') {
+                document.getElementById('storage-mode-banner').style.display = 'block';
+            }
+        }
+
+        function showCloudUpgradeInfo() {
+            const message = `☁️ SINCRONIZZAZIONE CLOUD
+
+Attiva la sincronizzazione cloud per:
+✅ Accedere ai dati da qualsiasi dispositivo
+✅ Backup automatico nel cloud
+✅ Sincronizzazione in tempo reale
+✅ Nessun rischio di perdita dati
+
+📋 COME ATTIVARE:
+
+1. Esegui lo script AUTO-SETUP.bat nella cartella del progetto
+   OPPURE
+2. Segui la guida SETUP-SUPABASE.md
+
+⏱️ Tempo richiesto: 5 minuti
+
+Vuoi aprire la guida adesso?`;
+
+            if (confirm(message)) {
+                // Cerca di aprire il file di guida
+                window.open('SETUP-SUPABASE.md', '_blank');
+                showSection('settings');
+            }
         }
 
         async function loadDataFromCloud() {
