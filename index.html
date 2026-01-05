@@ -3279,6 +3279,16 @@
             <div id="calendario" class="section">
                 <h2>Calendario Mensile - <span id="calendario-company-name">Azienda 1</span></h2>
 
+                <!-- Pulsanti azioni calendario -->
+                <div style="margin-bottom: 20px; display: flex; gap: 10px;">
+                    <button onclick="exportToGoogleCalendar()" class="btn btn-success" style="display: flex; align-items: center; gap: 8px;">
+                        📅 Esporta su Google Calendar
+                    </button>
+                    <button onclick="exportToICS()" class="btn" style="display: flex; align-items: center; gap: 8px;">
+                        📥 Scarica File .ICS
+                    </button>
+                </div>
+
                 <div class="card">
                     <div class="calendar-header">
                         <div class="calendar-nav">
@@ -3998,9 +4008,12 @@
                 </div>
 
                 <!-- Daily Briefing Button -->
-                <div style="margin-bottom: 20px;">
-                    <button onclick="showDailyBriefing()" style="width: 100%; padding: 20px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; border-radius: 10px; font-size: 1.3em; font-weight: 600; cursor: pointer; transition: all 0.3s; box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);">
-                        ☀️ Daily Briefing - Cosa fare oggi
+                <div style="margin-bottom: 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                    <button onclick="showDailyBriefing()" style="padding: 20px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; border-radius: 10px; font-size: 1.3em; font-weight: 600; cursor: pointer; transition: all 0.3s; box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);">
+                        ☀️ Daily Briefing
+                    </button>
+                    <button onclick="startEmailAssistant()" style="padding: 20px; background: linear-gradient(135deg, #27ae60 0%, #229954 100%); color: white; border: none; border-radius: 10px; font-size: 1.3em; font-weight: 600; cursor: pointer; transition: all 0.3s; box-shadow: 0 4px 15px rgba(39, 174, 96, 0.4);">
+                        🤖 Avvia Assistente Email IA
                     </button>
                 </div>
 
@@ -4035,10 +4048,25 @@
                                 <option value="clienti">👥 Clienti</option>
                                 <option value="fornitori">🏭 Fornitori</option>
                                 <option value="fiscale">💰 Fiscale</option>
+                                <option value="commercialista">🧮 Commercialista</option>
+                                <option value="avvocato">⚖️ Avvocato</option>
+                                <option value="notaio">📜 Notaio</option>
+                                <option value="consulente">💼 Consulente</option>
+                                <option value="banca">🏦 Banca</option>
                                 <option value="hr">👔 HR</option>
                                 <option value="commerciale">📈 Commerciale</option>
                                 <option value="legale">⚖️ Legale</option>
                                 <option value="altro">📋 Altro</option>
+                            </select>
+                        </div>
+                        <div class="filter-group">
+                            <label>Sotto-categoria:</label>
+                            <select id="email-filter-subcategory" onchange="filterEmails()">
+                                <option value="all">Tutte</option>
+                                <option value="urgenti">🔴 Urgenti</option>
+                                <option value="da-fare">🟡 Da Fare</option>
+                                <option value="da-cestinare">⚫ Da Cestinare</option>
+                                <option value="in-attesa">🔵 In Attesa Risposta</option>
                             </select>
                         </div>
                         <div class="filter-group">
@@ -4162,8 +4190,19 @@
                             <textarea id="doc-notes" rows="3" placeholder="Annotazioni sul documento..."></textarea>
                         </div>
                         <div class="form-group">
-                            <label>Link/Percorso File</label>
+                            <label>Carica File (PDF, Excel, Word, immagini...)</label>
+                            <input type="file" id="doc-file" accept=".pdf,.xlsx,.xls,.doc,.docx,.jpg,.jpeg,.png,.gif,.txt" onchange="handleFileUpload(event)">
+                            <small style="color: #7f8c8d; display: block; margin-top: 5px;">
+                                Oppure inserisci un link manuale sotto (se non carichi file)
+                            </small>
+                        </div>
+                        <div class="form-group">
+                            <label>Link/Percorso File (alternativo)</label>
                             <input type="text" id="doc-link" placeholder="es: C:\Documenti\Contratti\file.pdf o URL">
+                        </div>
+                        <div id="file-preview" style="margin-top: 10px; padding: 10px; background: #e8f5e9; border-radius: 6px; display: none;">
+                            <strong>📎 File caricato:</strong> <span id="file-name"></span>
+                            <button type="button" onclick="clearFileUpload()" style="margin-left: 10px; padding: 5px 10px; background: #f44336; color: white; border: none; border-radius: 4px; cursor: pointer;">Rimuovi</button>
                         </div>
                         <button type="submit" class="btn btn-success">Aggiungi Documento</button>
                     </form>
@@ -4802,6 +4841,44 @@
             updateArchivesCounts();
         }
 
+        // Variabile globale per il file caricato
+        let uploadedFileData = null;
+
+        function handleFileUpload(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            // Controlla dimensione file (max 10MB per localStorage)
+            const maxSize = 10 * 1024 * 1024; // 10MB
+            if (file.size > maxSize) {
+                alert('⚠️ Il file è troppo grande! Dimensione massima: 10MB\n\nPer file più grandi, usa il campo "Link/Percorso File" e salva il file esternamente.');
+                event.target.value = '';
+                return;
+            }
+
+            // Leggi il file come Base64
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                uploadedFileData = {
+                    name: file.name,
+                    type: file.type,
+                    size: file.size,
+                    data: e.target.result // Base64
+                };
+
+                // Mostra preview
+                document.getElementById('file-preview').style.display = 'block';
+                document.getElementById('file-name').textContent = file.name + ' (' + (file.size / 1024).toFixed(2) + ' KB)';
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function clearFileUpload() {
+            uploadedFileData = null;
+            document.getElementById('doc-file').value = '';
+            document.getElementById('file-preview').style.display = 'none';
+        }
+
         function addDocument(event) {
             event.preventDefault();
 
@@ -4817,6 +4894,12 @@
                 company: currentCompany
             };
 
+            // Aggiungi file caricato se presente
+            if (uploadedFileData) {
+                doc.file = uploadedFileData;
+                doc.hasFile = true;
+            }
+
             if (!data.companies[currentCompany].archives[currentCategory]) {
                 data.companies[currentCompany].archives[currentCategory] = [];
             }
@@ -4826,6 +4909,7 @@
             renderDocuments();
             document.getElementById('document-form').reset();
             document.getElementById('doc-date').valueAsDate = new Date();
+            clearFileUpload();
         }
 
         function renderDocuments() {
@@ -4843,21 +4927,44 @@
             documentsList.innerHTML = documents.map(doc => `
                 <div class="document-item">
                     <div class="document-details">
-                        <div class="document-name">${doc.name}</div>
+                        <div class="document-name">
+                            ${doc.name}
+                            ${doc.hasFile ? '<span style="color: #27ae60; margin-left: 8px;" title="File allegato">📎</span>' : ''}
+                        </div>
                         <div class="document-meta">
                             ${doc.type ? `<span>📋 ${doc.type}</span> • ` : ''}
                             ${doc.date ? `<span>📅 ${new Date(doc.date).toLocaleDateString('it-IT')}</span> • ` : ''}
                             ${doc.reference ? `<span>🔖 ${doc.reference}</span> • ` : ''}
+                            ${doc.hasFile && doc.file ? `<span>💾 ${doc.file.name} (${(doc.file.size / 1024).toFixed(2)} KB)</span> • ` : ''}
                             <span>Aggiunto: ${new Date(doc.createdAt).toLocaleDateString('it-IT')}</span>
                         </div>
                         ${doc.notes ? `<div style="margin-top: 5px; font-size: 0.9em; color: #555;">${doc.notes}</div>` : ''}
                     </div>
                     <div class="document-actions">
-                        ${doc.link ? `<a href="${doc.link}" class="document-link" target="_blank">Apri</a>` : ''}
+                        ${doc.hasFile && doc.file ? `<button class="btn btn-success btn-small" onclick="downloadFile(${doc.id})">⬇️ Scarica</button>` : ''}
+                        ${doc.link ? `<a href="${doc.link}" class="document-link" target="_blank">Apri Link</a>` : ''}
                         <button class="btn btn-danger btn-small" onclick="deleteDocument(${doc.id})">Elimina</button>
                     </div>
                 </div>
             `).join('');
+        }
+
+        function downloadFile(docId) {
+            const archives = data.companies[currentCompany].archives[currentCategory] || [];
+            const doc = archives.find(d => d.id === docId);
+            if (!doc || !doc.file) {
+                alert('File non trovato!');
+                return;
+            }
+
+            // Crea un link temporaneo per il download
+            const link = document.createElement('a');
+            link.href = doc.file.data;
+            link.download = doc.file.name;
+            link.style.display = 'none';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
         }
 
         function deleteDocument(docId) {
@@ -6101,6 +6208,140 @@ Vuoi aprire la guida adesso?`;
             renderCalendar();
         }
 
+        // ESPORTAZIONE CALENDARIO
+
+        // Esporta su Google Calendar (crea link per aggiungere eventi)
+        function exportToGoogleCalendar() {
+            const appointments = data.companies[currentCompany].appointments || [];
+            const tasks = data.companies[currentCompany].tasks || [];
+            const deadlines = data.companies[currentCompany].deadlines || [];
+
+            if (appointments.length === 0 && tasks.length === 0 && deadlines.length === 0) {
+                alert('⚠️ Nessun evento da esportare!\n\nAggiungi appuntamenti, attività o scadenze prima di esportare.');
+                return;
+            }
+
+            const message = `📅 Esportazione Google Calendar\n\n` +
+                `Trovati:\n` +
+                `• ${appointments.length} appuntamenti\n` +
+                `• ${tasks.length} attività\n` +
+                `• ${deadlines.length} scadenze\n\n` +
+                `NOTA: Google Calendar non supporta l'importazione massiva diretta.\n\n` +
+                `Opzioni:\n` +
+                `1. Scarica file .ICS e importalo in Google Calendar (consigliato)\n` +
+                `2. Apri gli eventi uno per volta (link singoli)\n\n` +
+                `Vuoi scaricare il file .ICS per l'importazione?`;
+
+            if (confirm(message)) {
+                exportToICS();
+            }
+        }
+
+        // Esporta in formato ICS (iCalendar)
+        function exportToICS() {
+            const appointments = data.companies[currentCompany].appointments || [];
+            const tasks = data.companies[currentCompany].tasks || [];
+            const deadlines = data.companies[currentCompany].deadlines || [];
+
+            let icsContent = [
+                'BEGIN:VCALENDAR',
+                'VERSION:2.0',
+                'PRODID:-//Sistema Gestione Direzionale//IT',
+                'CALSCALE:GREGORIAN',
+                'METHOD:PUBLISH',
+                'X-WR-CALNAME:' + data.companies[currentCompany].name,
+                'X-WR-TIMEZONE:Europe/Rome'
+            ];
+
+            // Funzione helper per formattare date ICS
+            function formatICSDate(dateStr, includeTime = false) {
+                const date = new Date(dateStr);
+                const year = date.getFullYear();
+                const month = String(date.getMonth() + 1).padStart(2, '0');
+                const day = String(date.getDate()).padStart(2, '0');
+
+                if (includeTime) {
+                    const hours = String(date.getHours()).padStart(2, '0');
+                    const minutes = String(date.getMinutes()).padStart(2, '0');
+                    return `${year}${month}${day}T${hours}${minutes}00`;
+                }
+                return `${year}${month}${day}`;
+            }
+
+            // Aggiungi appuntamenti
+            appointments.forEach((apt, index) => {
+                const startDate = apt.date + 'T' + (apt.time || '09:00');
+                const startFormatted = formatICSDate(startDate, true);
+
+                // Durata default: 1 ora
+                const endDate = new Date(startDate);
+                endDate.setHours(endDate.getHours() + 1);
+                const endFormatted = formatICSDate(endDate, true);
+
+                icsContent.push('BEGIN:VEVENT');
+                icsContent.push('UID:apt-' + apt.id + '@gestione-direzionale');
+                icsContent.push('DTSTAMP:' + formatICSDate(new Date(), true));
+                icsContent.push('DTSTART:' + startFormatted);
+                icsContent.push('DTEND:' + endFormatted);
+                icsContent.push('SUMMARY:' + apt.title);
+                if (apt.location) icsContent.push('LOCATION:' + apt.location);
+                if (apt.notes) icsContent.push('DESCRIPTION:' + apt.notes.replace(/\n/g, '\\n'));
+                icsContent.push('STATUS:CONFIRMED');
+                icsContent.push('END:VEVENT');
+            });
+
+            // Aggiungi scadenze come eventi giornalieri
+            deadlines.forEach((deadline, index) => {
+                const dateFormatted = formatICSDate(deadline.date, false);
+
+                icsContent.push('BEGIN:VEVENT');
+                icsContent.push('UID:deadline-' + deadline.id + '@gestione-direzionale');
+                icsContent.push('DTSTAMP:' + formatICSDate(new Date(), true));
+                icsContent.push('DTSTART;VALUE=DATE:' + dateFormatted);
+                icsContent.push('DTEND;VALUE=DATE:' + dateFormatted);
+                icsContent.push('SUMMARY:⏰ SCADENZA: ' + deadline.type);
+                icsContent.push('DESCRIPTION:Categoria: ' + deadline.category + (deadline.notes ? '\\n' + deadline.notes.replace(/\n/g, '\\n') : ''));
+                icsContent.push('STATUS:CONFIRMED');
+                // Aggiungi reminder 7 giorni prima
+                icsContent.push('BEGIN:VALARM');
+                icsContent.push('TRIGGER:-P7D');
+                icsContent.push('ACTION:DISPLAY');
+                icsContent.push('DESCRIPTION:Scadenza tra 7 giorni');
+                icsContent.push('END:VALARM');
+                icsContent.push('END:VEVENT');
+            });
+
+            // Aggiungi attività non completate con deadline
+            const tasksWithDeadline = tasks.filter(t => !t.completed && t.dueDate);
+            tasksWithDeadline.forEach((task, index) => {
+                const dateFormatted = formatICSDate(task.dueDate, false);
+
+                icsContent.push('BEGIN:VTODO');
+                icsContent.push('UID:task-' + task.id + '@gestione-direzionale');
+                icsContent.push('DTSTAMP:' + formatICSDate(new Date(), true));
+                icsContent.push('DUE;VALUE=DATE:' + dateFormatted);
+                icsContent.push('SUMMARY:📋 ' + task.title);
+                icsContent.push('DESCRIPTION:Priorità: ' + task.priority.toUpperCase() + '\\nCategoria: ' + task.category);
+                icsContent.push('PRIORITY:' + (task.priority === 'aplus' ? '1' : task.priority === 'a' ? '3' : task.priority === 'b' ? '5' : '7'));
+                icsContent.push('STATUS:NEEDS-ACTION');
+                icsContent.push('END:VTODO');
+            });
+
+            icsContent.push('END:VCALENDAR');
+
+            // Crea file e download
+            const icsBlob = new Blob([icsContent.join('\r\n')], { type: 'text/calendar;charset=utf-8' });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(icsBlob);
+            link.download = `calendario_${data.companies[currentCompany].name.replace(/\s/g, '_')}_${new Date().toISOString().split('T')[0]}.ics`;
+            link.style.display = 'none';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+
+            showNotification('✅ File calendario scaricato! Importalo in Google Calendar, Outlook o Apple Calendar.');
+        }
+
         // UPDATE DASHBOARD
         function updateDashboard() {
             const tasks = data.companies[currentCompany].tasks;
@@ -6640,10 +6881,36 @@ Vuoi aprire la guida adesso?`;
         function loadCompanyNames() {
             for (let i = 1; i <= 4; i++) {
                 const name = data.companies[i].name;
-                document.getElementById(`company-${i}-name`).value = name;
+                const inputElement = document.getElementById(`company-${i}-name`);
+                if (inputElement) {
+                    inputElement.value = name;
+                }
 
                 const buttons = document.querySelectorAll(`.company-btn.azienda-${i}`);
                 buttons.forEach(btn => btn.textContent = name);
+            }
+
+            // Aggiorna anche il dropdown nella sidebar
+            updateCompanyDropdown();
+        }
+
+        // Funzione per aggiornare il dropdown delle aziende nella sidebar
+        function updateCompanyDropdown() {
+            const dropdown = document.getElementById('company-selector-dropdown');
+            if (!dropdown) return;
+
+            const icons = ['🔴', '🔵', '🟢', '🟡'];
+            dropdown.innerHTML = '';
+
+            for (let i = 1; i <= 4; i++) {
+                const name = data.companies[i].name;
+                const option = document.createElement('option');
+                option.value = i;
+                option.textContent = `${icons[i-1]} ${name}`;
+                if (i === currentCompany) {
+                    option.selected = true;
+                }
+                dropdown.appendChild(option);
             }
         }
 
@@ -8086,6 +8353,7 @@ Vuoi aprire la guida adesso?`;
                 search: document.getElementById('email-search').value.toLowerCase(),
                 priority: document.getElementById('email-filter-priority').value,
                 category: document.getElementById('email-filter-category').value,
+                subcategory: document.getElementById('email-filter-subcategory')?.value || 'all',
                 unread: document.getElementById('email-filter-unread').checked,
                 starred: document.getElementById('email-filter-starred').checked
             };
@@ -8119,6 +8387,10 @@ Vuoi aprire la guida adesso?`;
 
             if (currentEmailFilter.category !== 'all') {
                 filtered = filtered.filter(e => e.category === currentEmailFilter.category);
+            }
+
+            if (currentEmailFilter.subcategory && currentEmailFilter.subcategory !== 'all') {
+                filtered = filtered.filter(e => e.subcategory === currentEmailFilter.subcategory);
             }
 
             if (currentEmailFilter.unread) {
@@ -8533,6 +8805,142 @@ ${data.companies[currentCompany].name}`
         function toggleEmailAssistant() {
             const panel = document.getElementById('email-assistant-panel');
             panel.classList.toggle('active');
+        }
+
+        // Avvia Assistente Email IA per categorizzazione automatica
+        function startEmailAssistant() {
+            const emails = data.companies[currentCompany].emails || [];
+            const inboxEmails = emails.filter(e => e.folder === 'inbox' && !e.subcategory);
+
+            if (inboxEmails.length === 0) {
+                alert('✅ Non ci sono email da categorizzare!\n\nTutte le email in arrivo sono già state processate dall\'assistente.');
+                return;
+            }
+
+            // Conferma prima di procedere
+            if (!confirm(`🤖 Assistente Email IA\n\nTrovate ${inboxEmails.length} email non categorizzate.\n\nL'assistente analizzerà le email e le organizzerà automaticamente in categorie e sotto-categorie.\n\nVuoi procedere?`)) {
+                return;
+            }
+
+            let categorized = 0;
+            let results = [];
+
+            // Analizza ogni email
+            inboxEmails.forEach(email => {
+                const result = autoCategorizEmail(email);
+                if (result.changed) {
+                    categorized++;
+                    results.push(`✓ ${email.subject}: ${result.category} → ${result.subcategory}`);
+                }
+            });
+
+            saveData();
+            renderEmailList();
+            updateEmailStats();
+
+            // Mostra risultati
+            const summary = `🤖 Assistente Email IA - Completato\n\n` +
+                `📊 Email processate: ${inboxEmails.length}\n` +
+                `✅ Email categorizzate: ${categorized}\n\n` +
+                `${results.slice(0, 10).join('\n')}` +
+                (results.length > 10 ? `\n\n... e altre ${results.length - 10} email` : '');
+
+            alert(summary);
+        }
+
+        // Funzione di auto-categorizzazione basata su parole chiave
+        function autoCategorizEmail(email) {
+            const text = (email.subject + ' ' + email.body + ' ' + email.from).toLowerCase();
+            let category = email.category || 'altro';
+            let subcategory = null;
+            let changed = false;
+
+            // Regole per categorie principali
+            const categoryRules = {
+                'commercialista': ['commercialista', 'dottore commercialista', 'studio commerciale', 'contabilità', 'bilancio', 'dichiarazione', 'f24', 'inps', 'inail'],
+                'avvocato': ['avvocato', 'studio legale', 'sentenza', 'tribunale', 'causa', 'citazione', 'decreto', 'giudice'],
+                'notaio': ['notaio', 'studio notarile', 'atto notarile', 'rogito', 'compravendita', 'successione'],
+                'consulente': ['consulente', 'consulenza', 'advisor', 'esperto'],
+                'banca': ['banca', 'bonifico', 'conto corrente', 'finanziamento', 'mutuo', 'fido'],
+                'fiscale': ['agenzia entrate', 'tasse', 'iva', 'irpef', 'imu', 'tari'],
+                'fornitori': ['ordine', 'preventivo', 'fornitura', 'ddt', 'fornitore'],
+                'clienti': ['cliente', 'ordine da', 'richiesta cliente']
+            };
+
+            // Applica regole categorie
+            for (const [cat, keywords] of Object.entries(categoryRules)) {
+                if (keywords.some(kw => text.includes(kw))) {
+                    if (category !== cat) {
+                        category = cat;
+                        changed = true;
+                    }
+                    break;
+                }
+            }
+
+            // Regole per sotto-categorie
+            const urgentKeywords = ['urgente', 'immediato', 'asap', 'priorità alta', 'sollecito', 'scadenza imminente', 'entro oggi', 'entro domani'];
+            const todoKeywords = ['da fare', 'da verificare', 'da controllare', 'per favore', 'gentilmente', 'cortesemente'];
+            const trashKeywords = ['spam', 'pubblicità', 'newsletter', 'unsubscribe', 'offerta speciale', 'sconto', 'promozione'];
+
+            if (urgentKeywords.some(kw => text.includes(kw))) {
+                subcategory = 'urgenti';
+                changed = true;
+            } else if (trashKeywords.some(kw => text.includes(kw))) {
+                subcategory = 'da-cestinare';
+                changed = true;
+            } else if (todoKeywords.some(kw => text.includes(kw))) {
+                subcategory = 'da-fare';
+                changed = true;
+            } else {
+                subcategory = 'da-fare'; // Default
+                changed = true;
+            }
+
+            // Applica modifiche
+            email.category = category;
+            email.subcategory = subcategory;
+
+            // Aggiusta priorità se urgente
+            if (subcategory === 'urgenti' && email.priority === 'normal') {
+                email.priority = 'urgent';
+            }
+
+            return {
+                changed,
+                category: getCategoryLabel(category),
+                subcategory: getSubcategoryLabel(subcategory)
+            };
+        }
+
+        // Label per categorie
+        function getCategoryLabel(cat) {
+            const labels = {
+                'commercialista': '🧮 Commercialista',
+                'avvocato': '⚖️ Avvocato',
+                'notaio': '📜 Notaio',
+                'consulente': '💼 Consulente',
+                'banca': '🏦 Banca',
+                'fiscale': '💰 Fiscale',
+                'fornitori': '🏭 Fornitori',
+                'clienti': '👥 Clienti',
+                'hr': '👔 HR',
+                'commerciale': '📈 Commerciale',
+                'legale': '⚖️ Legale',
+                'altro': '📋 Altro'
+            };
+            return labels[cat] || cat;
+        }
+
+        // Label per sotto-categorie
+        function getSubcategoryLabel(subcat) {
+            const labels = {
+                'urgenti': '🔴 Urgenti',
+                'da-fare': '🟡 Da Fare',
+                'da-cestinare': '⚫ Da Cestinare',
+                'in-attesa': '🔵 In Attesa'
+            };
+            return labels[subcat] || subcat;
         }
 
         // Aggiorna analisi assistente (VERSIONE AVANZATA con IA)
