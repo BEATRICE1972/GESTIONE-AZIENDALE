@@ -5292,29 +5292,35 @@
 
         // INIZIALIZZAZIONE
         async function init() {
-            // Verifica se Supabase è disponibile
-            if (typeof supabaseAPI === 'undefined') {
-                console.error('❌ Supabase API non caricata!');
-                if (typeof authUIInstance !== 'undefined' && SUPABASE_CONFIG.requireAuth) {
-                    authUIInstance.create(null, true); // Mostra schermata setup
-                    return;
-                }
-                console.warn('⚠️ Fallback a localStorage.');
-                initializeAppLocal();
-                return;
-            }
+            console.log('🚀 Inizializzazione sistema...');
 
             try {
-                // Verifica configurazione Supabase
-                const isConfigured = checkSupabaseConfig();
+                // Verifica se config Supabase esiste
+                const hasSupabaseConfig = typeof SUPABASE_CONFIG !== 'undefined';
+                const hasSupabaseAPI = typeof supabaseAPI !== 'undefined';
+                const requireAuth = hasSupabaseConfig && SUPABASE_CONFIG.requireAuth;
 
-                // Se requireAuth è true e non è configurato, mostra schermata setup
-                if (SUPABASE_CONFIG.requireAuth && !isConfigured) {
+                console.log('📋 Config Supabase:', hasSupabaseConfig ? 'presente' : 'assente');
+                console.log('📋 API Supabase:', hasSupabaseAPI ? 'presente' : 'assente');
+                console.log('📋 Require Auth:', requireAuth);
+
+                // Se non c'è Supabase o non richiede auth, vai in modalità localStorage
+                if (!hasSupabaseAPI || !hasSupabaseConfig || !requireAuth) {
+                    console.log('💾 Avvio in modalità localStorage...');
+                    initializeAppLocal();
+                    return;
+                }
+
+                // Se arriviamo qui, c'è Supabase e richiede auth
+                const isConfigured = typeof checkSupabaseConfig === 'function' ? checkSupabaseConfig() : false;
+
+                if (!isConfigured) {
+                    console.warn('⚠️ Supabase non configurato');
                     if (typeof authUIInstance !== 'undefined') {
-                        authUIInstance.create(null, true); // Mostra schermata setup richiesta
+                        authUIInstance.create(null, true);
                     } else {
-                        console.error('❌ Sistema richiede autenticazione ma auth-ui non disponibile!');
-                        document.body.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:100vh;font-family:Arial;"><div style="text-align:center;"><h1 style="color:#e74c3c;">⚠️ Errore Configurazione</h1><p>Il sistema richiede Supabase configurato.</p><p>Controlla la console (F12) per dettagli.</p></div></div>';
+                        console.log('💾 Fallback a localStorage');
+                        initializeAppLocal();
                     }
                     return;
                 }
@@ -5322,50 +5328,26 @@
                 // Inizializza Supabase
                 const supabaseAvailable = await supabaseAPI.init();
 
-                if (supabaseAvailable) {
-                    // Verifica se l'utente è già autenticato
-                    if (!supabaseAPI.isAuthenticated()) {
-                        // Mostra schermata di login
-                        if (typeof authUIInstance !== 'undefined') {
-                            authUIInstance.create(async () => {
-                                // Callback dopo login riuscito
-                                await initializeApp();
-                            });
-                        } else {
-                            console.error('⚠️ Auth UI non disponibile.');
-                            if (!SUPABASE_CONFIG.requireAuth) {
-                                initializeAppLocal();
-                            }
-                        }
-                        return;
+                if (supabaseAvailable && supabaseAPI.isAuthenticated()) {
+                    console.log('✅ Utente autenticato, carico dati cloud');
+                    await initializeApp();
+                } else if (supabaseAvailable) {
+                    console.log('🔐 Richiedo login');
+                    if (typeof authUIInstance !== 'undefined') {
+                        authUIInstance.create(async () => {
+                            await initializeApp();
+                        });
                     } else {
-                        // Utente già loggato
-                        await initializeApp();
-                    }
-                } else {
-                    // Supabase non configurato
-                    if (SUPABASE_CONFIG.requireAuth) {
-                        // Richiede configurazione
-                        if (typeof authUIInstance !== 'undefined') {
-                            authUIInstance.create(null, true);
-                        }
-                        return;
-                    } else {
-                        // Fallback a localStorage se permesso
-                        console.info('💾 Modalità localStorage attiva.');
                         initializeAppLocal();
                     }
-                }
-            } catch (error) {
-                console.error('❌ Errore inizializzazione:', error);
-                if (SUPABASE_CONFIG.requireAuth) {
-                    if (typeof authUIInstance !== 'undefined') {
-                        authUIInstance.create(null, true);
-                    }
                 } else {
-                    console.warn('🔄 Fallback a localStorage');
+                    console.log('💾 Supabase non disponibile, uso localStorage');
                     initializeAppLocal();
                 }
+            } catch (error) {
+                console.error('❌ Errore init:', error);
+                console.log('💾 Fallback a localStorage per errore');
+                initializeAppLocal();
             }
         }
 
@@ -5376,43 +5358,79 @@
         }
 
         function initializeAppLocal() {
-            // Carica dati da localStorage (fallback o prima del cloud)
-            loadData();
-            loadCompanyNames();
-            renderSOP();
-            updateDashboard();
-            updateAllTasks();
-            updateAppointments();
-            updateDeadlinesTable();
-            updateExpenses();
-            renderCalendar();
-            updateArchivesCounts();
-            renderContacts();
-            // Imposta data di oggi per i form
-            document.getElementById('expense-date').valueAsDate = new Date();
-            document.getElementById('appointment-date').valueAsDate = new Date();
-            // Inizializza riconoscimento vocale
-            initVoiceRecognition();
+            console.log('🔧 Inizializzazione app locale...');
 
-            // Inizializza nuove funzionalità
-            renderTemplates();
-            renderAuditLog();
-            updateConsolidatedDashboard();
-            updateAnalytics();
-            startAutoBackup();
+            // Carica dati da localStorage (fallback o prima del cloud)
+            try { loadData(); } catch (e) { console.error('Errore loadData:', e); }
+
+            try { loadCompanyNames(); } catch (e) { console.error('Errore loadCompanyNames:', e); }
+
+            try { renderSOP(); } catch (e) { console.error('Errore renderSOP:', e); }
+
+            try { updateDashboard(); } catch (e) { console.error('Errore updateDashboard:', e); }
+
+            try { updateAllTasks(); } catch (e) { console.error('Errore updateAllTasks:', e); }
+
+            try { updateAppointments(); } catch (e) { console.error('Errore updateAppointments:', e); }
+
+            try { updateDeadlinesTable(); } catch (e) { console.error('Errore updateDeadlinesTable:', e); }
+
+            try { updateExpenses(); } catch (e) { console.error('Errore updateExpenses:', e); }
+
+            try { renderCalendar(); } catch (e) { console.error('Errore renderCalendar:', e); }
+
+            try { updateArchivesCounts(); } catch (e) { console.error('Errore updateArchivesCounts:', e); }
+
+            try { renderContacts(); } catch (e) { console.error('Errore renderContacts:', e); }
+
+            try { updateEmailStats(); renderEmailList(); } catch (e) { console.error('Errore email:', e); }
+
+            // Imposta data di oggi per i form
+            try {
+                const expenseDate = document.getElementById('expense-date');
+                if (expenseDate) expenseDate.valueAsDate = new Date();
+                const appointmentDate = document.getElementById('appointment-date');
+                if (appointmentDate) appointmentDate.valueAsDate = new Date();
+            } catch (e) { console.error('Errore impostazione date:', e); }
+
+            // Inizializza riconoscimento vocale
+            try { initVoiceRecognition(); } catch (e) { console.error('Errore voice recognition:', e); }
+
+            // Inizializza nuove funzionalità (opzionali)
+            try { renderTemplates(); } catch (e) { console.log('Template non disponibili'); }
+            try { renderAuditLog(); } catch (e) { console.log('Audit log non disponibile'); }
+            try { updateConsolidatedDashboard(); } catch (e) { console.log('Dashboard consolidata non disponibile'); }
+            try { updateAnalytics(); } catch (e) { console.log('Analytics non disponibili'); }
+            try { startAutoBackup(); } catch (e) { console.log('Auto backup non disponibile'); }
 
             // Controlla permesso notifiche
-            if (Notification.permission === 'granted') {
-                notificationPermission = true;
-                if (data.settings.notificationsEnabled) {
-                    startNotificationChecks();
+            try {
+                if (typeof Notification !== 'undefined' && Notification.permission === 'granted') {
+                    notificationPermission = true;
+                    if (data.settings && data.settings.notificationsEnabled) {
+                        startNotificationChecks();
+                    }
                 }
-            }
+            } catch (e) { console.log('Notifiche non disponibili'); }
 
             // Inizializza status notifiche
-            if (data.settings.notificationsEnabled) {
-                document.getElementById('notification-status').textContent = '✓ Notifiche abilitate';
-                document.getElementById('notification-status').style.color = '#2ecc71';
+            try {
+                if (data.settings && data.settings.notificationsEnabled) {
+                    const notifStatus = document.getElementById('notification-status');
+                    if (notifStatus) {
+                        notifStatus.textContent = '✓ Notifiche abilitate';
+                        notifStatus.style.color = '#2ecc71';
+                    }
+                }
+            } catch (e) { console.log('Status notifiche non disponibile'); }
+
+            console.log('✅ Inizializzazione completata!');
+
+            // Mostra la dashboard di default
+            try {
+                showSection('dashboard');
+            } catch (e) {
+                console.error('Errore showSection:', e);
             }
 
             // Inizializza gestione email
