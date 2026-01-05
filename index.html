@@ -5068,7 +5068,7 @@
             contactsList.innerHTML = sortedContacts.map(contact => `
                 <div class="contact-card">
                     <div class="contact-info">
-                        <span class="contact-category-badge ${contact.category}">${getCategoryLabel(contact.category)}</span>
+                        <span class="contact-category-badge ${contact.category}">${getContactCategoryLabel(contact.category)}</span>
                         <div class="contact-name">${escapeHtml(contact.name)}</div>
                         ${contact.company ? `<div class="contact-company">🏢 ${escapeHtml(contact.company)}${contact.role ? ` - ${escapeHtml(contact.role)}` : ''}</div>` : ''}
 
@@ -5091,7 +5091,7 @@
             `).join('');
         }
 
-        function getCategoryLabel(category) {
+        function getContactCategoryLabel(category) {
             const labels = {
                 'fornitore': 'Fornitore',
                 'cliente': 'Cliente',
@@ -5168,7 +5168,7 @@
             contactsList.innerHTML = sortedContacts.map(contact => `
                 <div class="contact-card">
                     <div class="contact-info">
-                        <span class="contact-category-badge ${contact.category}">${getCategoryLabel(contact.category)}</span>
+                        <span class="contact-category-badge ${contact.category}">${getContactCategoryLabel(contact.category)}</span>
                         <div class="contact-name">${escapeHtml(contact.name)}</div>
                         ${contact.company ? `<div class="contact-company">🏢 ${escapeHtml(contact.company)}${contact.role ? ` - ${escapeHtml(contact.role)}` : ''}</div>` : ''}
 
@@ -6931,6 +6931,18 @@ Vuoi aprire la guida adesso?`;
                     if (!data.companies[i].appointments) {
                         data.companies[i].appointments = [];
                     }
+                    if (!data.companies[i].emails) {
+                        data.companies[i].emails = [];
+                    }
+                    if (!data.companies[i].contacts) {
+                        data.companies[i].contacts = [];
+                    }
+                    if (!data.companies[i].archives) {
+                        data.companies[i].archives = {};
+                    }
+                    if (!data.companies[i].sopExecutions) {
+                        data.companies[i].sopExecutions = [];
+                    }
                 }
 
                 // Migrazione nuovi campi globali
@@ -6953,7 +6965,88 @@ Vuoi aprire la guida adesso?`;
 
                 // Salva migrazione
                 saveData();
+            } else {
+                // Nessun dato salvato, carica dati di test
+                loadTestData();
             }
+        }
+
+        // Funzione per caricare dati di test
+        function loadTestData() {
+            console.log('📊 Caricamento dati di test per dimostrazione...');
+
+            const today = new Date();
+            const tomorrow = new Date(today);
+            tomorrow.setDate(tomorrow.getDate() + 1);
+            const nextWeek = new Date(today);
+            nextWeek.setDate(nextWeek.getDate() + 7);
+
+            // Imposta nomi aziende
+            data.companies[1].name = 'ABC Costruzioni SRL';
+            data.companies[2].name = 'XYZ Commercio SPA';
+            data.companies[3].name = 'Studio Professionale';
+            data.companies[4].name = 'Casa - Personale';
+
+            // Dati per Azienda 1 (ABC Costruzioni SRL)
+            data.companies[1].tasks = [
+                { id: Date.now() + 1, title: 'Revisione bilancio trimestrale', priority: 'aplus', category: 'amministrazione', completed: false, dueDate: tomorrow.toISOString().split('T')[0] },
+                { id: Date.now() + 2, title: 'Meeting con nuovo cliente', priority: 'a', category: 'commerciale', completed: false },
+                { id: Date.now() + 3, title: 'Preparare offerta cantiere Milano', priority: 'b', category: 'operativo', completed: false },
+                { id: Date.now() + 4, title: 'Controllo sicurezza cantieri', priority: 'a', category: 'sicurezza', completed: false }
+            ];
+
+            data.companies[1].deadlines = [
+                { id: Date.now() + 10, type: 'F24 mensile', date: new Date(today.getFullYear(), today.getMonth() + 1, 16).toISOString().split('T')[0], category: 'fiscale', notes: 'Versamento ritenute' },
+                { id: Date.now() + 11, type: 'Rinnovo polizza assicurativa', date: nextWeek.toISOString().split('T')[0], category: 'assicurazioni' }
+            ];
+
+            data.companies[1].expenses = [
+                { id: Date.now() + 20, date: today.toISOString().split('T')[0], description: 'Materiale edile - Cantiere Via Roma', amount: 2500, category: 'materiali', paymentMethod: 'bonifico' },
+                { id: Date.now() + 21, date: today.toISOString().split('T')[0], description: 'Carburante mezzi', amount: 350, category: 'trasporti', paymentMethod: 'carta' }
+            ];
+
+            data.companies[1].appointments = [
+                { id: Date.now() + 30, date: tomorrow.toISOString().split('T')[0], time: '10:00', title: 'Incontro commercialista', location: 'Studio Rossi', notes: 'Portare documentazione fiscale' },
+                { id: Date.now() + 31, date: nextWeek.toISOString().split('T')[0], time: '14:30', title: 'Sopralluogo cantiere', location: 'Via Milano 45' }
+            ];
+
+            data.companies[1].emails = [
+                { id: Date.now() + 40, from: 'commercialista@studiorossi.it', to: 'info@abccostruzioni.it', subject: 'Scadenza F24 - Urgente', body: 'Gentile Cliente,\n\nLe ricordo che la scadenza per il versamento F24 è il 16 del mese corrente.\n\nCordiali saluti', date: today.toISOString(), folder: 'inbox', read: false, priority: 'urgent', category: 'commercialista', subcategory: 'urgenti', starred: false },
+                { id: Date.now() + 41, from: 'fornitore@materialiedilit.it', to: 'acquisti@abccostruzioni.it', subject: 'Preventivo materiali cantiere', body: 'In allegato il preventivo richiesto per la fornitura di materiali.', date: today.toISOString(), folder: 'inbox', read: false, priority: 'normal', category: 'fornitori', subcategory: 'da-fare', starred: false },
+                { id: Date.now() + 42, from: 'newsletter@costruzioni.com', to: 'info@abccostruzioni.it', subject: 'Offerte speciali su attrezzature', body: 'Non perdere le nostre offerte speciali...', date: today.toISOString(), folder: 'inbox', read: false, priority: 'normal', category: 'altro', subcategory: 'da-cestinare', starred: false }
+            ];
+
+            data.companies[1].contacts = [
+                { id: Date.now() + 50, name: 'Dott. Mario Rossi', company: 'Studio Rossi', role: 'Commercialista', phone1: '02-12345678', email1: 'mario.rossi@studiorossi.it', category: 'consulente', notes: 'Commercialista aziendale' },
+                { id: Date.now() + 51, name: 'Ing. Laura Bianchi', company: 'Cliente ABC', role: 'Direttore Lavori', phone1: '335-1234567', email1: 'l.bianchi@cliente.it', category: 'cliente' }
+            ];
+
+            // Dati per Azienda 2 (XYZ Commercio)
+            data.companies[2].tasks = [
+                { id: Date.now() + 100, title: 'Inventario mensile magazzino', priority: 'a', category: 'operativo', completed: false },
+                { id: Date.now() + 101, title: 'Ordine nuovo stock prodotti', priority: 'b', category: 'acquisti', completed: false }
+            ];
+
+            data.companies[2].deadlines = [
+                { id: Date.now() + 110, type: 'IVA trimestrale', date: new Date(today.getFullYear(), today.getMonth() + 1, 28).toISOString().split('T')[0], category: 'fiscale' }
+            ];
+
+            data.companies[2].emails = [
+                { id: Date.now() + 120, from: 'banca@unicredit.it', to: 'info@xyzcommercio.it', subject: 'Estratto conto mensile', body: 'In allegato l\'estratto conto del mese corrente.', date: today.toISOString(), folder: 'inbox', read: false, priority: 'normal', category: 'banca', subcategory: 'da-fare', starred: false }
+            ];
+
+            // Dati per Azienda 4 (Casa - Personale)
+            data.companies[4].tasks = [
+                { id: Date.now() + 200, title: 'Pagare bolletta gas', priority: 'a', category: 'casa', completed: false, dueDate: nextWeek.toISOString().split('T')[0] },
+                { id: Date.now() + 201, title: 'Prenotare visita medica', priority: 'b', category: 'salute', completed: false }
+            ];
+
+            data.companies[4].deadlines = [
+                { id: Date.now() + 210, type: 'Bollo auto', date: new Date(today.getFullYear(), 11, 31).toISOString().split('T')[0], category: 'auto' }
+            ];
+
+            saveData();
+            console.log('✅ Dati di test caricati con successo!');
         }
 
         function exportData() {
@@ -8913,7 +9006,7 @@ ${data.companies[currentCompany].name}`
             };
         }
 
-        // Label per categorie
+        // Label per categorie email
         function getCategoryLabel(cat) {
             const labels = {
                 'commercialista': '🧮 Commercialista',
@@ -8929,7 +9022,7 @@ ${data.companies[currentCompany].name}`
                 'legale': '⚖️ Legale',
                 'altro': '📋 Altro'
             };
-            return labels[cat] || cat;
+            return labels[cat] || '📋 Altro';
         }
 
         // Label per sotto-categorie
@@ -9268,20 +9361,6 @@ ${data.companies[currentCompany].name}`
                 'normal': '🟢 Normale'
             };
             return labels[priority] || '🟢 Normale';
-        }
-
-        // Label categoria
-        function getCategoryLabel(category) {
-            const labels = {
-                'clienti': '👥 Clienti',
-                'fornitori': '🏭 Fornitori',
-                'fiscale': '💰 Fiscale',
-                'hr': '👔 HR',
-                'commerciale': '📈 Commerciale',
-                'legale': '⚖️ Legale',
-                'altro': '📋 Altro'
-            };
-            return labels[category] || '📋 Altro';
         }
 
         // ===================================

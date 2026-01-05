@@ -15,13 +15,13 @@ const SUPABASE_CONFIG = {
     // La trovi su: Supabase Dashboard → Settings → API
     anonKey: 'YOUR_SUPABASE_ANON_KEY',
 
-    // Modalità forzata: 'cloud' per richiedere sempre login
-    // NON modificare questo se vuoi autenticazione obbligatoria
-    mode: 'cloud',
+    // Modalità forzata: 'cloud' per richiedere sempre login, 'localStorage' per test locale
+    // Cambia a 'localStorage' per testare il sistema senza Supabase
+    mode: 'localStorage',
 
     // Se true, mostra sempre schermata login anche se non configurato
-    // Utile per forzare la configurazione al primo utilizzo
-    requireAuth: true
+    // Impostato a false per permettere test in localStorage
+    requireAuth: false
 };
 
 // Verifica se le credenziali sono state configurate
