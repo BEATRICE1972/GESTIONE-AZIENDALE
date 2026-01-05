@@ -10,8 +10,14 @@ class AuthUI {
     }
 
     // Crea l'interfaccia di autenticazione
-    create(onSuccess) {
+    create(onSuccess, showSetupRequired = false) {
         this.onAuthSuccess = onSuccess;
+
+        // Se Supabase non è configurato, mostra schermata di setup
+        if (showSetupRequired) {
+            this.showSetupRequired();
+            return;
+        }
 
         const authHTML = `
         <div id="auth-container" style="
@@ -472,6 +478,95 @@ class AuthUI {
                 }
             });
         }
+    }
+
+    showSetupRequired() {
+        const setupHTML = `
+        <div id="auth-container" style="
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        ">
+            <div style="
+                background: white;
+                border-radius: 20px;
+                padding: 50px;
+                box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+                width: 90%;
+                max-width: 600px;
+                text-align: center;
+            ">
+                <div style="font-size: 72px; margin-bottom: 20px;">⚠️</div>
+
+                <h1 style="color: #e74c3c; font-size: 28px; margin-bottom: 15px;">
+                    Configurazione Richiesta
+                </h1>
+
+                <p style="color: #2c3e50; font-size: 16px; line-height: 1.6; margin-bottom: 30px;">
+                    Il sistema richiede <strong>autenticazione obbligatoria</strong> per proteggere i tuoi dati.<br>
+                    Supabase non è stato ancora configurato.
+                </p>
+
+                <div style="background: #fff3cd; padding: 20px; border-radius: 10px; margin-bottom: 30px; text-align: left;">
+                    <h3 style="color: #856404; margin-top: 0;">📋 Setup Rapido (5 minuti)</h3>
+                    <ol style="color: #856404; line-height: 1.8; margin: 15px 0;">
+                        <li>Vai su <a href="https://supabase.com" target="_blank" style="color: #667eea;">supabase.com</a></li>
+                        <li>Crea account gratuito con GitHub</li>
+                        <li>Crea nuovo progetto "gestione-direzionale"</li>
+                        <li>Esegui lo script SQL (file: supabase-setup.sql)</li>
+                        <li>Copia URL e API Key</li>
+                        <li>Incolla in supabase-config.js</li>
+                        <li>Fai commit e push su GitHub</li>
+                    </ol>
+                </div>
+
+                <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
+                    <button onclick="window.open('https://supabase.com', '_blank')" style="
+                        padding: 15px 30px;
+                        background: #667eea;
+                        color: white;
+                        border: none;
+                        border-radius: 10px;
+                        font-size: 16px;
+                        font-weight: 600;
+                        cursor: pointer;
+                        transition: all 0.3s;
+                    ">
+                        🚀 Vai su Supabase
+                    </button>
+
+                    <button onclick="window.open('SETUP-SUPABASE.md', '_blank')" style="
+                        padding: 15px 30px;
+                        background: white;
+                        color: #667eea;
+                        border: 2px solid #667eea;
+                        border-radius: 10px;
+                        font-size: 16px;
+                        font-weight: 600;
+                        cursor: pointer;
+                        transition: all 0.3s;
+                    ">
+                        📖 Leggi Guida
+                    </button>
+                </div>
+
+                <p style="color: #95a5a6; font-size: 13px; margin-top: 30px;">
+                    💡 Dopo la configurazione, ricarica questa pagina (F5)
+                </p>
+            </div>
+        </div>
+        `;
+
+        document.body.insertAdjacentHTML('beforeend', setupHTML);
+        this.authContainer = document.getElementById('auth-container');
     }
 
     remove() {

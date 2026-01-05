@@ -5187,12 +5187,31 @@
         async function init() {
             // Verifica se Supabase è disponibile
             if (typeof supabaseAPI === 'undefined') {
-                console.warn('⚠️ Supabase non disponibile. Usando localStorage.');
+                console.error('❌ Supabase API non caricata!');
+                if (typeof authUIInstance !== 'undefined' && SUPABASE_CONFIG.requireAuth) {
+                    authUIInstance.create(null, true); // Mostra schermata setup
+                    return;
+                }
+                console.warn('⚠️ Fallback a localStorage.');
                 initializeAppLocal();
                 return;
             }
 
             try {
+                // Verifica configurazione Supabase
+                const isConfigured = checkSupabaseConfig();
+
+                // Se requireAuth è true e non è configurato, mostra schermata setup
+                if (SUPABASE_CONFIG.requireAuth && !isConfigured) {
+                    if (typeof authUIInstance !== 'undefined') {
+                        authUIInstance.create(null, true); // Mostra schermata setup richiesta
+                    } else {
+                        console.error('❌ Sistema richiede autenticazione ma auth-ui non disponibile!');
+                        document.body.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:100vh;font-family:Arial;"><div style="text-align:center;"><h1 style="color:#e74c3c;">⚠️ Errore Configurazione</h1><p>Il sistema richiede Supabase configurato.</p><p>Controlla la console (F12) per dettagli.</p></div></div>';
+                    }
+                    return;
+                }
+
                 // Inizializza Supabase
                 const supabaseAvailable = await supabaseAPI.init();
 
@@ -5206,9 +5225,10 @@
                                 await initializeApp();
                             });
                         } else {
-                            // Fallback a localStorage se auth-ui non disponibile
-                            console.warn('⚠️ Auth UI non disponibile. Usando localStorage.');
-                            initializeAppLocal();
+                            console.error('⚠️ Auth UI non disponibile.');
+                            if (!SUPABASE_CONFIG.requireAuth) {
+                                initializeAppLocal();
+                            }
                         }
                         return;
                     } else {
@@ -5216,14 +5236,29 @@
                         await initializeApp();
                     }
                 } else {
-                    // Supabase non configurato, usa localStorage
-                    console.info('💾 Modalità localStorage attiva.');
-                    initializeAppLocal();
+                    // Supabase non configurato
+                    if (SUPABASE_CONFIG.requireAuth) {
+                        // Richiede configurazione
+                        if (typeof authUIInstance !== 'undefined') {
+                            authUIInstance.create(null, true);
+                        }
+                        return;
+                    } else {
+                        // Fallback a localStorage se permesso
+                        console.info('💾 Modalità localStorage attiva.');
+                        initializeAppLocal();
+                    }
                 }
             } catch (error) {
                 console.error('❌ Errore inizializzazione:', error);
-                console.warn('🔄 Fallback a localStorage');
-                initializeAppLocal();
+                if (SUPABASE_CONFIG.requireAuth) {
+                    if (typeof authUIInstance !== 'undefined') {
+                        authUIInstance.create(null, true);
+                    }
+                } else {
+                    console.warn('🔄 Fallback a localStorage');
+                    initializeAppLocal();
+                }
             }
         }
 

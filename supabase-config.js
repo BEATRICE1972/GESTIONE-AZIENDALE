@@ -6,31 +6,47 @@
 
 const SUPABASE_CONFIG = {
     // URL del tuo progetto Supabase
-    // Esempio: https://tuoprogetto.supabase.co
-    // LASCIA COSÌ per usare localStorage (funziona subito!)
-    // Compila SOLO se vuoi sincronizzazione cloud
+    // IMPORTANTE: Sostituisci con il tuo URL Supabase
+    // Lo trovi su: Supabase Dashboard → Settings → API
     url: 'YOUR_SUPABASE_URL',
 
     // API Key pubblica (anon key)
-    // Esempio: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
-    // LASCIA COSÌ per usare localStorage (funziona subito!)
-    // Compila SOLO se vuoi sincronizzazione cloud
+    // IMPORTANTE: Sostituisci con la tua API Key
+    // La trovi su: Supabase Dashboard → Settings → API
     anonKey: 'YOUR_SUPABASE_ANON_KEY',
 
-    // Modalità: 'localStorage' o 'cloud'
-    // Con localStorage: funziona subito, dati solo sul browser corrente
-    // Con cloud: richiede setup Supabase, dati sincronizzati ovunque
-    mode: 'localStorage'
+    // Modalità forzata: 'cloud' per richiedere sempre login
+    // NON modificare questo se vuoi autenticazione obbligatoria
+    mode: 'cloud',
+
+    // Se true, mostra sempre schermata login anche se non configurato
+    // Utile per forzare la configurazione al primo utilizzo
+    requireAuth: true
 };
 
 // Verifica se le credenziali sono state configurate
 function checkSupabaseConfig() {
-    // Se è in modalità localStorage, va bene
+    // Se requireAuth è true, verifica sempre la configurazione
+    if (SUPABASE_CONFIG.requireAuth) {
+        if (SUPABASE_CONFIG.url === 'YOUR_SUPABASE_URL' ||
+            SUPABASE_CONFIG.anonKey === 'YOUR_SUPABASE_ANON_KEY') {
+            console.error('❌ ERRORE: Supabase NON configurato!');
+            console.error('📋 Il sistema richiede autenticazione obbligatoria.');
+            console.error('📖 DEVI configurare Supabase per usare il sistema.');
+            console.error('🔧 Segui la guida: SETUP-SUPABASE.md oppure esegui AUTO-SETUP.bat');
+            return false;
+        }
+        console.info('✅ Supabase configurato correttamente. Modalità cloud attiva.');
+        return true;
+    }
+
+    // Se è in modalità localStorage e non richiede auth
     if (SUPABASE_CONFIG.mode === 'localStorage') {
-        console.info('💾 Modalità localStorage attiva. Per sincronizzazione cloud, configura Supabase.');
+        console.info('💾 Modalità localStorage attiva.');
         return false;
     }
 
+    // Verifica normale per modalità cloud
     if (SUPABASE_CONFIG.url === 'YOUR_SUPABASE_URL' ||
         SUPABASE_CONFIG.anonKey === 'YOUR_SUPABASE_ANON_KEY') {
         console.warn('⚠️ Supabase non configurato! Uso localStorage come fallback.');
