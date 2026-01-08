@@ -1,0 +1,63 @@
+# Sistema Gestione Direzionale - .gitignore
+
+# File di configurazione locali (contengono credenziali)
+**/supabase-config.js
+**/config.local.js
+
+# Backup e file temporanei
+*.backup
+*.bak
+*.tmp
+*.temp
+*~
+
+# File di log
+*.log
+logs/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Directory node_modules (se si usa npm)
+node_modules/
+package-lock.json
+yarn.lock
+
+# File di sistema
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# File IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# File di ambiente
+.env
+.env.local
+.env.*.local
+
+# Directory di build
+dist/
+build/
+.cache/
+
+# File personali e dati sensibili
+dati-personali/
+backup-privati/
+*.private
+
+# File di test locali
+test-locale-*.html
+test-*.json
+
+# Screenshot e file temporanei
+screenshot-*.png
+temp-*.png
+
+# File Windows batch temporanei
+*.bat.log
+nul
