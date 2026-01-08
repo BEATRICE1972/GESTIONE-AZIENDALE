@@ -1,0 +1,626 @@
+{
+  "companies": {
+    "1": {
+      "name": "TechnoSolutions SRL",
+      "tasks": [
+        {
+          "id": 1,
+          "title": "Revisione contratto fornitore principale",
+          "description": "Analizzare e rinegoziare i termini del contratto con il fornitore di servizi cloud",
+          "category": "urgent",
+          "priority": "aplus",
+          "deadline": "2025-01-05",
+          "completed": false,
+          "createdAt": "2024-12-28T10:00:00Z"
+        },
+        {
+          "id": 2,
+          "title": "Preparazione budget Q1 2025",
+          "description": "Compilare il budget previsionale per il primo trimestre includendo tutti i costi operativi",
+          "category": "decisions",
+          "priority": "a",
+          "deadline": "2025-01-10",
+          "completed": false,
+          "createdAt": "2024-12-25T09:30:00Z"
+        },
+        {
+          "id": 3,
+          "title": "Aggiornamento software aziendale",
+          "description": "Pianificare e eseguire l'aggiornamento del gestionale aziendale alla versione 3.5",
+          "category": "important",
+          "priority": "a",
+          "deadline": "2025-01-15",
+          "completed": false,
+          "createdAt": "2024-12-20T14:00:00Z"
+        },
+        {
+          "id": 4,
+          "title": "Colloquio nuovo sviluppatore senior",
+          "description": "Intervista candidato per posizione Full Stack Developer",
+          "category": "hr",
+          "priority": "a",
+          "deadline": "2025-01-03",
+          "completed": false,
+          "createdAt": "2024-12-27T11:00:00Z"
+        },
+        {
+          "id": 5,
+          "title": "Verifica conformità GDPR sistemi IT",
+          "description": "Audit interno sui sistemi per conformità normativa privacy",
+          "category": "critical",
+          "priority": "aplus",
+          "deadline": "2025-01-08",
+          "completed": false,
+          "createdAt": "2024-12-28T14:00:00Z"
+        },
+        {
+          "id": 6,
+          "title": "Preparazione documentazione Modello 770",
+          "description": "Raccolta dati per dichiarazione annuale sostituti d'imposta",
+          "category": "fiscal",
+          "priority": "a",
+          "deadline": "2025-02-28",
+          "completed": false,
+          "createdAt": "2024-12-15T09:00:00Z"
+        }
+      ],
+      "deadlines": [
+        {
+          "id": 1,
+          "title": "Dichiarazione IVA trimestrale",
+          "description": "Presentazione dichiarazione IVA Q4 2024",
+          "type": "fiscale",
+          "category": "fiscale",
+          "deadline": "2025-02-16",
+          "completed": false,
+          "amount": null,
+          "createdAt": "2024-12-15T08:00:00Z"
+        },
+        {
+          "id": 2,
+          "title": "Versamento contributi INPS",
+          "description": "Pagamento contributi previdenziali dipendenti dicembre 2024",
+          "type": "fiscale",
+          "category": "hr",
+          "deadline": "2025-01-16",
+          "completed": false,
+          "amount": 12500,
+          "createdAt": "2024-12-01T08:00:00Z"
+        },
+        {
+          "id": 3,
+          "title": "Scadenza contratto affitto ufficio",
+          "description": "Rinnovo contratto locazione sede principale - Via Roma 123",
+          "type": "contratto",
+          "category": "legale",
+          "deadline": "2025-03-31",
+          "completed": false,
+          "amount": null,
+          "createdAt": "2024-10-01T10:00:00Z"
+        }
+      ],
+      "expenses": [
+        {
+          "id": 1,
+          "title": "Licenze software annuali",
+          "category": "operative",
+          "amount": 8500,
+          "date": "2024-12-15",
+          "description": "Rinnovo licenze Microsoft 365, Adobe Creative Cloud, Slack Business",
+          "createdAt": "2024-12-15T15:30:00Z"
+        },
+        {
+          "id": 2,
+          "title": "Consulenza fiscale Q4",
+          "category": "servizi",
+          "amount": 2200,
+          "date": "2024-12-20",
+          "description": "Parcella commercialista per chiusura bilancio trimestre",
+          "createdAt": "2024-12-20T10:00:00Z"
+        },
+        {
+          "id": 3,
+          "title": "Materiale ufficio",
+          "category": "operative",
+          "amount": 450,
+          "date": "2024-12-10",
+          "description": "Cartucce stampante, carta A4, cancelleria varia",
+          "createdAt": "2024-12-10T16:00:00Z"
+        },
+        {
+          "id": 4,
+          "title": "Cena aziendale Natale",
+          "category": "hr",
+          "amount": 1800,
+          "date": "2024-12-22",
+          "description": "Cena di Natale con tutto il team (25 persone)",
+          "createdAt": "2024-12-22T21:00:00Z"
+        }
+      ],
+      "appointments": [
+        {
+          "id": 1,
+          "title": "Meeting con cliente Alfa SpA",
+          "date": "2025-01-08",
+          "time": "10:00",
+          "location": "Sede cliente - Milano, Via Dante 45",
+          "description": "Presentazione nuovo progetto di digitalizzazione processi",
+          "participants": "CEO, CTO, Project Manager",
+          "createdAt": "2024-12-28T09:00:00Z"
+        },
+        {
+          "id": 2,
+          "title": "Riunione CDA trimestrale",
+          "date": "2025-01-15",
+          "time": "14:30",
+          "location": "Sala Conferenze Sede",
+          "description": "Consiglio di Amministrazione - revisione obiettivi Q4 e pianificazione Q1",
+          "participants": "Amministratori, Direttore Generale",
+          "createdAt": "2024-12-10T11:00:00Z"
+        },
+        {
+          "id": 3,
+          "title": "Video call con fornitore hosting",
+          "date": "2025-01-04",
+          "time": "15:00",
+          "location": "Online - Google Meet",
+          "description": "Discussione upgrade infrastruttura server e pricing 2025",
+          "participants": "IT Manager, Account Manager fornitore",
+          "createdAt": "2024-12-27T13:00:00Z"
+        }
+      ],
+      "contacts": [
+        {
+          "id": 1,
+          "name": "Marco Rossi",
+          "company": "Alfa SpA",
+          "role": "CEO",
+          "email": "m.rossi@alfaspa.it",
+          "phone": "+39 02 1234567",
+          "notes": "Cliente principale - budget annuo €250K",
+          "category": "cliente",
+          "createdAt": "2024-06-15T10:00:00Z"
+        },
+        {
+          "id": 2,
+          "name": "Laura Bianchi",
+          "company": "Studio Commerciale Bianchi",
+          "role": "Commercialista",
+          "email": "l.bianchi@studiobianchi.it",
+          "phone": "+39 02 7654321",
+          "notes": "Commercialista aziendale dal 2018",
+          "category": "fornitore",
+          "createdAt": "2024-01-10T09:00:00Z"
+        },
+        {
+          "id": 3,
+          "name": "Giuseppe Verdi",
+          "company": "CloudServers Italia",
+          "role": "Account Manager",
+          "email": "g.verdi@cloudservers.it",
+          "phone": "+39 02 9998877",
+          "notes": "Fornitore hosting e servizi cloud - contratto annuo",
+          "category": "fornitore",
+          "createdAt": "2024-03-20T11:00:00Z"
+        },
+        {
+          "id": 4,
+          "name": "Anna Neri",
+          "company": "Beta Solutions",
+          "role": "Project Manager",
+          "email": "a.neri@betasolutions.com",
+          "phone": "+39 02 5556666",
+          "notes": "Partner progetto sviluppo app mobile",
+          "category": "partner",
+          "createdAt": "2024-09-01T14:00:00Z"
+        }
+      ],
+      "emails": [
+        {
+          "id": 1,
+          "from": "m.rossi@alfaspa.it",
+          "subject": "URGENTE: Approvazione preventivo entro oggi",
+          "body": "Buongiorno, ho bisogno della vostra approvazione formale sul preventivo inviato ieri entro le 18:00 di oggi per poter procedere. Si tratta del progetto di digitalizzazione che abbiamo discusso. Potete confermare?",
+          "date": "2024-12-30T09:15:00Z",
+          "read": false,
+          "category": "cliente",
+          "priority": "urgent",
+          "requiresReply": true,
+          "requiresAction": true,
+          "aiClassification": {
+            "isSpam": false,
+            "urgencyScore": 95,
+            "category": "cliente",
+            "requiresReply": true,
+            "estimatedImportance": "high",
+            "detectedDeadline": "2024-12-30T18:00:00Z",
+            "actionRequired": "Approvare preventivo"
+          }
+        },
+        {
+          "id": 2,
+          "from": "newsletter@techmagazine.com",
+          "subject": "Le 10 migliori tecnologie del 2024",
+          "body": "Scopri le innovazioni tecnologiche che hanno rivoluzionato il mercato quest'anno...",
+          "date": "2024-12-29T08:00:00Z",
+          "read": true,
+          "category": "newsletter",
+          "priority": "low",
+          "requiresReply": false,
+          "requiresAction": false,
+          "aiClassification": {
+            "isSpam": false,
+            "urgencyScore": 10,
+            "category": "informativa",
+            "requiresReply": false,
+            "estimatedImportance": "low"
+          }
+        },
+        {
+          "id": 3,
+          "from": "l.bianchi@studiobianchi.it",
+          "subject": "Documenti per dichiarazione IVA Q4",
+          "body": "Gentile cliente, per completare la dichiarazione IVA del quarto trimestre necessito dei seguenti documenti: 1) Registro vendite dicembre 2) Fatture acquisti dicembre 3) F24 versamenti. Grazie per inviarmeli entro venerdì 3 gennaio.",
+          "date": "2024-12-28T14:30:00Z",
+          "read": false,
+          "category": "fiscale",
+          "priority": "important",
+          "requiresReply": true,
+          "requiresAction": true,
+          "aiClassification": {
+            "isSpam": false,
+            "urgencyScore": 75,
+            "category": "fiscale",
+            "requiresReply": true,
+            "estimatedImportance": "high",
+            "detectedDeadline": "2025-01-03",
+            "actionRequired": "Inviare documenti fiscali"
+          }
+        },
+        {
+          "id": 4,
+          "from": "hr@technosolutions.it",
+          "subject": "Reminder: Appuntamento colloquio 3 gennaio ore 10",
+          "body": "Ti ricordo che domani 3 gennaio alle ore 10:00 c'è il colloquio con il candidato sviluppatore senior Mario Bianchi. Il meeting è in sala riunioni principale. Ho preparato il CV e i test tecnici.",
+          "date": "2024-12-30T16:00:00Z",
+          "read": false,
+          "category": "hr",
+          "priority": "normal",
+          "requiresReply": false,
+          "requiresAction": false,
+          "aiClassification": {
+            "isSpam": false,
+            "urgencyScore": 60,
+            "category": "hr",
+            "requiresReply": false,
+            "estimatedImportance": "medium",
+            "detectedAppointment": {
+              "date": "2025-01-03",
+              "time": "10:00",
+              "title": "Colloquio sviluppatore senior Mario Bianchi",
+              "location": "Sala riunioni principale"
+            }
+          }
+        }
+      ],
+      "sopExecutions": [],
+      "archives": {
+        "contratti": {
+          "name": "Contratti",
+          "documents": [
+            {
+              "id": 1,
+              "title": "Contratto Locazione Sede 2024-2027",
+              "uploadDate": "2024-01-15",
+              "category": "Contratti",
+              "tags": ["immobili", "legale"],
+              "notes": "Contratto affitto sede principale Via Roma 123"
+            }
+          ]
+        },
+        "fatture": {
+          "name": "Fatture",
+          "documents": [
+            {
+              "id": 2,
+              "title": "Fattura CloudServers Dicembre 2024",
+              "uploadDate": "2024-12-01",
+              "category": "Fatture",
+              "tags": ["hosting", "ricorrente"],
+              "notes": "Fattura mensile servizi cloud €850"
+            }
+          ]
+        }
+      }
+    },
+    "2": {
+      "name": "GreenEnergy SRL",
+      "tasks": [
+        {
+          "id": 1,
+          "title": "Presentazione progetto fotovoltaico al Comune",
+          "description": "Consegnare documentazione tecnica per autorizzazione impianto 500kW",
+          "category": "urgent",
+          "priority": "aplus",
+          "deadline": "2025-01-12",
+          "completed": false,
+          "createdAt": "2024-12-20T10:00:00Z"
+        },
+        {
+          "id": 2,
+          "title": "Formazione tecnici su nuovi inverter",
+          "description": "Organizzare corso di aggiornamento per installatori certificati",
+          "category": "hr",
+          "priority": "b",
+          "deadline": "2025-01-20",
+          "completed": false,
+          "createdAt": "2024-12-15T09:00:00Z"
+        }
+      ],
+      "deadlines": [
+        {
+          "id": 1,
+          "title": "Certificazione GSE impianti Q4",
+          "description": "Invio documentazione produzione energia trimestre al Gestore Servizi Energetici",
+          "type": "fiscale",
+          "category": "operative",
+          "deadline": "2025-01-31",
+          "completed": false,
+          "amount": null,
+          "createdAt": "2024-12-01T08:00:00Z"
+        }
+      ],
+      "expenses": [
+        {
+          "id": 1,
+          "title": "Acquisto componenti fotovoltaici",
+          "category": "operative",
+          "amount": 45000,
+          "date": "2024-12-18",
+          "description": "200 pannelli fotovoltaici 450W + 20 inverter da fornitore cinese",
+          "createdAt": "2024-12-18T11:00:00Z"
+        },
+        {
+          "id": 2,
+          "title": "Assicurazione mezzi aziendali",
+          "category": "assicurazioni",
+          "amount": 3200,
+          "date": "2024-12-05",
+          "description": "Premio annuale 5 furgoni installazione",
+          "createdAt": "2024-12-05T14:00:00Z"
+        }
+      ],
+      "appointments": [
+        {
+          "id": 1,
+          "title": "Sopralluogo impianto industriale",
+          "date": "2025-01-09",
+          "time": "09:30",
+          "location": "Stabilimento Rossi Metallurgica - Bologna",
+          "description": "Verifica fattibilità impianto fotovoltaico 1MW su capannone",
+          "participants": "Tecnico, Ingegnere, Cliente",
+          "createdAt": "2024-12-22T10:00:00Z"
+        }
+      ],
+      "contacts": [
+        {
+          "id": 1,
+          "name": "Stefano Ferrari",
+          "company": "Rossi Metallurgica SpA",
+          "role": "Responsabile Acquisti",
+          "email": "s.ferrari@rossimetal.it",
+          "phone": "+39 051 123456",
+          "notes": "Interessato a impianto fotovoltaico 1MW - budget €800K",
+          "category": "cliente",
+          "createdAt": "2024-11-10T11:00:00Z"
+        }
+      ],
+      "emails": [],
+      "sopExecutions": [],
+      "archives": {}
+    },
+    "3": {
+      "name": "Fashion Boutique SRL",
+      "tasks": [
+        {
+          "id": 1,
+          "title": "Pianificazione collezione Primavera/Estate 2025",
+          "description": "Definire linee guida, colori e materiali per nuova collezione",
+          "category": "decisions",
+          "priority": "a",
+          "deadline": "2025-01-18",
+          "completed": false,
+          "createdAt": "2024-12-10T09:00:00Z"
+        },
+        {
+          "id": 2,
+          "title": "Saldi invernali - allestimento vetrine",
+          "description": "Preparare vetrine e cartellonistica per inizio saldi 5 gennaio",
+          "category": "operative",
+          "priority": "aplus",
+          "deadline": "2025-01-04",
+          "completed": false,
+          "createdAt": "2024-12-28T15:00:00Z"
+        }
+      ],
+      "deadlines": [
+        {
+          "id": 1,
+          "title": "Inizio saldi invernali",
+          "description": "Data ufficiale inizio saldi - preparare sconti e promozioni",
+          "type": "commerciale",
+          "category": "operative",
+          "deadline": "2025-01-05",
+          "completed": false,
+          "amount": null,
+          "createdAt": "2024-11-15T10:00:00Z"
+        }
+      ],
+      "expenses": [
+        {
+          "id": 1,
+          "title": "Acquisto collezione autunno/inverno",
+          "category": "operative",
+          "amount": 28000,
+          "date": "2024-12-01",
+          "description": "Stock abbigliamento da fornitori italiani e francesi",
+          "createdAt": "2024-12-01T10:00:00Z"
+        },
+        {
+          "id": 2,
+          "title": "Affitto negozio centro storico",
+          "category": "affitti",
+          "amount": 4500,
+          "date": "2024-12-01",
+          "description": "Canone mensile dicembre boutique Via Montenapoleone",
+          "createdAt": "2024-12-01T08:00:00Z"
+        }
+      ],
+      "appointments": [
+        {
+          "id": 1,
+          "title": "Fiera Moda Milano",
+          "date": "2025-02-15",
+          "time": "09:00",
+          "location": "Fiera Milano - Rho",
+          "description": "Partecipazione come visitatori per scouting nuove collezioni",
+          "participants": "Buyer, Stilista",
+          "createdAt": "2024-12-05T11:00:00Z"
+        }
+      ],
+      "contacts": [
+        {
+          "id": 1,
+          "name": "Marie Dubois",
+          "company": "Atelier Parisien",
+          "role": "Sales Manager",
+          "email": "m.dubois@atelierparis.fr",
+          "phone": "+33 1 4567890",
+          "notes": "Fornitore abbigliamento haute couture Francia",
+          "category": "fornitore",
+          "createdAt": "2024-03-15T10:00:00Z"
+        }
+      ],
+      "emails": [],
+      "sopExecutions": [],
+      "archives": {}
+    },
+    "4": {
+      "name": "Consulting Partners SRL",
+      "tasks": [
+        {
+          "id": 1,
+          "title": "Preparazione proposta per gara pubblica",
+          "description": "Compilare offerta per gara consulenza organizzativa Regione Lombardia",
+          "category": "decisions",
+          "priority": "aplus",
+          "deadline": "2025-01-07",
+          "completed": false,
+          "createdAt": "2024-12-22T11:00:00Z"
+        },
+        {
+          "id": 2,
+          "title": "Aggiornamento portfolio servizi 2025",
+          "description": "Revisionare brochure aziendale e listino consulenze",
+          "category": "marketing",
+          "priority": "b",
+          "deadline": "2025-01-25",
+          "completed": false,
+          "createdAt": "2024-12-15T10:00:00Z"
+        }
+      ],
+      "deadlines": [
+        {
+          "id": 1,
+          "title": "Scadenza gara Regione Lombardia",
+          "description": "Termine ultimo presentazione offerta consulenza organizzativa",
+          "type": "commerciale",
+          "category": "decisions",
+          "deadline": "2025-01-07",
+          "completed": false,
+          "amount": null,
+          "createdAt": "2024-12-20T09:00:00Z"
+        }
+      ],
+      "expenses": [
+        {
+          "id": 1,
+          "title": "Partecipazione conferenza HR Management",
+          "category": "formazione",
+          "amount": 1200,
+          "date": "2024-12-12",
+          "description": "Biglietti e hotel per 2 consulenti - Milano 3 giorni",
+          "createdAt": "2024-12-12T16:00:00Z"
+        }
+      ],
+      "appointments": [
+        {
+          "id": 1,
+          "title": "Kick-off progetto riorganizzazione XYZ",
+          "date": "2025-01-10",
+          "time": "10:00",
+          "location": "Sede cliente - Torino",
+          "description": "Primo incontro progetto consulenza 6 mesi",
+          "participants": "Team consulenza (3 persone), Board cliente",
+          "createdAt": "2024-12-18T14:00:00Z"
+        }
+      ],
+      "contacts": [
+        {
+          "id": 1,
+          "name": "Andrea Colombo",
+          "company": "XYZ Manufacturing SpA",
+          "role": "HR Director",
+          "email": "a.colombo@xyzmfg.it",
+          "phone": "+39 011 987654",
+          "notes": "Cliente progetto riorganizzazione - budget €120K",
+          "category": "cliente",
+          "createdAt": "2024-10-05T09:00:00Z"
+        }
+      ],
+      "emails": [],
+      "sopExecutions": [],
+      "archives": {}
+    }
+  },
+  "templates": [
+    {
+      "id": 1,
+      "name": "Riunione Settimanale Team",
+      "taskTemplate": {
+        "title": "Riunione Team [SETTIMANA]",
+        "description": "Allineamento settimanale su progetti in corso e priorità",
+        "category": "riunioni",
+        "priority": "B"
+      },
+      "frequency": "weekly",
+      "enabled": true
+    },
+    {
+      "id": 2,
+      "name": "Report Mensile Direzione",
+      "taskTemplate": {
+        "title": "Report Mensile [MESE]",
+        "description": "Preparazione report KPI e risultati per la direzione",
+        "category": "decisioni",
+        "priority": "A"
+      },
+      "frequency": "monthly",
+      "enabled": true
+    }
+  ],
+  "auditLog": [
+    {
+      "timestamp": "2024-12-30T10:00:00Z",
+      "type": "create",
+      "description": "Dati di test importati nel sistema",
+      "affectedCompany": "all"
+    }
+  ],
+  "backups": [],
+  "settings": {
+    "autoBackup": true,
+    "backupInterval": 30,
+    "notificationsEnabled": false
+  }
+}

@@ -1,0 +1,372 @@
+╔══════════════════════════════════════════════════════════════════════════╗
+║                                                                          ║
+║          📊 DASHBOARD OPERATIVE SOP - GUIDA COMPLETA                     ║
+║              Tracciamento e Monitoraggio delle Procedure                 ║
+║                                                                          ║
+╚══════════════════════════════════════════════════════════════════════════╝
+
+
+🎯 COSA SONO LE DASHBOARD SOP
+═══════════════════════════════════════════════════════════════════════════
+
+Le Dashboard SOP (Standard Operating Procedures) sono strumenti interattivi
+integrati in ogni procedura che ti permettono di:
+
+✅ Eseguire le procedure passo-passo con checklist
+✅ Tracciare ogni esecuzione nel tempo
+✅ Vedere statistiche di utilizzo
+✅ Migliorare continuamente i processi
+✅ Dimostrare compliance e qualità
+
+
+📋 LE 3 SEZIONI DELLA DASHBOARD
+═══════════════════════════════════════════════════════════════════════════
+
+Ogni SOP ha 3 TAB:
+
+1️⃣ CHECKLIST    → Esegui la procedura step-by-step
+2️⃣ STATISTICHE  → Analizza performance e frequenza
+3️⃣ STORICO      → Vedi tutte le esecuzioni passate
+
+
+═══════════════════════════════════════════════════════════════════════════
+1️⃣  TAB CHECKLIST - ESECUZIONE GUIDATA
+═══════════════════════════════════════════════════════════════════════════
+
+🎯 COME FUNZIONA:
+
+1. Apri una SOP (clicca sul titolo)
+2. Vedrai la checklist con tutti i passaggi
+3. Spunta ogni passaggio mentre lo completi
+4. La barra di progresso si aggiorna automaticamente (0% → 100%)
+5. Aggiungi note opzionali (problemi, suggerimenti, osservazioni)
+6. Clicca "✅ Completa Procedura"
+
+
+📊 BARRA DI PROGRESSO:
+
+┌────────────────────────────────────────┐
+│ ████████████░░░░░░░░░░░░░░  60%       │  ← Progresso in tempo reale
+└────────────────────────────────────────┘
+
+
+✅ CHECKLIST INTERATTIVA:
+
+☑ Passaggio 1: Controllare email ogni 2 ore
+☑ Passaggio 2: Classificare per priorità
+☐ Passaggio 3: Rispondere alle urgenti
+☐ Passaggio 4: Inoltrare alla direzione
+☐ Passaggio 5: Archiviare email processate
+
+
+📝 NOTE:
+
+Un campo di testo dove puoi scrivere:
+• Problemi riscontrati
+• Tempo effettivo impiegato
+• Suggerimenti di miglioramento
+• Eccezioni o situazioni particolari
+
+Esempio:
+"Oggi ho trovato 15 email urgenti invece delle solite 5.
+ Ho dovuto coinvolgere il direttore per 3 decisioni rapide."
+
+
+═══════════════════════════════════════════════════════════════════════════
+2️⃣  TAB STATISTICHE - ANALISI PERFORMANCE
+═══════════════════════════════════════════════════════════════════════════
+
+📊 COSA VEDRAI:
+
+┌─────────────────────────────────────────────────────────────────┐
+│  TOTALE ESECUZIONI   │  QUESTA SETTIMANA  │  QUESTO MESE       │
+│         24           │         3          │        12          │
+└─────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────┐
+│  TEMPO MEDIO         │  (in futuro: tempo di esecuzione reale)  │
+│        N/A           │                                           │
+└─────────────────────────────────────────────────────────────────┘
+
+
+📈 DETTAGLI AGGIUNTIVI:
+
+• Prima Esecuzione:     15/11/2025
+• Ultima Esecuzione:    09/12/2025
+• Frequenza Media:      Ogni 2 giorni
+
+
+💡 A COSA SERVONO QUESTE STATISTICHE:
+
+✅ Verificare che le procedure siano seguite regolarmente
+✅ Identificare procedure trascurate (poche esecuzioni)
+✅ Dimostrare compliance in audit e ispezioni
+✅ Calcolare il carico di lavoro reale
+✅ Ottimizzare la frequenza di esecuzione
+
+
+═══════════════════════════════════════════════════════════════════════════
+3️⃣  TAB STORICO - LOG COMPLETO
+═══════════════════════════════════════════════════════════════════════════
+
+📜 COSA VEDRAI:
+
+Tutte le esecuzioni passate in ordine cronologico inverso (più recenti prima)
+
+┌──────────────────────────────────────────────────────────────┐
+│ 📅 09/12/2025 alle 14:30                         [Elimina]  │
+│ 5/5 passaggi (100%)                                          │
+│ "Email urgenti gestite tutte entro le 11:00"                 │
+└──────────────────────────────────────────────────────────────┘
+
+┌──────────────────────────────────────────────────────────────┐
+│ 📅 08/12/2025 alle 09:15                         [Elimina]  │
+│ 5/5 passaggi (100%)                                          │
+└──────────────────────────────────────────────────────────────┘
+
+┌──────────────────────────────────────────────────────────────┐
+│ 📅 06/12/2025 alle 16:00                         [Elimina]  │
+│ 4/5 passaggi (80%)                                           │
+│ "Non ho potuto archiviare tutte le email, troppo carico"    │
+└──────────────────────────────────────────────────────────────┘
+
+
+💡 A COSA SERVE LO STORICO:
+
+✅ Tracciabilità completa
+✅ Prove di esecuzione per audit
+✅ Analisi di problemi ricorrenti (leggi le note)
+✅ Identificare pattern e tendenze
+✅ Backup delle tue attività
+
+
+═══════════════════════════════════════════════════════════════════════════
+🚀 GUIDA PRATICA: ESEGUIRE UNA SOP
+═══════════════════════════════════════════════════════════════════════════
+
+ESEMPIO PRATICO: "Gestione Email Direzionali"
+
+
+📅 LUNEDÌ MATTINA, ORE 9:00
+
+PASSO 1: Apri la SOP
+────────────────────────────────────────────────────────────────────
+1. Vai nel menu "Procedure (SOP)"
+2. Clicca su "1. Gestione Email Direzionali"
+3. Si apre la dashboard con il tab "Checklist" attivo
+
+
+PASSO 2: Segui la procedura
+────────────────────────────────────────────────────────────────────
+Mentre lavori, spunta ogni passaggio:
+
+✅ Controllare email ogni 2 ore (9:00, 11:00, 14:00, 16:00)
+   → Spunta quando apri la casella email alle 9:00
+
+✅ Classificare per priorità: A+ (urgenti), A (importanti), B (normali), C (info)
+   → Spunta quando hai classificato tutte le email
+
+✅ Rispondere immediatamente alle A+, entro 2 ore alle A
+   → Spunta quando hai risposto a tutte le urgenti
+
+✅ Inoltrare alla direzione solo email che richiedono decisioni
+   → Spunta quando hai inoltrato le email necessarie
+
+✅ Archiviare email processate in cartelle dedicate per azienda
+   → Spunta quando hai archiviato tutto
+
+
+PASSO 3: Aggiungi note (opzionale)
+────────────────────────────────────────────────────────────────────
+Nel campo note, scrivi eventuali osservazioni:
+
+"Oggi 12 email A+ (molto sopra la media).
+ 2 email necessitavano decisione urgente del direttore.
+ Tempo totale: circa 45 minuti."
+
+
+PASSO 4: Completa
+────────────────────────────────────────────────────────────────────
+Clicca "✅ Completa Procedura"
+
+→ Il sistema salva:
+  ✅ Data e ora esecuzione
+  ✅ Percentuale completamento
+  ✅ Note inserite
+  ✅ Aggiornamento statistiche
+
+
+PASSO 5: Verifica
+────────────────────────────────────────────────────────────────────
+• Vai nel tab "Statistiche" → Vedi che è aumentato il contatore
+• Vai nel tab "Storico" → Vedi la tua esecuzione registrata
+
+
+═══════════════════════════════════════════════════════════════════════════
+💼 CASI D'USO REALI
+═══════════════════════════════════════════════════════════════════════════
+
+
+CASO 1: Audit ISO / Certificazione Qualità
+────────────────────────────────────────────────────────────────────
+L'auditor chiede: "Dimostratemi che seguite la procedura di gestione
+documentazione fornitori."
+
+SOLUZIONE:
+1. Apri la SOP "Gestione Documentazione Fornitori/Clienti"
+2. Vai nel tab "Storico"
+3. Mostra tutte le esecuzioni registrate con date e note
+4. Vai nel tab "Statistiche" → Dimostri frequenza costante
+
+RISULTATO: ✅ Audit superato con evidenze oggettive
+
+
+CASO 2: Identificare Problemi Ricorrenti
+────────────────────────────────────────────────────────────────────
+Noti che la procedura "Flusso Approvazione Documenti" è sempre lenta.
+
+SOLUZIONE:
+1. Apri la SOP
+2. Tab "Storico" → Leggi tutte le note
+3. Scopri che in 8 esecuzioni su 10 c'è scritto
+   "Ritardo nella review legale"
+
+RISULTATO: Identificato il collo di bottiglia → Intervento mirato
+
+
+CASO 3: Report al Management
+────────────────────────────────────────────────────────────────────
+Il direttore chiede: "Come sta andando l'applicazione delle procedure?"
+
+SOLUZIONE:
+1. Vai in ogni SOP
+2. Tab "Statistiche" → Prendi i numeri
+3. Prepari slide:
+   - SOP Email: 24 esecuzioni/mese ✅
+   - SOP Documentazione: 18 esecuzioni/mese ✅
+   - SOP Meeting: 4 esecuzioni/mese ⚠️ (troppo poche!)
+
+RISULTATO: Report oggettivo e azione correttiva sulla SOP Meeting
+
+
+CASO 4: Onboarding Nuovo Collega
+────────────────────────────────────────────────────────────────────
+Arriva una nuova assistente da formare.
+
+SOLUZIONE:
+1. Le fai aprire una SOP
+2. Le spieghi: "Segui la checklist step-by-step"
+3. Lei completa la prima esecuzione guidata da te
+4. Le successive le fa autonomamente
+
+RISULTATO: Formazione strutturata e tracciata
+
+
+═══════════════════════════════════════════════════════════════════════════
+📊 INDICATORI DI BUON UTILIZZO
+═══════════════════════════════════════════════════════════════════════════
+
+✅ SITUAZIONE OTTIMALE:
+
+• Ogni SOP ha almeno 4-8 esecuzioni/mese
+• Percentuale completamento sempre 100% o >80%
+• Note compilate quando necessario
+• Frequenza costante (no salti di settimane)
+
+
+⚠️ SEGNALI DI ALLARME:
+
+• SOP con 0 esecuzioni → Procedura non applicata
+• Sempre <80% completamento → Procedura troppo complessa/irr ealistica
+• Frequenza irregolare → Manca disciplina
+• Note sempre vuote → Manca riflessione/miglioramento
+
+
+═══════════════════════════════════════════════════════════════════════════
+🎯 CONSIGLI PER IL SUCCESSO
+═══════════════════════════════════════════════════════════════════════════
+
+1️⃣  CREA L'ABITUDINE
+   Esegui le SOP sempre, anche quando ti sembrano banali.
+   Dopo 2 settimane diventa automatico.
+
+2️⃣  USA LE NOTE
+   Scrivi sempre qualcosa nelle note:
+   - Tempo impiegato
+   - Problemi trovati
+   - Idee di miglioramento
+   Le note sono ORO per ottimizzare i processi!
+
+3️⃣  MONITORA LE STATISTICHE
+   Ogni venerdì, controlla le statistiche di tutte le SOP.
+   Identifica quelle trascurate.
+
+4️⃣  MOSTRA I RISULTATI
+   Usa le statistiche nei report al management.
+   Dimostri professionalità e rigore.
+
+5️⃣  MIGLIORA CONTINUAMENTE
+   Se una SOP ha sempre note tipo "passaggio 3 poco chiaro",
+   significa che va riscritta/migliorata.
+
+
+═══════════════════════════════════════════════════════════════════════════
+❓ FAQ - DOMANDE FREQUENTI
+═══════════════════════════════════════════════════════════════════════════
+
+D: Devo completare TUTTI i passaggi al 100%?
+R: No, puoi completare anche con meno del 100%. Il sistema ti chiederà
+   conferma e salverà la percentuale reale. Usa le note per spiegare perché.
+
+D: Posso eliminare una esecuzione dallo storico?
+R: Sì, ogni voce dello storico ha un bottone "Elimina". Usa con cautela!
+
+D: Le statistiche sono separate per azienda?
+R: SÌ! Ogni azienda ha il suo storico e le sue statistiche separate.
+   Quando cambi azienda (bottoni colorati), vedi i dati di quell'azienda.
+
+D: Posso esportare i dati delle SOP?
+R: Sì! Vai in "Impostazioni" → "Esporta Tutti i Dati".
+   Il file .json include anche tutte le esecuzioni SOP.
+
+D: Come faccio backup dello storico SOP?
+R: Lo storico SOP è incluso nel backup generale:
+   Impostazioni → Esporta Tutti i Dati (ogni venerdì!)
+
+
+═══════════════════════════════════════════════════════════════════════════
+🎓 TERMINOLOGIA
+═══════════════════════════════════════════════════════════════════════════
+
+SOP                 = Standard Operating Procedure (Procedura Operativa Standard)
+Checklist           = Lista di controllo con tutti i passaggi
+Esecuzione          = Una volta che completi la procedura
+Progress Bar        = Barra di avanzamento (0% → 100%)
+Statistiche         = Numeri aggregati (quante volte, quando, etc.)
+Storico             = Lista di tutte le esecuzioni passate
+Frequenza Media     = Ogni quanti giorni in media esegui la procedura
+
+
+═══════════════════════════════════════════════════════════════════════════
+✅ CHECKLIST RAPIDA: HAI CAPITO TUTTO?
+═══════════════════════════════════════════════════════════════════════════
+
+☐ So aprire una SOP e vedere la dashboard
+☐ So spuntare i passaggi della checklist
+☐ Vedo la progress bar aggiornarsi in tempo reale
+☐ So aggiungere note opzionali
+☐ So cliccare "Completa Procedura"
+☐ So passare tra i 3 tab (Checklist, Statistiche, Storico)
+☐ So leggere le statistiche
+☐ So visualizzare lo storico delle esecuzioni
+☐ Capisco l'importanza del tracciamento
+☐ Ho provato a eseguire almeno 1 SOP completa
+
+Se hai spuntato tutto: SEI PRONTA! 🎉
+
+
+═══════════════════════════════════════════════════════════════════════════
+
+📞 Per domande o problemi, consulta "LEGGIMI - ISTRUZIONI.txt"
+
+═══════════════════════════════════════════════════════════════════════════

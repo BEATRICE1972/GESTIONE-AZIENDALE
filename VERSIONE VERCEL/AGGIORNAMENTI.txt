@@ -1,0 +1,528 @@
+═══════════════════════════════════════════════════════════════════════════
+                     SISTEMA GESTIONE DIREZIONALE
+                        LOG AGGIORNAMENTI
+═══════════════════════════════════════════════════════════════════════════
+
+
+📅 AGGIORNAMENTO #4 - 09 Dicembre 2025 (Sera - Parte 2)
+═══════════════════════════════════════════════════════════════════════════
+
+✨ NUOVE FUNZIONALITÀ: APPUNTAMENTI + INSERIMENTO VOCALE
+
+Due nuove potenti funzionalità aggiunte al sistema!
+
+📋 FUNZIONALITÀ PRINCIPALI:
+────────────────────────────────────────────────────────────────────────────
+
+✅ GESTIONE APPUNTAMENTI COMPLETA
+
+   📅 NUOVA SEZIONE "APPUNTAMENTI" NEL MENU
+
+   Form completo con:
+   - Titolo appuntamento
+   - Data e ora inizio
+   - Durata (15 min - 4 ore)
+   - Luogo (ufficio, sede cliente, videochiamata)
+   - Partecipanti
+   - Note
+
+   ✅ Card nella Dashboard:
+   - "📅 Prossimi Appuntamenti"
+   - Mostra i prossimi 5 appuntamenti
+   - Con data, ora e luogo
+
+   ✅ Tabella completa:
+   - Tutti gli appuntamenti ordinati per data/ora
+   - Appuntamenti passati mostrati in grigio
+   - Elimina appuntamenti
+
+
+✅ INSERIMENTO VOCALE (🎤)
+
+   Bottone "🎤 Inserimento Vocale" in 3 sezioni:
+
+   1️⃣ ATTIVITÀ
+      - Clicca il bottone microfono
+      - Dì il titolo dell'attività
+      - Il testo viene inserito automaticamente!
+
+   2️⃣ SPESE
+      - Clicca il bottone microfono
+      - Dì la descrizione della spesa
+      - Il testo viene inserito automaticamente!
+
+   3️⃣ APPUNTAMENTI
+      - Clicca il bottone microfono
+      - Dì il titolo dell'appuntamento
+      - Il testo viene inserito automaticamente!
+
+   📱 COMPATIBILITÀ:
+   - ✅ Chrome / Edge
+   - ✅ Safari (iOS/Mac)
+   - ❌ Firefox (non supporta API vocale)
+
+   🔴 FEEDBACK VISIVO:
+   - Bottone diventa rosso quando ascolta
+   - Mostra "🔴 Ascoltando..."
+   - Notifica quando testo inserito
+
+
+🎯 COME USARE GLI APPUNTAMENTI:
+────────────────────────────────────────────────────────────────────────────
+
+1. Clicca su "Appuntamenti" nel menu
+2. Compila il form:
+   - Titolo: "Riunione con cliente X"
+   - Data: seleziona dal calendario
+   - Ora: es. 10:30
+   - Durata: es. 1 ora
+   - Luogo: "Sede cliente via Roma 10"
+   - Partecipanti: "Mario Rossi, Luca Bianchi"
+   - Note: "Portare contratto e preventivo"
+3. Clicca "Aggiungi Appuntamento"
+4. L'appuntamento appare nella Dashboard e nella tabella!
+
+
+🎯 COME USARE L'INSERIMENTO VOCALE:
+────────────────────────────────────────────────────────────────────────────
+
+ESEMPIO - AGGIUNGERE UN'ATTIVITÀ:
+1. Vai in "Attività"
+2. Clicca "🎤 Inserimento Vocale"
+3. Il bottone diventa rosso 🔴
+4. Dì chiaramente: "Chiamare cliente Rossi per preventivo"
+5. Il testo appare nel campo "Titolo Attività"!
+6. Compila gli altri campi e salva
+
+ESEMPIO - AGGIUNGERE UNA SPESA:
+1. Vai in "Spese"
+2. Clicca "🎤 Inserimento Vocale"
+3. Dì: "Raccomandata per contratto cliente Bianchi"
+4. Il testo appare nel campo "Descrizione"!
+5. Inserisci l'importo e salva
+
+ESEMPIO - AGGIUNGERE UN APPUNTAMENTO:
+1. Vai in "Appuntamenti"
+2. Clicca "🎤 Inserimento Vocale"
+3. Dì: "Riunione trimestrale con direzione"
+4. Il testo appare nel campo "Titolo"!
+5. Compila data, ora e altri dettagli
+
+
+💡 VANTAGGI:
+────────────────────────────────────────────────────────────────────────────
+
+📅 APPUNTAMENTI:
+✅ Calendario completo degli impegni
+✅ Non perdi mai un appuntamento
+✅ Visualizzazione immediata prossimi impegni
+✅ Storico completo incontri e riunioni
+✅ Integrato con calendario mensile
+
+🎤 INSERIMENTO VOCALE:
+✅ Velocità: inserisci dati 3x più veloce!
+✅ Comodo quando hai le mani occupate
+✅ Perfetto quando sei in movimento
+✅ Riduci errori di battitura
+✅ Multitasking facilitato
+
+
+🔧 DETTAGLI TECNICI:
+────────────────────────────────────────────────────────────────────────────
+
+APPUNTAMENTI:
+- Dati salvati per ogni azienda separatamente
+- Ordinamento automatico per data/ora
+- Appuntamenti passati visualizzati con opacità
+- Migrazione automatica dati esistenti
+- Esportazione inclusa nel backup
+
+RICONOSCIMENTO VOCALE:
+- Usa Web Speech API nativa del browser
+- Lingua: Italiano (it-IT)
+- Riconoscimento in tempo reale
+- Gestione errori automatica
+- Feedback visivo durante l'ascolto
+- Compatibile con Chrome/Edge/Safari
+
+
+📝 NOTA IMPORTANTE RICONOSCIMENTO VOCALE:
+────────────────────────────────────────────────────────────────────────────
+
+⚠️ Il riconoscimento vocale funziona SOLO con:
+   - ✅ Google Chrome
+   - ✅ Microsoft Edge
+   - ✅ Safari (Mac/iOS)
+
+❌ NON funziona con:
+   - Firefox (non supporta l'API)
+   - Browser datati
+
+💡 SUGGERIMENTO: Parla chiaramente e senza rumori di fondo
+   per risultati ottimali!
+
+
+═══════════════════════════════════════════════════════════════════════════
+
+
+📅 AGGIORNAMENTO #3 - 09 Dicembre 2025 (Sera)
+═══════════════════════════════════════════════════════════════════════════
+
+✨ NUOVA FUNZIONALITÀ: GESTIONE SPESE GIORNALIERE
+
+Aggiunta sezione completa per tracciare tutte le spese operative quotidiane!
+
+📋 FUNZIONALITÀ PRINCIPALI:
+────────────────────────────────────────────────────────────────────────────
+
+✅ NUOVA SEZIONE "💰 SPESE" NEL MENU
+
+   - Form rapido per inserire spese
+   - Statistiche in tempo reale
+   - Tabella completa di tutte le spese
+   - Dati separati per ogni azienda
+
+✅ FORM INSERIMENTO SPESA:
+
+   📝 Campi disponibili:
+   - Descrizione (es: "Raccomandata per cliente X")
+   - Importo in €
+   - Data
+   - Categoria con 10 opzioni predefinite:
+     📮 Posta e Raccomandate
+     ✈️ Viaggi e Trasferte
+     🚖 Taxi e Trasporti
+     📎 Materiale Ufficio
+     ✏️ Cancelleria
+     🍽️ Pranzi di Lavoro
+     🅿️ Parcheggi
+     📄 Marche da Bollo
+     📦 Corrieri
+     💼 Altro
+   - Note opzionali
+
+✅ CARD NELLA DASHBOARD:
+
+   💰 Spese del Mese
+   - Totale spese del mese corrente in grande
+   - Numero spese registrate
+   - Ultime 5 spese recenti con dettagli
+
+✅ STATISTICHE IN TEMPO REALE:
+
+   📊 4 Box informativi:
+   - 🔴 Spese di Oggi
+   - 🟠 Spese Questa Settimana
+   - 🔵 Spese Questo Mese
+   - 🟣 Totale Spese Registrate
+
+✅ TABELLA COMPLETA:
+
+   Visualizza tutte le spese con:
+   - Data
+   - Descrizione
+   - Categoria con icona
+   - Importo in € (rosso per evidenziare)
+   - Note
+   - Bottone Elimina
+
+✅ INTEGRAZIONE NEL REPORT SETTIMANALE:
+
+   Nuova sezione "💰 Spese della settimana":
+   - Riepilogo per categoria
+   - Totale spese settimana
+   - Incluso nel PDF quando esporti
+
+✅ ICONE E COLORI:
+
+   Ogni categoria ha la sua icona per riconoscimento immediato
+   Importi visualizzati in rosso per massima visibilità
+
+
+🎯 COME USARE LA GESTIONE SPESE:
+────────────────────────────────────────────────────────────────────────────
+
+1. Clicca su "💰 Spese" nel menu
+2. Compila il form:
+   - Inserisci descrizione (cosa hai pagato)
+   - Inserisci importo in euro
+   - Seleziona la data (default oggi)
+   - Scegli la categoria appropriata
+   - Aggiungi note se necessario
+3. Clicca "Aggiungi Spesa"
+4. La spesa viene salvata automaticamente!
+
+✅ VISUALIZZAZIONE:
+- Dashboard → Vedi totale mese + ultime 5 spese
+- Sezione Spese → Vedi tutte le statistiche e tabella completa
+- Report Settimanale → Include automaticamente spese della settimana
+
+
+💡 VANTAGGI:
+────────────────────────────────────────────────────────────────────────────
+
+✅ Tracciamento completo spese operative
+✅ Rendicontazione precisa per ogni azienda
+✅ Report automatici per il management
+✅ Identificazione rapida delle categorie di spesa maggiori
+✅ Storico completo per rimborsi e contabilità
+✅ Nessuna spesa dimenticata
+✅ Visibilità immediata dei costi
+
+
+🔧 DETTAGLI TECNICI:
+────────────────────────────────────────────────────────────────────────────
+
+- Dati salvati nel localStorage per ogni azienda
+- Migrazione automatica dati vecchi (aggiunge campo "expenses")
+- Calcoli automatici: oggi, settimana, mese
+- Ordinamento decrescente per data (più recenti prima)
+- Formato valuta con 2 decimali (es: € 45.50)
+- Esportazione inclusa nel backup completo
+- Form con data di oggi precompilata
+
+
+📝 ESEMPI D'USO:
+────────────────────────────────────────────────────────────────────────────
+
+📮 Invii una raccomandata:
+   Descrizione: "Raccomandata contratto Cliente Rossi"
+   Importo: 8.50 €
+   Categoria: Posta e Raccomandate
+
+🚖 Prendi un taxi per riunione:
+   Descrizione: "Taxi andata/ritorno sede cliente"
+   Importo: 35.00 €
+   Categoria: Taxi e Trasporti
+
+📎 Acquisti materiale ufficio:
+   Descrizione: "Risme carta A4 e toner stampante"
+   Importo: 127.80 €
+   Categoria: Materiale Ufficio
+
+🍽️ Pranzo di lavoro:
+   Descrizione: "Pranzo con fornitore ABC"
+   Importo: 65.00 €
+   Categoria: Pranzi di Lavoro
+
+
+⚠️ BUG FIX:
+────────────────────────────────────────────────────────────────────────────
+
+🐛 RISOLTO: Cambio azienda con SOP aperta
+   - Problema: Quando si cambiava azienda con una procedura SOP aperta
+     e un tab (es. Statistiche) selezionato, la videata rimaneva aperta
+   - Soluzione: Ora tutte le SOP si chiudono automaticamente quando
+     si cambia azienda, tornando al menu principale
+
+
+═══════════════════════════════════════════════════════════════════════════
+
+
+📅 AGGIORNAMENTO #2 - 09 Dicembre 2025 (Pomeriggio)
+═══════════════════════════════════════════════════════════════════════════
+
+✨ NUOVA FUNZIONALITÀ: DASHBOARD OPERATIVE SOP
+
+Aggiunta dashboard interattiva completa per ogni SOP (Procedura Operativa):
+
+📋 FUNZIONALITÀ PRINCIPALI:
+────────────────────────────────────────────────────────────────────────────
+
+✅ 3 TAB INTEGRATE PER OGNI SOP:
+
+   1. ✅ CHECKLIST INTERATTIVA
+      - Esecuzione guidata step-by-step
+      - Checkbox per ogni passaggio
+      - Progress bar in tempo reale (0% → 100%)
+      - Campo note opzionale
+      - Bottone "Completa Procedura"
+
+   2. 📊 STATISTICHE
+      - Totale esecuzioni
+      - Esecuzioni questa settimana
+      - Esecuzioni questo mese
+      - Tempo medio (futuro)
+      - Prima/ultima esecuzione
+      - Frequenza media
+
+   3. 📜 STORICO COMPLETO
+      - Log di tutte le esecuzioni
+      - Data, ora, percentuale completamento
+      - Note inserite
+      - Possibilità di eliminare singole voci
+
+
+✅ TRACCIAMENTO AUTOMATICO:
+
+Ogni volta che completi una SOP, il sistema salva:
+   • Data e ora esecuzione
+   • Quanti passaggi hai completato
+   • Percentuale di completamento
+   • Note opzionali inserite
+   • Aggiornamento statistiche in tempo reale
+
+
+✅ PROGRESS BAR VISIVA:
+
+   ┌─────────────────────────────────┐
+   │ ████████████░░░░░░░░   60%     │  ← Si aggiorna mentre spunti
+   └─────────────────────────────────┘
+
+
+✅ INDICATORI IN ANTEPRIMA:
+
+Nella lista SOP, ogni procedura mostra:
+   📊 Esecuzioni: 24
+   📅 Ultima: 09/12/2025
+   ⏱️ Media: N/A
+
+
+✅ DATI SEPARATI PER AZIENDA:
+
+Ogni azienda ha il proprio storico esecuzioni SOP indipendente
+
+
+🎯 COME USARE LE DASHBOARD SOP:
+────────────────────────────────────────────────────────────────────────────
+
+1. Vai in "Procedure (SOP)"
+2. Clicca su una procedura per aprirla
+3. Vedrai 3 tab:
+   - ✅ Checklist → Esegui la procedura
+   - 📊 Statistiche → Analizza performance
+   - 📜 Storico → Vedi tutte le esecuzioni
+
+4. Per eseguire una procedura:
+   - Spunta ogni passaggio mentre lo fai
+   - Guarda la progress bar aggiornarsi
+   - Aggiungi note (opzionale ma consigliato!)
+   - Clicca "✅ Completa Procedura"
+
+5. Sistema salva automaticamente tutto!
+
+
+💡 VANTAGGI:
+────────────────────────────────────────────────────────────────────────────
+
+✅ Compliance e tracciabilità (audit, ISO, certificazioni)
+✅ Dimostri che le procedure sono seguite
+✅ Identifichi procedure trascurate o problematiche
+✅ Migliori continuamente i processi (leggi le note)
+✅ Formazione strutturata nuovi colleghi
+✅ Report oggettivi al management
+✅ Evidenze per audit e ispezioni
+
+
+📚 DOCUMENTAZIONE:
+────────────────────────────────────────────────────────────────────────────
+
+Guida completa: "SOP-DASHBOARD - GUIDA COMPLETA.txt"
+
+
+═══════════════════════════════════════════════════════════════════════════
+
+
+📅 AGGIORNAMENTO #1 - 09 Dicembre 2025 (Mattina)
+═══════════════════════════════════════════════════════════════════════════
+
+✨ NUOVA FUNZIONALITÀ: CALENDARIO MENSILE VISUALE
+
+Aggiunta una nuova sezione "Calendario" con le seguenti caratteristiche:
+
+📋 FUNZIONALITÀ PRINCIPALI:
+────────────────────────────────────────────────────────────────────────────
+
+✅ Calendario mensile completo con griglia 7x6
+   - Visualizzazione chiara di tutti i giorni del mese
+   - Giorni del mese precedente/successivo in grigio
+   - Giorno corrente evidenziato con bordo verde
+
+✅ Visualizzazione attività nelle celle del giorno
+   - Ogni attività mostra il titolo
+   - Colori automatici in base alla priorità:
+     🔴 A+ = Rosso (urgente)
+     🟠 A = Arancione (importante)
+     🔵 B = Blu (programmabile)
+     ⚪ C = Grigio (routine)
+     🟣 Scadenze = Viola
+
+✅ Visualizzazione scadenze
+   - Tutte le scadenze fiscali, legali, HR, amministrative
+   - Appaiono automaticamente nelle celle del giorno corrispondente
+
+✅ Navigazione tra mesi
+   - Bottoni "◀ Mese Precedente" e "Mese Successivo ▶"
+   - Naviga liberamente tra passato e futuro
+   - Titolo aggiornato automaticamente (es: "Dicembre 2025")
+
+✅ Gestione intelligente degli eventi
+   - Massimo 3 eventi visibili per cella
+   - Se ci sono più eventi, mostra "+X altri"
+   - Tooltip al passaggio del mouse con titolo completo
+
+✅ Aggiornamento automatico
+   - Quando aggiungi/modifichi/elimini attività → calendario si aggiorna
+   - Quando aggiungi/modifichi/elimini scadenze → calendario si aggiorna
+   - Quando cambi azienda → calendario si aggiorna con i dati dell'azienda selezionata
+
+✅ Legenda colori integrata
+   - Spiegazione visiva di tutti i colori delle priorità
+   - Sempre visibile sotto il calendario
+
+
+🎯 COME USARE IL CALENDARIO:
+────────────────────────────────────────────────────────────────────────────
+
+1. Clicca sul menu "Calendario" nella barra di navigazione
+2. Vedrai il mese corrente con tutte le tue attività e scadenze
+3. Usa i bottoni "◀ Mese Precedente" e "Mese Successivo ▶" per navigare
+4. Il giorno di oggi è evidenziato con bordo verde
+5. Ogni evento nella cella mostra:
+   - Il titolo dell'attività/scadenza
+   - Il colore della priorità
+6. Se ci sono più di 3 eventi in un giorno, vedrai "+X altri"
+
+
+💡 VANTAGGI:
+────────────────────────────────────────────────────────────────────────────
+
+✅ Visione d'insieme immediata del mese
+✅ Identificazione rapida dei giorni più carichi
+✅ Pianificazione facilitata
+✅ Colori intuitivi per priorità immediate
+✅ Perfetto per riunioni e report settimanali
+
+
+🔧 DETTAGLI TECNICI:
+────────────────────────────────────────────────────────────────────────────
+
+- CSS responsive (funziona su desktop, tablet, mobile)
+- Giorni del mese precedente/successivo mostrati in grigio chiaro
+- Sistema di tooltip per titoli lunghi
+- Ordinamento automatico per priorità (A+ sempre in cima)
+- Sincronizzazione con tutte le altre sezioni del sistema
+
+
+📱 RESPONSIVE:
+────────────────────────────────────────────────────────────────────────────
+
+Il calendario è ottimizzato anche per dispositivi mobili:
+- Celle più piccole su schermi piccoli
+- Testo ridimensionato automaticamente
+- Touch-friendly per tablet e smartphone
+
+
+═══════════════════════════════════════════════════════════════════════════
+
+⚠️ IMPORTANTE:
+I dati del calendario provengono dalle attività e scadenze che hai inserito.
+Per vedere eventi nel calendario, assicurati di:
+1. Inserire attività con una "Data Scadenza"
+2. Inserire scadenze con una "Data Scadenza"
+
+═══════════════════════════════════════════════════════════════════════════
+
+📞 Per domande o problemi, consulta il file "LEGGIMI - ISTRUZIONI.txt"
+
+═══════════════════════════════════════════════════════════════════════════

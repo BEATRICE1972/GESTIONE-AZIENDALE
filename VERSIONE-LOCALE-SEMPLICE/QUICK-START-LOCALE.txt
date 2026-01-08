@@ -1,0 +1,143 @@
+╔═══════════════════════════════════════════════════════════════════════╗
+║                                                                       ║
+║           QUICK START - VERSIONE LOCALE                              ║
+║           Sistema Gestione Direzionale                               ║
+║                                                                       ║
+╚═══════════════════════════════════════════════════════════════════════╝
+
+ISTRUZIONI RAPIDE
+=================
+
+1. APRI IL FILE
+   • Trova: gestione-locale.html
+   • Fai: DOPPIO CLICK
+   • Il browser si apre automaticamente
+
+2. INIZIA SUBITO
+   • Vedi la dashboard principale
+   • Seleziona un'azienda dal menu (in alto o a sinistra)
+   • Inizia ad aggiungere task, scadenze, email, ecc.
+
+3. BACKUP IMPORTANTE
+   • Menu → Impostazioni
+   • Click "💾 Backup Manuale"
+   • Salva il file JSON in luogo sicuro
+   • RIPETI ogni settimana!
+
+═══════════════════════════════════════════════════════════════════════
+
+COSA PUOI FARE
+==============
+
+✅ Gestire attività con priorità (A+, A, B, C)
+✅ Tracciare scadenze fiscali e pagamenti
+✅ Registrare spese e budget
+✅ Calendario con appuntamenti
+✅ Gestione email con assistente IA
+✅ Rubrica contatti completa
+✅ Archiviazione documenti
+✅ Procedure operative (SOP)
+✅ Report e statistiche
+✅ Multi-azienda (fino a 4)
+
+═══════════════════════════════════════════════════════════════════════
+
+CARATTERISTICHE
+===============
+
+💾 OFFLINE       → Funziona senza internet
+🔒 PRIVATO       → Dati solo sul tuo PC
+🚀 VELOCE        → Zero latenza, tutto locale
+📁 PORTABILE     → Copia su USB e usa ovunque
+🆓 GRATUITO      → Nessun costo, nessun abbonamento
+✨ COMPLETO      → Tutte le funzionalità incluse
+
+═══════════════════════════════════════════════════════════════════════
+
+DOMANDE FREQUENTI
+=================
+
+Q: Serve installare qualcosa?
+A: NO! Basta aprire il file.
+
+Q: Serve internet?
+A: NO! Funziona completamente offline.
+
+Q: I dati sono al sicuro?
+A: SÌ, salvati nel tuo browser. Fai backup regolari!
+
+Q: Posso usarlo su altri PC?
+A: SÌ, copia il file e importa il backup JSON.
+
+Q: Funziona su Mac/Linux?
+A: SÌ, su qualsiasi sistema con browser moderno.
+
+Q: Posso modificarlo?
+A: SÌ, è un file HTML aperto, personalizzabile.
+
+═══════════════════════════════════════════════════════════════════════
+
+ATTENZIONE
+==========
+
+⚠️ I dati sono salvati NEL BROWSER
+   → Se cancelli i dati del browser, perdi tutto
+   → SOLUZIONE: Fai backup regolari!
+
+⚠️ Un browser = Un set di dati
+   → Chrome e Firefox hanno dati separati
+   → SOLUZIONE: Usa sempre lo stesso browser
+
+⚠️ Nessuna sync automatica tra dispositivi
+   → SOLUZIONE: Backup → Importa su altro PC
+
+═══════════════════════════════════════════════════════════════════════
+
+FILE UTILI
+==========
+
+📄 gestione-locale.html       → Il programma (apri questo!)
+📖 GUIDA-VERSIONE-LOCALE.md   → Guida completa dettagliata
+📋 TEST-VERSIONE-LOCALE.md    → Checklist per testare
+📚 README-VERSIONI.md          → Confronto con versione cloud
+📝 QUICK-START-LOCALE.txt     → Questo file
+
+═══════════════════════════════════════════════════════════════════════
+
+ROUTINE SUGGERITA
+=================
+
+OGNI GIORNO:
+  • Controlla dashboard
+  • Segna task completati
+  • Verifica appuntamenti
+
+OGNI SETTIMANA:
+  • Backup manuale (JSON)
+  • Rivedi spese
+  • Pianifica settimana
+
+OGNI MESE:
+  • Backup completo
+  • Report mensile
+  • Pulizia archivi
+
+═══════════════════════════════════════════════════════════════════════
+
+SUPPORTO
+========
+
+Problemi? Controlla:
+1. Browser aggiornato (Chrome, Firefox, Edge)
+2. JavaScript abilitato
+3. File non corrotto (dimensione ~400 KB)
+4. Console browser (F12) per errori
+
+═══════════════════════════════════════════════════════════════════════
+
+                    BUON LAVORO! 🚀
+
+          Sistema Gestione Direzionale - Versione Locale
+                    Tutto in un file!
+
+═══════════════════════════════════════════════════════════════════════

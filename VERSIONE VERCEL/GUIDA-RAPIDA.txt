@@ -1,0 +1,73 @@
+╔══════════════════════════════════════════════════════════════════════════╗
+║                                                                          ║
+║                  📋 GUIDA RAPIDA - DA TENERE SULLA SCRIVANIA             ║
+║              Sistema di Gestione Direzionale Multi-Azienda               ║
+║                                                                          ║
+╚══════════════════════════════════════════════════════════════════════════╝
+
+
+🚀 AVVIO
+═══════════════════════════════════════════════════════════════════════════
+
+   Doppio click su: sistema-gestione-direzionale.html
+
+
+🎨 PRIORITÀ - COLORI
+═══════════════════════════════════════════════════════════════════════════
+
+   🔴 A+  = URGENTE! (da fare oggi)
+   🟠 A   = Importante
+   🔵 B   = Programmabile
+   ⚪ C   = Routine/Delegabile
+
+
+📅 ROUTINE SETTIMANALE
+═══════════════════════════════════════════════════════════════════════════
+
+   LUNEDÌ          → Controllo Dashboard + Aggiungi attività settimana
+
+   MAR-GIO         → Spunta attività completate
+
+   VENERDÌ         → Genera Report + FAI BACKUP DATI
+
+
+⚡ AZIONI RAPIDE
+═══════════════════════════════════════════════════════════════════════════
+
+   Aggiungere attività      → Menu "Attività" → Compila form
+
+   Completare attività      → Clicca checkbox ☑
+
+   Cambiare azienda         → Clicca bottone colorato in alto
+
+   Vedere urgenze           → Menu "Dashboard"
+
+   Generare report          → Menu "Report Direzionale"
+
+   Backup dati              → Menu "Impostazioni" → Esporta dati
+
+
+💾 BACKUP (IMPORTANTE!)
+═══════════════════════════════════════════════════════════════════════════
+
+   ⏰ OGNI VENERDÌ:
+
+   1. Apri programma
+   2. Menu "Impostazioni"
+   3. Click "📥 Esporta Tutti i Dati"
+   4. Salva file .json in posto sicuro
+
+
+📞 EMERGENZA - HO PERSO I DATI!
+═══════════════════════════════════════════════════════════════════════════
+
+   1. Apri programma
+   2. Menu "Impostazioni"
+   3. Click "📤 Importa Dati"
+   4. Seleziona ultimo file backup .json
+   5. Conferma
+
+
+════════════════════════════════════════════════════════════════════════════
+  💡 Tieni questa guida sempre visibile mentre lavori!
+════════════════════════════════════════════════════════════════════════════

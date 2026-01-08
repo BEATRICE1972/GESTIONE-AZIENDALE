@@ -1,0 +1,9 @@
+# Modifica 1: Cambia titolo
+s|<title>Sistema di Gestione Direzionale Multi-Azienda</title>|<title>Sistema Gestione Direzionale - Versione Locale</title>|g
+
+# Modifica 2-4: Rimuovi tutti i tag script Supabase
+/<!-- SUPABASE CDN/,/onerror=/d
+/<!-- SUPABASE INTEGRATION/,/onerror=/d
+
+# Modifica 5: Modifica header sidebar per aggiungere banner Versione Locale
+s|<span>Gestione Direzionale</span>|<span>Gestione Direzionale</span>\n            </h2>\n            <div style="padding: 8px 20px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); margin: 10px 0; border-radius: 8px; text-align: center; font-size: 0.85em;">\n                💾 <strong>Versione Locale</strong>\n            </div>\n            <h2 style="display: none;">|g

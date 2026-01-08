@@ -1,0 +1,212 @@
+╔═══════════════════════════════════════════════════════════════════════════╗
+║                                                                           ║
+║         SISTEMA DI GESTIONE DIREZIONALE MULTI-AZIENDA                     ║
+║         Assistente di Direzione Senior e Coordinatrice Operativa          ║
+║                                                                           ║
+╚═══════════════════════════════════════════════════════════════════════════╝
+
+
+📂 CONTENUTO DELLA CARTELLA
+═════════════════════════════════════════════════════════════════════════════
+
+✅ sistema-gestione-direzionale.html  → IL PROGRAMMA PRINCIPALE
+✅ BACKUP-AUTOMATICO.bat              → Script per backup rapido
+✅ Backup/                            → Cartella dove vengono salvati i backup
+✅ LEGGIMI - ISTRUZIONI.txt           → Questo file
+
+
+🚀 AVVIO RAPIDO (3 PASSI)
+═════════════════════════════════════════════════════════════════════════════
+
+1️⃣  Fai DOPPIO CLICK su "sistema-gestione-direzionale.html"
+2️⃣  Si apre nel browser → vai in "Impostazioni" e configura i nomi delle 4 aziende
+3️⃣  Inizia ad aggiungere attività e scadenze!
+
+✅ FATTO! Il sistema è pronto all'uso.
+
+
+💾 SISTEMA DI BACKUP - IMPORTANTE!
+═════════════════════════════════════════════════════════════════════════════
+
+Ci sono DUE TIPI di backup che devi fare:
+
+
+🔹 BACKUP TIPO 1: BACKUP DEL FILE HTML (File del programma)
+────────────────────────────────────────────────────────────────────────────
+
+Questo backup salva una copia del programma stesso.
+
+COME FARE:
+1. Fai doppio click su "BACKUP-AUTOMATICO.bat"
+2. Si aprirà una finestra nera che creerà automaticamente una copia
+3. Il file verrà salvato nella cartella "Backup" con data e ora
+4. Esempio: backup_2025-12-09_14-30.html
+
+⏰ QUANDO FARLO: Una volta al mese, o prima di aggiornare il programma
+
+
+🔹 BACKUP TIPO 2: BACKUP DEI DATI (I tuoi dati: attività, scadenze, ecc.)
+────────────────────────────────────────────────────────────────────────────
+
+Questo backup salva TUTTI i dati che hai inserito nel sistema.
+
+COME FARE:
+1. Apri il programma (doppio click sul file HTML)
+2. Vai nel menu "IMPOSTAZIONI" (ultimo bottone in alto)
+3. Clicca sul bottone "📥 Esporta Tutti i Dati"
+4. Verrà scaricato un file .json (esempio: backup-gestione-direzionale-2025-12-09.json)
+5. SALVA questo file in un posto sicuro:
+   - Nella cartella "Backup" qui dentro
+   - Su OneDrive / Google Drive / Dropbox
+   - Su una chiavetta USB
+   - Nella cartella "Backup" di questo progetto
+
+⏰ QUANDO FARLO: UNA VOLTA A SETTIMANA (consiglio: ogni venerdì)
+
+
+🔄 COME RIPRISTINARE I DATI DA UN BACKUP
+────────────────────────────────────────────────────────────────────────────
+
+Se hai perso i dati o vuoi ripristinare un backup:
+
+1. Apri il programma
+2. Vai in "IMPOSTAZIONI"
+3. Clicca "📤 Importa Dati"
+4. Seleziona il file .json che avevi salvato
+5. Conferma → TUTTI i dati verranno ripristinati
+6. La pagina si ricaricherà automaticamente
+
+
+📋 UTILIZZO QUOTIDIANO
+═════════════════════════════════════════════════════════════════════════════
+
+LUNEDÌ MATTINA:
+✅ Apri il programma
+✅ Controlla la Dashboard di ogni azienda
+✅ Aggiungi nuove attività della settimana
+✅ Verifica scadenze imminenti
+
+DURANTE LA SETTIMANA:
+✅ Aggiungi attività urgenti quando arrivano
+✅ Spunta il checkbox quando completi un'attività
+✅ Consulta le Procedure (SOP) quando serve
+
+VENERDÌ POMERIGGIO:
+✅ Genera il Report Direzionale settimanale
+✅ Esportalo in PDF (bottone "Esporta in PDF")
+✅ Invialo al management
+✅ 💾 FAI IL BACKUP DEI DATI (Esporta tutti i dati)
+
+
+🎯 MENU PRINCIPALE - COSA FA OGNI SEZIONE
+═════════════════════════════════════════════════════════════════════════════
+
+📊 DASHBOARD
+   → Vista d'insieme con statistiche e attività più urgenti
+   → Usa questa sezione ogni mattina per orientarti
+
+✅ ATTIVITÀ
+   → Aggiungi, modifica, elimina tutte le attività
+   → Assegna priorità (A+, A, B, C)
+   → Imposta scadenze
+
+📅 SCADENZE
+   → Calendario di tutte le scadenze fiscali, legali, HR, amministrative
+   → Visualizzazione in tabella ordinata per data
+
+📖 PROCEDURE (SOP)
+   → Le 10 procedure operative standard
+   → Clicca su una procedura per espanderla e vedere i passaggi
+
+📝 REPORT DIREZIONALE
+   → Genera automaticamente il report settimanale
+   → Esportalo in PDF per inviarlo
+
+⚙️ IMPOSTAZIONI
+   → Configura i nomi delle 4 aziende
+   → Esporta/Importa dati
+   → Gestione generale
+
+
+🎨 SISTEMA DI PRIORITÀ (Usa sempre!)
+═════════════════════════════════════════════════════════════════════════════
+
+🔴 A+ (ROSSO)    = URGENTE! Impatto diretto, da fare OGGI
+🟠 A (ARANCIONE) = Importante, alta priorità
+🔵 B (BLU)       = Importante ma programmabile
+⚪ C (GRIGIO)    = Routine o delegabile
+
+👉 REGOLA D'ORO: Concentrati sempre prima su A+ e A!
+
+
+🏢 LAVORARE CON 4 AZIENDE
+═════════════════════════════════════════════════════════════════════════════
+
+Sotto il menu principale trovi 4 BOTTONI COLORATI:
+- Azienda 1 (ROSSO)
+- Azienda 2 (BLU)
+- Azienda 3 (VERDE)
+- Azienda 4 (ARANCIONE)
+
+Per cambiare azienda:
+→ Clicca sul bottone dell'azienda
+→ Tutti i dati cambiano istantaneamente
+→ Ogni azienda ha i suoi dati separati
+
+
+⚠️ IMPORTANTE DA SAPERE
+═════════════════════════════════════════════════════════════════════════════
+
+✅ I dati si salvano AUTOMATICAMENTE nel browser ogni volta che aggiungi/modifichi
+✅ I dati sono salvati SOLO sul tuo computer (privacy totale)
+✅ Il programma funziona OFFLINE (non serve internet)
+✅ FAI BACKUP SETTIMANALE dei dati (Impostazioni → Esporta Tutti i Dati)
+✅ Non cancellare la cronologia del browser altrimenti perdi i dati!
+✅ Se cambi computer, porta con te il file HTML + il backup .json
+
+
+🆘 PROBLEMI COMUNI E SOLUZIONI
+═════════════════════════════════════════════════════════════════════════════
+
+❌ "Ho chiuso il browser e non vedo più i miei dati!"
+✅ SOLUZIONE: Riapri il file HTML, i dati ci sono ancora (salvati nel browser)
+
+❌ "Ho cancellato la cronologia del browser e ho perso tutto!"
+✅ SOLUZIONE: Vai in Impostazioni → Importa Dati → Seleziona l'ultimo backup .json
+
+❌ "Voglio usare il sistema su un altro computer"
+✅ SOLUZIONE:
+   1. Esporta i dati (file .json)
+   2. Copia il file HTML sull'altro PC
+   3. Apri il file HTML
+   4. Importa il file .json
+
+❌ "Il programma non si apre / non funziona"
+✅ SOLUZIONE:
+   - Verifica di avere un browser aggiornato (Chrome, Firefox, Edge)
+   - Fai click destro sul file → Apri con → Scegli il browser
+   - Se hai fatto modifiche al file, ripristina un backup dalla cartella Backup/
+
+❌ "Ho perso tutto e non ho backup!"
+✅ SOLUZIONE: Purtroppo non è recuperabile. DA OGGI: fai backup settimanale!
+
+
+📞 SUPPORTO
+═════════════════════════════════════════════════════════════════════════════
+
+Per problemi o domande, puoi sempre chiedere a Claude Code di aiutarti!
+
+
+╔═══════════════════════════════════════════════════════════════════════════╗
+║                                                                           ║
+║  ⭐ CONSIGLIO FINALE: Fai diventare questo sistema la tua routine         ║
+║     quotidiana. Dopo 2 settimane diventerà automatico e risparmierai      ║
+║     ORE di lavoro ogni settimana!                                         ║
+║                                                                           ║
+║  💾 NON DIMENTICARE: Backup dei dati ogni VENERDÌ!                        ║
+║                                                                           ║
+╚═══════════════════════════════════════════════════════════════════════════╝
+
+
+Versione 1.0 - Dicembre 2025
+Sistema creato da Claude Code per l'ottimizzazione della gestione direzionale

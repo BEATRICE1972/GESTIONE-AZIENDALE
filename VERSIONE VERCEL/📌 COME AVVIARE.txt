@@ -1,0 +1,65 @@
+═══════════════════════════════════════════════════════════════
+  🚀 COME AVVIARE IL SISTEMA - GUIDA RAPIDA
+═══════════════════════════════════════════════════════════════
+
+🔒 USO LOCALE (MASSIMA SICUREZZA - CONSIGLIATO PER DATI SENSIBILI)
+───────────────────────────────────────────────────────────────
+
+  1. DOPPIO CLICK su: 🔒 AVVIA-LOCALE-SICURO.bat
+
+  2. Attendi 3 secondi
+
+  3. Il browser si apre automaticamente
+
+  4. ✅ Inizia a lavorare!
+
+  Per chiudere: Ctrl+C nel terminale + chiudi browser
+
+  📖 Leggi: 🔒 GUIDA-USO-LOCALE.md per dettagli
+
+
+🌐 USO WEB (ACCESSO DA QUALSIASI DISPOSITIVO)
+───────────────────────────────────────────────────────────────
+
+  1. Apri: https://gestione-aziendale-git-main-beatrices-projects-c612032b.vercel.app/
+
+  2. Inizia a lavorare!
+
+  ⚠️ PRIMA VOLTA: Rimuovi protezione Vercel
+     - Vai su vercel.com
+     - Settings → Deployment Protection → Disabled
+
+  📖 Leggi: ✅ INIZIA QUI.md per dettagli
+
+
+☁️ USO WEB CON CLOUD SYNC + LOGIN (SICUREZZA + MULTI-DEVICE)
+───────────────────────────────────────────────────────────────
+
+  1. DOPPIO CLICK su: AUTO-SETUP.bat
+
+  2. Segui istruzioni a schermo (5 minuti)
+
+  3. Login con email e password
+
+  4. Dati sincronizzati su tutti i dispositivi!
+
+  📖 Leggi: GUIDA-COMPLETA-CLOUD.md per dettagli
+
+
+═══════════════════════════════════════════════════════════════
+  💡 QUALE SCEGLIERE?
+═══════════════════════════════════════════════════════════════
+
+🔒 LOCALE          → Dati ultra-sensibili, massima privacy
+🌐 WEB             → Accesso comodo, dati non critici
+☁️ CLOUD + LOGIN   → Multi-device, backup automatico
+
+
+═══════════════════════════════════════════════════════════════
+
+NOTA: Puoi usare tutte e tre le modalità!
+- Locale per dati sensibili
+- Web per accesso rapido da fuori
+- Entrambi con backup regolari
+
+═══════════════════════════════════════════════════════════════
