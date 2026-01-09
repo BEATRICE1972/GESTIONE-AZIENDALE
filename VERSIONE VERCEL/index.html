@@ -3752,11 +3752,10 @@
 
                 <div class="card" style="margin-top: 30px;">
                     <h3>Gestione Dati</h3>
-                    <button onclick="exportData()" class="btn">📥 Esporta Tutti i Dati (JSON)</button>
+                    <button onclick="exportData()" class="btn btn-success">💾 Backup Manuale (Scarica File JSON)</button>
                     <button onclick="exportToCSV()" class="btn">📊 Esporta CSV</button>
                     <button onclick="exportToExcel()" class="btn">📑 Esporta Excel</button>
                     <button onclick="importData()" class="btn">📤 Importa Dati</button>
-                    <button onclick="createBackup()" class="btn btn-success">💾 Backup Manuale</button>
                     <button onclick="clearAllData()" class="btn btn-danger">🗑️ Cancella Tutti i Dati</button>
                     <input type="file" id="import-file" style="display:none" accept=".json" onchange="handleImport(event)">
                 </div>

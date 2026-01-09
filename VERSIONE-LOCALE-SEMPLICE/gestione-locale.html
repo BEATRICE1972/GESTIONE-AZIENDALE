@@ -1,8 +1,48 @@
 <!DOCTYPE html>
+<!--
+╔═══════════════════════════════════════════════════════════════════════════╗
+║                                                                           ║
+║   SISTEMA GESTIONE DIREZIONALE - VERSIONE LOCALE                         ║
+║   File HTML Standalone - Completamente Autocontenuto                     ║
+║                                                                           ║
+║   ✅ CARATTERISTICHE:                                                     ║
+║   • Nessuna dipendenza esterna (no CDN, no cloud)                        ║
+║   • Tutti gli stili CSS inline                                           ║
+║   • Tutto il JavaScript inline                                           ║
+║   • Storage: solo localStorage del browser                               ║
+║   • Funziona con doppio click (file:///)                                 ║
+║   • Copiabile su qualsiasi PC                                            ║
+║   • Sistema multi-azienda completo                                       ║
+║                                                                           ║
+║   📦 FUNZIONALITÀ:                                                        ║
+║   • Gestione Attività (priorità A+, A, B, C)                            ║
+║   • Scadenze fiscali e pagamenti                                         ║
+║   • Spese e budget                                                       ║
+║   • Calendario appuntamenti                                              ║
+║   • Email con assistente IA                                              ║
+║   • Contatti                                                             ║
+║   • Archivi documenti                                                    ║
+║   • Procedure SOP                                                        ║
+║   • Backup/Export dati (JSON, CSV, Excel)                                ║
+║                                                                           ║
+║   🚀 UTILIZZO:                                                            ║
+║   1. Apri il file con doppio click                                       ║
+║   2. Oppure trascina nel browser                                         ║
+║   3. Tutti i dati saranno salvati automaticamente                        ║
+║                                                                           ║
+║   ⚠️ IMPORTANTE:                                                          ║
+║   • Usa la funzione "Backup Manuale" regolarmente                        ║
+║   • I dati sono salvati solo su questo dispositivo/browser               ║
+║   • Cancellando i dati del browser perderai tutti i dati                 ║
+║                                                                           ║
+╚═══════════════════════════════════════════════════════════════════════════╝
+-->
 <html lang="it">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Sistema Gestione Direzionale Multi-Azienda - Versione Locale Standalone">
+    <meta name="author" content="Sistema Gestione Direzionale">
     <title>Sistema Gestione Direzionale - Versione Locale</title>
     <style>
         * {
@@ -2730,7 +2770,8 @@
         }
     </style>
 
-    </head>
+    <!-- VERSIONE LOCALE - Solo localStorage, nessuna dipendenza cloud -->
+</head>
 <body>
     <!-- SIDEBAR NAVIGATION -->
     <div class="sidebar" id="sidebar">
@@ -2739,9 +2780,6 @@
                 <span class="icon">📊</span>
                 <span>Gestione Direzionale</span>
             </h2>
-            <div style="padding: 8px 15px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); margin: 10px 15px 0 15px; border-radius: 6px; text-align: center; font-size: 0.8em; color: white; font-weight: 600; border: 1px solid rgba(255,255,255,0.2);">
-                💾 Versione Locale
-            </div>
             <button class="sidebar-toggle" onclick="toggleSidebar()" title="Riduci/Espandi Sidebar">
                 ◀
             </button>
@@ -2757,23 +2795,21 @@
             </select>
         </div>
 
-        
-            <div style="color: #666; font-size: 11px; margin-bottom: 8px;">
-                I dati sono salvati solo su questo browser
+        <!-- Versione Locale Banner -->
+        <div style="
+            margin: 15px 10px;
+            padding: 12px;
+            background: linear-gradient(135deg, #27ae6015, #2ecc7115);
+            border-left: 3px solid #27ae60;
+            border-radius: 8px;
+            font-size: 12px;
+        ">
+            <div style="font-weight: 600; color: #27ae60; margin-bottom: 5px;">
+                💾 Versione Locale
             </div>
-            <button onclick="showCloudUpgradeInfo()" style="
-                width: 100%;
-                padding: 6px;
-                background: #667eea;
-                color: white;
-                border: none;
-                border-radius: 5px;
-                font-size: 11px;
-                cursor: pointer;
-                font-weight: 600;
-            ">
-                ☁️ Attiva Sync Cloud
-            </button>
+            <div style="color: #666; font-size: 11px;">
+                Dati salvati su questo dispositivo
+            </div>
         </div>
 
         <nav>
@@ -3727,11 +3763,10 @@
 
                 <div class="card" style="margin-top: 30px;">
                     <h3>Gestione Dati</h3>
-                    <button onclick="exportData()" class="btn">📥 Esporta Tutti i Dati (JSON)</button>
+                    <button onclick="exportData()" class="btn btn-success">💾 Backup Manuale (Scarica File JSON)</button>
                     <button onclick="exportToCSV()" class="btn">📊 Esporta CSV</button>
                     <button onclick="exportToExcel()" class="btn">📑 Esporta Excel</button>
                     <button onclick="importData()" class="btn">📤 Importa Dati</button>
-                    <button onclick="createBackup()" class="btn btn-success">💾 Backup Manuale</button>
                     <button onclick="clearAllData()" class="btn btn-danger">🗑️ Cancella Tutti i Dati</button>
                     <input type="file" id="import-file" style="display:none" accept=".json" onchange="handleImport(event)">
                 </div>
@@ -3744,14 +3779,17 @@
                 </div>
 
                 <div class="card" style="margin-top: 30px;">
-                    <h3>💾 Versione Locale</h3>
-                    <p style="color: #7f8c8d; margin-bottom: 15px;">
-                        Stai utilizzando la <strong>versione locale</strong> del sistema. Tutti i dati sono salvati nel browser (localStorage).
-                    </p>
+                    <h3>💾 Modalità Storage</h3>
                     <div style="padding: 15px; background: #e8f5e9; border-left: 4px solid #27ae60; border-radius: 8px;">
-                        <p style="color: #2e7d32; margin: 0;">
-                            ✓ <strong>Dati sempre disponibili offline</strong><br>
-                            ℹ️ Ricorda di esportare periodicamente un backup dei tuoi dati (pulsante "Backup Manuale" sopra)
+                        <p style="color: #27ae60; font-weight: 600; margin-bottom: 10px;">
+                            ✓ Versione Locale Attiva
+                        </p>
+                        <p style="color: #666; font-size: 14px; margin: 0;">
+                            Questa versione salva tutti i dati esclusivamente nel localStorage del browser.
+                            Non è richiesta alcuna connessione internet o autenticazione cloud.
+                        </p>
+                        <p style="color: #e74c3c; font-size: 13px; margin-top: 10px; font-style: italic;">
+                            ⚠️ Ricorda: Usa regolarmente la funzione "Backup Manuale" per evitare perdite di dati.
                         </p>
                     </div>
                 </div>
@@ -4059,8 +4097,6 @@
             </div>
         </div>
 
-        
-
         <!-- PANNELLO NOTIFICHE -->
         <div id="notification-badge" class="notification-badge" onclick="toggleNotificationPanel()" style="display: none;">
             <span id="notification-count">0</span> 🔔
@@ -4311,12 +4347,6 @@
         </div><!-- END CONTENT -->
     </div><!-- END MAIN-CONTENT -->
 
-    
-
-    
-
-    
-
     <script>
         // STATO GLOBALE
         let currentCompany = 1;
@@ -4348,7 +4378,7 @@
         // SOP PREDEFINITE - ORGANIZZATE PER CATEGORIA
         // ==========================================
         const sopTemplates = [
-            // ==================== SOP AZIENDALI (1-18) ====================
+            // ==================== SOP AZIENDALI ====================
             {
                 title: "1. Gestione Email Direzionali",
                 description: "Procedura per la gestione quotidiana delle email della direzione",
@@ -4501,6 +4531,62 @@
                     "Ricevere documento (email, PEC, cartaceo)",
                     "Assegnare numero protocollo progressivo annuale",
                     "Classificare per tipo e categoria (vedi sezione Archivi)",
+                    "Disattivazione: inserire codice entro 30 secondi dall'ingresso",
+                    "In caso di allarme accidentale: disattivare e chiamare centrale",
+                    "Test mensile sensori e batterie",
+                    "Manutenzione annuale con tecnico autorizzato"
+                ]
+            },
+            {
+                title: "13. Gestione Utenze Domestiche",
+                description: "Procedura per gestione bollette e contratti utenze",
+                category: "personal",
+                steps: [
+                    "Verificare arrivo bollette luce/gas/acqua/internet",
+                    "Controllare consumi e confrontare con mese precedente",
+                    "Verificare correttezza importi e letture",
+                    "Pagare entro scadenza (domiciliazione o bollettino)",
+                    "Segnalare anomalie o contestare addebiti errati",
+                    "Valutare cambio fornitore annualmente per risparmio",
+                    "Archiviare bollette pagate per categoria"
+                ]
+            },
+            {
+                title: "14. Manutenzione Ordinaria Casa",
+                description: "Checklist manutenzione programmata impianti domestici",
+                category: "personal",
+                steps: [
+                    "Revisione caldaia annuale (entro scadenza legale)",
+                    "Controllo filtri condizionatori (inizio estate/inverno)",
+                    "Pulizia canne fumarie annuale",
+                    "Controllo impianto elettrico (interruttori, prese)",
+                    "Verifica perdite idrauliche (rubinetti, tubi)",
+                    "Controllo serramenti e guarnizioni",
+                    "Tenere registro manutenzioni con date e tecnici"
+                ]
+            },
+            {
+                title: "15. Gestione Emergenze Domestiche",
+                description: "Protocollo per emergenze casa (perdite, guasti, effrazioni)",
+                category: "personal",
+                steps: [
+                    "Identificare tipo emergenza e gravità",
+                    "Chiudere acqua/gas/elettricità se necessario",
+                    "Contattare tecnico di fiducia (idraulico/elettricista/fabbro)",
+                    "Se non disponibile, chiamare servizio emergenze 24h",
+                    "Documentare con foto il danno",
+                    "Avvisare assicurazione se sinistro coperto da polizza",
+                    "Richiedere fattura e archiviare per detrazioni fiscali"
+                ]
+            },
+            {
+                title: "16. Protocollazione e Archiviazione Documenti",
+                description: "Sistema standardizzato per gestione documentale aziendale",
+                category: "business",
+                steps: [
+                    "Ricevere documento (email, PEC, cartaceo)",
+                    "Assegnare numero protocollo progressivo annuale",
+                    "Classificare per tipo e categoria (vedi sezione Archivi)",
                     "Digitalizzare se documento cartaceo",
                     "Salvare con nomenclatura: AAAAMMGG_Tipo_Oggetto_V1",
                     "Archiviare nella cartella Azienda/Anno/Categoria/Mese",
@@ -4508,7 +4594,7 @@
                 ]
             },
             {
-                title: "13. Gestione Ciclo Ordini Fornitori",
+                title: "17. Gestione Ciclo Ordini Fornitori",
                 description: "Flusso completo dalla richiesta alla ricezione merce",
                 category: "business",
                 steps: [
@@ -4523,7 +4609,7 @@
                 ]
             },
             {
-                title: "14. Rinnovo Licenze e Certificazioni Aziendali",
+                title: "18. Rinnovo Licenze e Certificazioni Aziendali",
                 description: "Gestione scadenze certificazioni e autorizzazioni",
                 category: "business",
                 steps: [
@@ -4537,7 +4623,7 @@
                 ]
             },
             {
-                title: "15. Gestione Pagamenti e Bonifici",
+                title: "19. Gestione Pagamenti e Bonifici",
                 description: "Procedura per esecuzione pagamenti sicuri",
                 category: "business",
                 steps: [
@@ -4551,7 +4637,7 @@
                 ]
             },
             {
-                title: "16. Controllo Scadenze Fiscali Mensili",
+                title: "20. Controllo Scadenze Fiscali Mensili",
                 description: "Checklist mensile adempimenti fiscali per azienda",
                 category: "business",
                 steps: [
@@ -4565,7 +4651,7 @@
                 ]
             },
             {
-                title: "17. Negoziazione e Rinnovo Contratti",
+                title: "21. Negoziazione e Rinnovo Contratti",
                 description: "Strategia per rinnovo contratti fornitori e servizi",
                 category: "business",
                 steps: [
@@ -4579,7 +4665,7 @@
                 ]
             },
             {
-                title: "18. Onboarding Nuovo Dipendente",
+                title: "22. Onboarding Nuovo Dipendente",
                 description: "Checklist accoglienza e inserimento nuova risorsa",
                 category: "business",
                 steps: [
@@ -4592,64 +4678,6 @@
                     "Follow-up a 7-30-90 giorni per feedback inserimento"
                 ]
             },
-            
-            // ==================== SOP PERSONALI/CASA (19-22) ====================
-            {
-                title: "19. Gestione Sistemi Allarme Casa",
-                description: "Protocollo per gestione allarmi domestici",
-                category: "personal",
-                steps: [
-                    "Attivazione: verificare chiusura porte/finestre",
-                    "Inserire codice e attivare modalità (totale/parziale/perimetrale)",
-                    "Verificare LED conferma attivazione",
-                    "Disattivazione: inserire codice entro 30 secondi dall'ingresso",
-                    "In caso di allarme accidentale: disattivare e chiamare centrale",
-                    "Test mensile sensori e batterie",
-                    "Manutenzione annuale con tecnico autorizzato"
-                ]
-            },
-            {
-                title: "20. Gestione Utenze Domestiche",
-                description: "Procedura per gestione bollette e contratti utenze",
-                category: "personal",
-                steps: [
-                    "Verificare arrivo bollette luce/gas/acqua/internet",
-                    "Controllare consumi e confrontare con mese precedente",
-                    "Verificare correttezza importi e letture",
-                    "Pagare entro scadenza (domiciliazione o bollettino)",
-                    "Segnalare anomalie o contestare addebiti errati",
-                    "Valutare cambio fornitore annualmente per risparmio",
-                    "Archiviare bollette pagate per categoria"
-                ]
-            },
-            {
-                title: "21. Manutenzione Ordinaria Casa",
-                description: "Checklist manutenzione programmata impianti domestici",
-                category: "personal",
-                steps: [
-                    "Revisione caldaia annuale (entro scadenza legale)",
-                    "Controllo filtri condizionatori (inizio estate/inverno)",
-                    "Pulizia canne fumarie annuale",
-                    "Controllo impianto elettrico (interruttori, prese)",
-                    "Verifica perdite idrauliche (rubinetti, tubi)",
-                    "Controllo serramenti e guarnizioni",
-                    "Tenere registro manutenzioni con date e tecnici"
-                ]
-            },
-            {
-                title: "22. Gestione Emergenze Domestiche",
-                description: "Protocollo per emergenze casa (perdite, guasti, effrazioni)",
-                category: "personal",
-                steps: [
-                    "Identificare tipo emergenza e gravità",
-                    "Chiudere acqua/gas/elettricità se necessario",
-                    "Contattare tecnico di fiducia (idraulico/elettricista/fabbro)",
-                    "Se non disponibile, chiamare servizio emergenze 24h",
-                    "Documentare con foto il danno",
-                    "Avvisare assicurazione se sinistro coperto da polizza",
-                    "Richiedere fattura e archiviare per detrazioni fiscali"
-                ]
-            }
         ];
 
         // CATEGORIE ARCHIVI CON ICONE E TITOLI
@@ -5147,26 +5175,9 @@
         }
 
         // INIZIALIZZAZIONE
-        async function init() {
-            console.log('🚀 Inizializzazione sistema...');
-
-            try {
-                console.log('🚀 Inizializzazione sistema (Versione Locale)...');
-                
-                // Versione locale: usa sempre localStorage
-                console.log('💾 Modalità localStorage attiva');
-                initializeAppLocal();
-                return;
-            } catch (error) {
-                console.error('❌ Errore init:', error);
-                console.log('💾 Fallback a localStorage per errore');
-                initializeAppLocal();
-            }
-        }
-
-        async function initializeApp() {
-            // Versione locale: non utilizzata
-            console.log('initializeApp() non utilizzata nella versione locale');
+        // VERSIONE LOCALE - Solo localStorage
+        function init() {
+            console.log('🚀 Inizializzazione sistema LOCALE (no cloud)...');
             initializeAppLocal();
         }
 
@@ -5249,125 +5260,11 @@
             // Inizializza gestione email
             initializeEmailSection();
 
-            // Mostra banner localStorage se Supabase non è configurato
-            if (!supabaseAPI.initialized || SUPABASE_CONFIG.mode === 'localStorage') {
-                document.getElementById('storage-mode-banner').style.display = 'block';
-            }
+            // VERSIONE LOCALE - Nessun banner cloud
+            console.log('💾 Sistema in modalità localStorage permanente');
         }
 
-        function showCloudUpgradeInfo() { /* DISABILITATA VERSIONE LOCALE */ return;
-            const message = `☁️ SINCRONIZZAZIONE CLOUD
-
-Attiva la sincronizzazione cloud per:
-✅ Accedere ai dati da qualsiasi dispositivo
-✅ Backup automatico nel cloud
-✅ Sincronizzazione in tempo reale
-✅ Nessun rischio di perdita dati
-
-📋 COME ATTIVARE:
-
-1. Esegui lo script AUTO-SETUP.bat nella cartella del progetto
-   OPPURE
-2. Segui la guida SETUP-SUPABASE.md
-
-⏱️ Tempo richiesto: 5 minuti
-
-Vuoi aprire la guida adesso?`;
-
-            if (confirm(message)) {
-                // Cerca di aprire il file di guida
-                window.open('SETUP-SUPABASE.md', '_blank');
-                showSection('settings');
-            }
-        }
-
-        async function loadDataFromCloud() {
-            // DISABILITATA NELLA VERSIONE LOCALE
-            return; // Exit immediately
-            /*
-            // Carica dati da Supabase se disponibile
-            if (!supabaseAPI.initialized || !supabaseAPI.isAuthenticated()) {
-                return;
-            }
-
-            try {
-                // Carica aziende
-                const companiesResult = await supabaseAPI.getCompanies();
-                if (companiesResult.success && companiesResult.data.length > 0) {
-                    // Ricostruisci struttura dati
-                    data.companies = {};
-                    for (let i = 0; i < companiesResult.data.length && i < 4; i++) {
-                        const company = companiesResult.data[i];
-                        data.companies[i + 1] = {
-                            name: company.name,
-                            tasks: [],
-                            deadlines: [],
-                            sopExecutions: [],
-                            expenses: [],
-                            appointments: [],
-                            archives: {},
-                            contacts: [],
-                            emails: []
-                        };
-
-                        // Carica dati per ogni azienda
-                        const companyId = company.id;
-
-                        // Tasks
-                        const tasksResult = await supabaseAPI.getTasks(companyId);
-                        if (tasksResult.success) {
-                            data.companies[i + 1].tasks = tasksResult.data.map(t => ({
-                                id: t.id,
-                                title: t.title,
-                                description: t.description,
-                                priority: t.priority,
-                                status: t.status,
-                                deadline: t.due_date,
-                                completed: t.status === 'completed',
-                                createdAt: t.created_at
-                            }));
-                        }
-
-                        // Deadlines
-                        const deadlinesResult = await supabaseAPI.getDeadlines(companyId);
-                        if (deadlinesResult.success) {
-                            data.companies[i + 1].deadlines = deadlinesResult.data;
-                        }
-
-                        // Expenses
-                        const expensesResult = await supabaseAPI.getExpenses(companyId);
-                        if (expensesResult.success) {
-                            data.companies[i + 1].expenses = expensesResult.data;
-                        }
-
-                        // Contacts
-                        const contactsResult = await supabaseAPI.getContacts(companyId);
-                        if (contactsResult.success) {
-                            data.companies[i + 1].contacts = contactsResult.data;
-                        }
-
-                        // Emails
-                        const emailsResult = await supabaseAPI.getEmails(companyId);
-                        if (emailsResult.success) {
-                            data.companies[i + 1].emails = emailsResult.data;
-                        }
-
-                        // Appointments
-                        const appointmentsResult = await supabaseAPI.getAppointments(companyId);
-                        if (appointmentsResult.success) {
-                            data.companies[i + 1].appointments = appointmentsResult.data;
-                        }
-                    }
-
-                    // Salva in localStorage come cache
-                    saveData();
-                }
-            } catch (error) {
-                console.error('Errore caricamento dati cloud:', error);
-                // Fallback a localStorage
-            }
-        }
-            */
+        // VERSIONE LOCALE - Funzione cloud rimossa (usa solo localStorage)
 
         // GESTIONE SEZIONI - Ora gestite dalle nuove funzioni nella sezione NAVIGAZIONE SIDEBAR
 
@@ -6943,19 +6840,6 @@ Vuoi aprire la guida adesso?`;
         }
 
         // ===== NUOVE FUNZIONALITÀ =====
-
-        // RICERCA GLOBALE
-        
-
-        // Funzione rimossa - vedere la versione unificata più avanti nel codice
-
-        // Shortcut Ctrl+K per ricerca
-        document.addEventListener('keydown', (e) => {
-            if (e.ctrlKey && e.key === 'k') {
-                e.preventDefault();
-                toggleGlobalSearch();
-            }
-        });
 
         // DASHBOARD CONSOLIDATA
         function updateConsolidatedDashboard() {
@@ -9938,283 +9822,14 @@ ${data.companies[currentCompany].name}`
             renderCalendar();
         }
 
-        // ==========================================
-        // FUNZIONI MODAL AZIONI RAPIDE
-        // ==========================================
-
-        
-
-        
-
-        // ==========================================
-        // FUNZIONI RICERCA GLOBALE
-        // ==========================================
-
-        function toggleGlobalSearch() {
-            // FUNZIONE DISABILITATA NELLA VERSIONE LOCALE
-            console.log('toggleGlobalSearch() non disponibile nella versione locale');
-            return;
-        }
-            }
-        }
-
-        
-
-        function performGlobalSearch(input) {
-            // Gestisci sia eventi che stringhe
-            let query;
-            if (typeof input === 'object' && input.target) {
-                // E' un evento
-                if (input.key === 'Escape') {
-                    toggleGlobalSearch();
-                    return;
-                }
-                query = input.target.value;
-            } else {
-                // E' una stringa
-                query = input;
-            }
-
-            const resultsDiv = document.getElementById('global-search-results');
-
-            if (!query || query.length < 2) {
-                resultsDiv.innerHTML = '<p style="text-align: center; color: #7f8c8d;">Inizia a digitare per cercare...</p>';
-                return;
-            }
-
-            const results = [];
-            const company = data.companies[currentCompany];
-            query = query.toLowerCase();
-
-            // Cerca nelle attività
-            company.tasks.forEach((task, idx) => {
-                if (task.title.toLowerCase().includes(query) || task.description.toLowerCase().includes(query)) {
-                    results.push({
-                        type: 'Attività',
-                        icon: '✅',
-                        title: task.title,
-                        description: task.description.substring(0, 100),
-                        action: () => { showSection('tasks'); closeGlobalSearch(); }
-                    });
-                }
-            });
-
-            // Cerca nelle scadenze
-            company.deadlines.forEach(deadline => {
-                if (deadline.title.toLowerCase().includes(query) || deadline.description.toLowerCase().includes(query)) {
-                    results.push({
-                        type: 'Scadenza',
-                        icon: '📅',
-                        title: deadline.title,
-                        description: deadline.description.substring(0, 100),
-                        action: () => { showSection('deadlines'); closeGlobalSearch(); }
-                    });
-                }
-            });
-
-            // Cerca nelle email
-            company.emails.forEach(email => {
-                if (email.subject.toLowerCase().includes(query) || email.body.toLowerCase().includes(query) || email.from.toLowerCase().includes(query)) {
-                    results.push({
-                        type: 'Email',
-                        icon: '📧',
-                        title: email.subject,
-                        description: `Da: ${email.from}`,
-                        action: () => { showSection('emails'); closeGlobalSearch(); }
-                    });
-                }
-            });
-
-            // Cerca nei contatti
-            company.contacts.forEach(contact => {
-                if (contact.name.toLowerCase().includes(query) || contact.company.toLowerCase().includes(query) || contact.email.toLowerCase().includes(query)) {
-                    results.push({
-                        type: 'Contatto',
-                        icon: '👤',
-                        title: contact.name,
-                        description: `${contact.company} - ${contact.email}`,
-                        action: () => { showSection('contacts'); closeGlobalSearch(); }
-                    });
-                }
-            });
-
-            // Cerca negli appuntamenti
-            company.appointments.forEach(apt => {
-                if (apt.title.toLowerCase().includes(query) || apt.description.toLowerCase().includes(query)) {
-                    results.push({
-                        type: 'Appuntamento',
-                        icon: '📅',
-                        title: apt.title,
-                        description: `${apt.date} ${apt.time} - ${apt.location}`,
-                        action: () => { showSection('appointments'); closeGlobalSearch(); }
-                    });
-                }
-            });
-
-            // Mostra risultati
-            if (results.length === 0) {
-                resultsDiv.innerHTML = '<p style="text-align: center; color: #7f8c8d;">Nessun risultato trovato</p>';
-            } else {
-                resultsDiv.innerHTML = results.map(r => `
-                    <div style="padding: 15px; border-bottom: 1px solid #ecf0f1; cursor: pointer; transition: background 0.2s;"
-                         onmouseover="this.style.background='#f8f9fa'"
-                         onmouseout="this.style.background='white'"
-                         onclick='${r.action.toString().replace(/'/g, "\\'")}'>
-                        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 5px;">
-                            <span style="font-size: 20px;">${r.icon}</span>
-                            <span style="font-size: 0.85em; color: #7f8c8d; font-weight: 600;">${r.type}</span>
-                        </div>
-                        <div style="font-weight: bold; margin-bottom: 5px;">${r.title}</div>
-                        <div style="font-size: 0.9em; color: #7f8c8d;">${r.description}</div>
-                    </div>
-                `).join('');
-            }
-        }
-
-        // Aggiungi keyboard shortcut per ricerca globale (Ctrl+K)
-        document.addEventListener('keydown', function(e) {
-            if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
-                e.preventDefault();
-                toggleGlobalSearch();
-            }
-        });
-
         // =====================================================
         // CLOUD SYNC FUNCTIONS
         // =====================================================
 
-        async function updateCloudStatus() { /* DISABILITATA VERSIONE LOCALE */ return;
-            const syncStatus = document.getElementById('sync-status');
-            const migrationSection = document.getElementById('migration-section');
-            const syncInfo = document.getElementById('sync-info');
-
-            if (!supabaseAPI.initialized) {
-                syncStatus.textContent = 'Non configurato (usa localStorage)';
-                syncStatus.style.color = '#95a5a6';
-                return;
-            }
-
-            if (supabaseAPI.isAuthenticated()) {
-                syncStatus.textContent = 'Attivo ✓';
-                syncStatus.style.color = '#27ae60';
-                syncInfo.style.display = 'block';
-
-                // Verifica se ci sono dati locali da migrare
-                const localData = localStorage.getItem('gestione-direzionale-data');
-                if (localData) {
-                    const parsed = JSON.parse(localData);
-                    let hasData = false;
-
-                    for (let i = 1; i <= 4; i++) {
-                        const company = parsed.companies[i];
-                        if (company.tasks?.length > 0 || company.deadlines?.length > 0 ||
-                            company.contacts?.length > 0 || company.emails?.length > 0) {
-                            hasData = true;
-                            break;
-                        }
-                    }
-
-                    if (hasData) {
-                        migrationSection.style.display = 'block';
-                    }
-                }
-
-                // Aggiorna timestamp ultima sync
-                const lastSync = localStorage.getItem('last-cloud-sync');
-                if (lastSync) {
-                    const date = new Date(lastSync);
-                    document.getElementById('last-sync-time').textContent =
-                        date.toLocaleString('it-IT');
-                }
-            } else {
-                syncStatus.textContent = 'Non autenticato';
-                syncStatus.style.color = '#e74c3c';
-            }
-        }
-
-        async function migrateToCloud() { /* DISABILITATA VERSIONE LOCALE */ return;
-            if (!confirm('Vuoi migrare tutti i dati locali nel cloud?\n\nQuesto processo potrebbe richiedere alcuni secondi.')) {
-                return;
-            }
-
-            const migrationBtn = event.target;
-            migrationBtn.disabled = true;
-            migrationBtn.textContent = '🔄 Migrazione in corso...';
-
-            const result = await supabaseAPI.migrateFromLocalStorage();
-
-            if (result.success) {
-                showNotification('✓ Dati migrati con successo!');
-                document.getElementById('migration-section').style.display = 'none';
-
-                // Ricarica dati dal cloud
-                await loadDataFromCloud();
-                location.reload();
-            } else {
-                showNotification('Errore migrazione: ' + result.error);
-                migrationBtn.disabled = false;
-                migrationBtn.textContent = '🔄 Migra Dati al Cloud';
-            }
-        }
-
-        async function manualSync() { /* DISABILITATA VERSIONE LOCALE */ return;
-            if (!supabaseAPI.isAuthenticated()) {
-                alert('Devi essere autenticato per sincronizzare i dati.');
-                return;
-            }
-
-            showNotification('Sincronizzazione in corso...');
-
-            try {
-                // Salva dati locali nel cloud
-                await saveDataToCloud();
-
-                // Ricarica dati dal cloud
-                await loadDataFromCloud();
-
-                // Aggiorna timestamp
-                localStorage.setItem('last-cloud-sync', new Date().toISOString());
-
-                showNotification('✓ Sincronizzazione completata!');
-                updateCloudStatus();
-            } catch (error) {
-                console.error('Errore sincronizzazione:', error);
-                showNotification('Errore durante la sincronizzazione');
-            }
-        }
-
-        async function saveDataToCloud() {
-            // Questa funzione salva i dati correnti nel cloud
-            // Per ora è un placeholder - l'implementazione completa richiederebbe
-            // di salvare ogni modifica in real-time
-            console.log('saveDataToCloud - da implementare per sync real-time');
-        }
-
-        async function handleLogout() { /* DISABILITATA VERSIONE LOCALE */ return;
-            if (!confirm('Sei sicura di voler uscire?\n\nI tuoi dati sono salvati nel cloud e saranno disponibili al prossimo accesso.')) {
-                return;
-            }
-
-            const result = await supabaseAPI.signOut();
-
-            if (result.success) {
-                showNotification('Logout effettuato. A presto!');
-                setTimeout(() => {
-                    location.reload();
-                }, 1500);
-            } else {
-                alert('Errore durante il logout: ' + result.error);
-            }
-        }
-
-        // Aggiorna status cloud quando si apre la pagina impostazioni
-        const originalShowSection = showSection;
-        function showSection(sectionId) {
-            originalShowSection(sectionId);
-            if (sectionId === 'settings') {
-                updateCloudStatus();
-            }
-        }
+        // =====================================================
+        // VERSIONE LOCALE - Funzioni cloud rimosse
+        // =====================================================
+        // Sistema usa SOLO localStorage - nessuna sync cloud disponibile
 
         // AVVIO
         init();
