@@ -2738,6 +2738,10 @@
     <script src="supabase-config.js" onerror="console.warn('⚠️ supabase-config.js non caricato')"></script>
     <script src="supabase-api.js" onerror="console.warn('⚠️ supabase-api.js non caricato')"></script>
     <script src="auth-ui.js" onerror="console.warn('⚠️ auth-ui.js non caricato')"></script>
+
+    <!-- GMAIL API -->
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <script src="https://apis.google.com/js/api.js" async defer></script>
 </head>
 <body>
     <!-- SIDEBAR NAVIGATION -->
@@ -4007,12 +4011,15 @@
                 </div>
 
                 <!-- Daily Briefing Button -->
-                <div style="margin-bottom: 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                <div style="margin-bottom: 20px; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px;">
                     <button onclick="showDailyBriefing()" style="padding: 20px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; border-radius: 10px; font-size: 1.3em; font-weight: 600; cursor: pointer; transition: all 0.3s; box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);">
                         ☀️ Daily Briefing
                     </button>
                     <button onclick="startEmailAssistant()" style="padding: 20px; background: linear-gradient(135deg, #27ae60 0%, #229954 100%); color: white; border: none; border-radius: 10px; font-size: 1.3em; font-weight: 600; cursor: pointer; transition: all 0.3s; box-shadow: 0 4px 15px rgba(39, 174, 96, 0.4);">
                         🤖 Avvia Assistente Email IA
+                    </button>
+                    <button onclick="syncGmail()" id="gmail-sync-btn" style="padding: 20px; background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%); color: white; border: none; border-radius: 10px; font-size: 1.3em; font-weight: 600; cursor: pointer; transition: all 0.3s; box-shadow: 0 4px 15px rgba(231, 76, 60, 0.4);">
+                        📥 Sincronizza Gmail
                     </button>
                 </div>
 
@@ -10287,6 +10294,254 @@ ${data.companies[currentCompany].name}`
                 e.preventDefault();
                 toggleGlobalSearch();
             }
+        });
+
+        // =====================================================
+        // GMAIL API INTEGRATION
+        // =====================================================
+
+        // Configurazione Gmail API (credenziali salvate in localStorage per sicurezza)
+        const GMAIL_CONFIG = {
+            get clientId() {
+                return localStorage.getItem('gmail_client_id') || '';
+            },
+            get clientSecret() {
+                return localStorage.getItem('gmail_client_secret') || '';
+            },
+            discoveryDocs: ['https://www.googleapis.com/discovery/v1/apis/gmail/v1/rest'],
+            scopes: 'https://www.googleapis.com/auth/gmail.readonly https://www.googleapis.com/auth/gmail.modify'
+        };
+
+        let gapiInited = false;
+        let gisInited = false;
+        let tokenClient;
+
+        // Inizializza GAPI
+        function gapiLoaded() {
+            gapi.load('client', initializeGapiClient);
+        }
+
+        async function initializeGapiClient() {
+            try {
+                await gapi.client.init({
+                    discoveryDocs: GMAIL_CONFIG.discoveryDocs,
+                });
+                gapiInited = true;
+                console.log('✅ Gmail API inizializzata');
+            } catch (error) {
+                console.error('Errore inizializzazione Gmail API:', error);
+                showNotification('Errore inizializzazione Gmail API', 'error');
+            }
+        }
+
+        // Inizializza GIS (Google Identity Services)
+        function gisLoaded() {
+            tokenClient = google.accounts.oauth2.initTokenClient({
+                client_id: GMAIL_CONFIG.clientId,
+                scope: GMAIL_CONFIG.scopes,
+                callback: '', // definito runtime
+            });
+            gisInited = true;
+            console.log('✅ Google Identity Services inizializzato');
+        }
+
+        // Avvia sincronizzazione Gmail
+        async function syncGmail() {
+            const btn = document.getElementById('gmail-sync-btn');
+
+            // Verifica se credenziali sono configurate
+            if (!GMAIL_CONFIG.clientId || !GMAIL_CONFIG.clientSecret) {
+                const clientId = prompt('⚙️ Configura Gmail API\n\nInserisci il Client ID da Google Cloud Console:');
+                if (!clientId) return;
+
+                const clientSecret = prompt('Inserisci il Client Secret:');
+                if (!clientSecret) return;
+
+                // Salva in localStorage
+                localStorage.setItem('gmail_client_id', clientId.trim());
+                localStorage.setItem('gmail_client_secret', clientSecret.trim());
+
+                showNotification('✅ Credenziali Gmail salvate! Ora clicca di nuovo su "Sincronizza Gmail"', 'success');
+                return;
+            }
+
+            if (!gapiInited || !gisInited) {
+                showNotification('⏳ Caricamento Gmail API in corso...', 'info');
+
+                // Carica le API se non ancora caricate
+                if (typeof gapi !== 'undefined' && !gapiInited) {
+                    gapiLoaded();
+                }
+                if (typeof google !== 'undefined' && !gisInited) {
+                    gisLoaded();
+                }
+
+                // Riprova dopo 2 secondi
+                setTimeout(() => {
+                    if (gapiInited && gisInited) {
+                        syncGmail();
+                    } else {
+                        showNotification('❌ Errore: Gmail API non disponibile. Ricarica la pagina.', 'error');
+                    }
+                }, 2000);
+                return;
+            }
+
+            btn.disabled = true;
+            btn.innerHTML = '⏳ Connessione...';
+
+            tokenClient.callback = async (resp) => {
+                if (resp.error !== undefined) {
+                    showNotification('❌ Errore autenticazione: ' + resp.error, 'error');
+                    btn.disabled = false;
+                    btn.innerHTML = '📥 Sincronizza Gmail';
+                    return;
+                }
+
+                // Autenticazione riuscita, importa email
+                await importGmailMessages();
+                btn.disabled = false;
+                btn.innerHTML = '📥 Sincronizza Gmail';
+            };
+
+            tokenClient.requestAccessToken({ prompt: '' });
+        }
+
+        // Importa messaggi da Gmail
+        async function importGmailMessages() {
+            try {
+                showNotification('📥 Lettura email da Gmail...', 'info');
+
+                // Leggi ultime 50 email dalla inbox
+                const response = await gapi.client.gmail.users.messages.list({
+                    'userId': 'me',
+                    'labelIds': ['INBOX'],
+                    'maxResults': 50
+                });
+
+                const messages = response.result.messages || [];
+
+                if (messages.length === 0) {
+                    showNotification('✅ Nessuna nuova email trovata', 'success');
+                    return;
+                }
+
+                showNotification(`📥 Importazione ${messages.length} email...`, 'info');
+
+                let importedCount = 0;
+                let skippedCount = 0;
+
+                // Importa ogni messaggio
+                for (const message of messages) {
+                    try {
+                        const msgDetail = await gapi.client.gmail.users.messages.get({
+                            'userId': 'me',
+                            'id': message.id,
+                            'format': 'full'
+                        });
+
+                        const emailData = parseGmailMessage(msgDetail.result);
+
+                        // Verifica se email già importata (controlla per subject + from)
+                        const exists = data.companies[currentCompany].emails.some(e =>
+                            e.subject === emailData.subject &&
+                            e.from === emailData.from &&
+                            Math.abs(new Date(e.date) - new Date(emailData.date)) < 60000 // entro 1 minuto
+                        );
+
+                        if (!exists) {
+                            // Aggiungi email al sistema
+                            data.companies[currentCompany].emails.push(emailData);
+                            importedCount++;
+                        } else {
+                            skippedCount++;
+                        }
+                    } catch (error) {
+                        console.error('Errore importazione messaggio:', error);
+                    }
+                }
+
+                // Salva e aggiorna
+                saveData();
+                displayEmails();
+                updateEmailStats();
+
+                showNotification(`✅ Importate ${importedCount} email${skippedCount > 0 ? ` (${skippedCount} già presenti)` : ''}`, 'success');
+
+                // Avvia assistente IA automaticamente per categorizzare
+                if (importedCount > 0) {
+                    setTimeout(() => {
+                        showNotification('🤖 Avvio categorizzazione automatica...', 'info');
+                        startEmailAssistant();
+                    }, 1000);
+                }
+
+            } catch (error) {
+                console.error('Errore import Gmail:', error);
+                showNotification('❌ Errore durante l\'importazione: ' + error.message, 'error');
+            }
+        }
+
+        // Parsifica messaggio Gmail in formato sistema
+        function parseGmailMessage(message) {
+            const headers = message.payload.headers;
+
+            const getHeader = (name) => {
+                const header = headers.find(h => h.name.toLowerCase() === name.toLowerCase());
+                return header ? header.value : '';
+            };
+
+            // Estrai corpo email
+            let body = '';
+            if (message.payload.body && message.payload.body.data) {
+                body = atob(message.payload.body.data.replace(/-/g, '+').replace(/_/g, '/'));
+            } else if (message.payload.parts) {
+                // Email multipart
+                const textPart = message.payload.parts.find(part => part.mimeType === 'text/plain');
+                if (textPart && textPart.body && textPart.body.data) {
+                    body = atob(textPart.body.data.replace(/-/g, '+').replace(/_/g, '/'));
+                }
+            }
+
+            // Determina priorità basata su labels Gmail
+            let priority = 'normal';
+            if (message.labelIds) {
+                if (message.labelIds.includes('IMPORTANT')) priority = 'urgent';
+                if (message.labelIds.includes('STARRED')) priority = 'urgent';
+            }
+
+            const emailData = {
+                id: Date.now() + Math.random(),
+                gmailId: message.id, // Salva ID Gmail per riferimento
+                from: getHeader('From'),
+                to: getHeader('To'),
+                subject: getHeader('Subject'),
+                body: body.substring(0, 5000), // Limita a 5000 caratteri
+                date: new Date(parseInt(message.internalDate)).toISOString(),
+                priority: priority,
+                category: 'altro',
+                subcategory: '',
+                status: 'inbox',
+                read: false,
+                starred: message.labelIds && message.labelIds.includes('STARRED'),
+                tags: [],
+                attachments: message.payload.parts ?
+                    message.payload.parts.filter(p => p.filename).map(p => p.filename) : []
+            };
+
+            return emailData;
+        }
+
+        // Carica API all'avvio (solo se disponibili)
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                if (typeof gapi !== 'undefined') {
+                    gapiLoaded();
+                }
+                if (typeof google !== 'undefined' && typeof google.accounts !== 'undefined') {
+                    gisLoaded();
+                }
+            }, 1000);
         });
 
         // =====================================================
