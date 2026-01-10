@@ -10350,10 +10350,9 @@ ${data.companies[currentCompany].name}`
         async function syncGmail() {
             const btn = document.getElementById('gmail-sync-btn');
 
-            // Verifica che l'azienda corrente sia "Personale"
-            const currentCompanyName = data.companies[currentCompany].name.toLowerCase();
-            if (currentCompanyName !== 'personale') {
-                showNotification('⚠️ La sincronizzazione Gmail funziona solo per l\'azienda "Personale". Seleziona l\'azienda corretta dal menu.', 'error');
+            // Verifica che l'azienda corrente sia Azienda 1 (Personale)
+            if (currentCompany !== 1) {
+                showNotification('⚠️ La sincronizzazione Gmail funziona solo per l\'Azienda 1 (Personale). Seleziona Azienda 1 dal menu.', 'error');
                 return;
             }
 
