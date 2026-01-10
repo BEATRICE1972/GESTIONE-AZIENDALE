@@ -10132,7 +10132,7 @@ ${data.companies[currentCompany].name}`
             if (typeof displayArchives !== 'undefined') displayArchives();
             if (typeof renderContacts !== 'undefined') renderContacts();
             if (typeof displayContacts !== 'undefined') displayContacts();
-            if (typeof displayEmails !== 'undefined') displayEmails();
+            if (typeof renderEmailList !== 'undefined') renderEmailList();
             renderCalendar();
         }
 
@@ -10463,7 +10463,7 @@ ${data.companies[currentCompany].name}`
 
                 // Salva e aggiorna
                 saveData();
-                displayEmails();
+                renderEmailList();
                 updateEmailStats();
 
                 showNotification(`✅ Importate ${importedCount} email${skippedCount > 0 ? ` (${skippedCount} già presenti)` : ''}`, 'success');
