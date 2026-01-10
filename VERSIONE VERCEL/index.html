@@ -6990,8 +6990,9 @@ Vuoi aprire la guida adesso?`;
                 // Salva migrazione
                 saveData();
             } else {
-                // Nessun dato salvato, carica dati di test
-                loadTestData();
+                // Nessun dato salvato - DATI DI TEST DISABILITATI
+                // loadTestData(); // Commentato per permettere all'utente di inserire dati propri
+                console.log('✅ Sistema pronto - Nessun dato di test caricato');
             }
         }
 
@@ -10348,6 +10349,13 @@ ${data.companies[currentCompany].name}`
         // Avvia sincronizzazione Gmail
         async function syncGmail() {
             const btn = document.getElementById('gmail-sync-btn');
+
+            // Verifica che l'azienda corrente sia "Personale"
+            const currentCompanyName = data.companies[currentCompany].name.toLowerCase();
+            if (currentCompanyName !== 'personale') {
+                showNotification('⚠️ La sincronizzazione Gmail funziona solo per l\'azienda "Personale". Seleziona l\'azienda corretta dal menu.', 'error');
+                return;
+            }
 
             // Verifica se credenziali sono configurate
             if (!GMAIL_CONFIG.clientId || !GMAIL_CONFIG.clientSecret) {
